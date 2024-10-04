@@ -82,17 +82,12 @@ extern CTimer*	g_pTimer;
 #ifdef MOVIE_DIRECTSHOW
 	extern CMovieScene* g_pMovieScene;
 #endif // MOVIE_DIRECTSHOW
-	
 
 bool	g_bTimeCheck = false;
 int 	g_iBackupTime = 0;
-
 float	g_fMULogoAlpha = 0;
 
-
-
-
-   // extern CGuildCache g_GuildCache;
+// extern CGuildCache g_GuildCache;
 
 extern float g_fSpecialHeight;
 
@@ -107,7 +102,7 @@ bool EnableEdit    = false;
 
 int g_iLengthAuthorityCode = 20;
 
-char *szServerIpAddress = "192.168.0.85";
+char *szServerIpAddress = "192.168.100.188";
 //char *szServerIpAddress = "210.181.89.215";
 WORD g_ServerPort = 44405;
 

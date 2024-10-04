@@ -18,10 +18,11 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Global Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Global Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -97,6 +98,8 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>Custom</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -187,8 +190,7 @@
       <OutputFile>.\tmp/Global_Release/Main.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>xcopy  /s /r /y /q "$(SolutionDir)dependencies\netcore\bin" "$(OutDir)"
-xcopy  /s /r /y /q "$(SolutionDir)dependencies\netcore\Native.NETHostFxr.runtimeconfig.json" "$(OutDir)"</Command>
+      <Command></Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -816,6 +818,8 @@ xcopy  /s /r /y /q "$(SolutionDir)dependencies\netcore\Native.NETHostFxr.runtime
     <ClInclude Include="source\npcBreeder.h" />
     <ClInclude Include="source\npcCatapult.h" />
     <ClInclude Include="source\npcGateSwitch.h" />
+     <ClInclude Include="Source\nvapi.h" />
+    <ClInclude Include="Source\NvApiDriverSettings.h" />
     <ClInclude Include="source\Observer.h" />
     <ClInclude Include="source\OptionWin.h" />
     <ClInclude Include="source\PartyManager.h" />
@@ -925,7 +929,6 @@ xcopy  /s /r /y /q "$(SolutionDir)dependencies\netcore\Native.NETHostFxr.runtime
     <ClInclude Include="source\_struct.h" />
     <ClInclude Include="source\_TextureIndex.h" />
     <ClInclude Include="source\_types.h" />
-    <ClInclude Include="source\SpinLock.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="script\Mu_Chs.py" />
