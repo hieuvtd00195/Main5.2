@@ -1042,7 +1042,7 @@
     <ClCompile Include="source\ItemManager.cpp">
       <Filter>MU\Item</Filter>
     </ClCompile>
-	 <ClCompile Include="source\WSctlc.cpp">
+    <ClCompile Include="source\WSctlc.cpp">
       <Filter>MU\Network</Filter>
     </ClCompile>
     <ClCompile Include="source\MoveCommandData.cpp">
@@ -1184,6 +1184,15 @@
       <Filter>MU\Client\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\NewUIStorageInventoryExt.cpp">
+      <Filter>MU\Client\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CProtect.cpp">
+      <Filter>MU\Client\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CCRC32.cpp">
+      <Filter>MU\Client\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util.cpp">
       <Filter>MU\Client\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1458,7 +1467,7 @@
     <ClInclude Include="source\SideHair.h">
       <Filter>MU\Client\Header Files</Filter>
     </ClInclude>
-	 <ClInclude Include="source\SimpleModulus.h">
+    <ClInclude Include="source\SimpleModulus.h">
       <Filter>MU\Client\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\Singleton.h">
@@ -2052,7 +2061,7 @@
     <ClInclude Include="source\SkillManager.h">
       <Filter>MU\Skill</Filter>
     </ClInclude>
-	    <ClInclude Include="source\ProtocolAsio.h">
+    <ClInclude Include="source\ProtocolAsio.h">
       <Filter>MU\Network</Filter>
     </ClInclude>
     <ClInclude Include="source\CharacterManager.h">
@@ -2085,7 +2094,7 @@
     <ClInclude Include="source\ItemManager.h">
       <Filter>MU\Item</Filter>
     </ClInclude>
-	 <ClInclude Include="source\wsctlc.h">
+    <ClInclude Include="source\wsctlc.h">
       <Filter>MU\Network</Filter>
     </ClInclude>
     <ClInclude Include="source\wsctlc_addon.h">
@@ -2265,19 +2274,19 @@
     <ClInclude Include="Source\NvApiDriverSettings.h">
       <Filter>MU\Client\Nvidia</Filter>
     </ClInclude>
-    <ClInclude Include="source\ExternalObject\Leaf\platform.h">
-      <Filter>External Object\Leaf</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ExternalObject\Leaf\constants.h">
-      <Filter>External Object\Leaf</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ExternalObject\Leaf\intrinsics.h">
-      <Filter>External Object\Leaf</Filter>
-    </ClInclude>
     <ClInclude Include="source\NewUIMuHelper.h">
       <Filter>MU\Client\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\NewUIStorageInventoryExt.h">
+      <Filter>MU\Client\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CProtect.h">
+      <Filter>MU\Client\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CCRC32.h">
+      <Filter>MU\Client\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util.h">
       <Filter>MU\Client\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

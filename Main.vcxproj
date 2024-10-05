@@ -190,7 +190,8 @@
       <OutputFile>.\tmp/Global_Release/Main.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command></Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -210,6 +211,8 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\CCRC32.cpp" />
+    <ClCompile Include="source\CProtect.cpp" />
     <ClCompile Include="source\NewUIInventoryExtension.cpp" />
     <ClCompile Include="source\BlackWin.cpp" />
     <ClCompile Include="source\BoneManager.cpp" />
@@ -566,9 +569,12 @@
     </ClCompile>
     <ClCompile Include="source\ZzzTexture.cpp" />
     <ClCompile Include="source\_GlobalFunctions.cpp" />
+    <ClCompile Include="source\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="afxres.h" />
+    <ClInclude Include="source\CCRC32.h" />
+    <ClInclude Include="source\CProtect.h" />
     <ClInclude Include="source\NewUIInventoryExtension.h" />
     <ClInclude Include="source\BaseCls.h" />
     <ClInclude Include="source\BlackWin.h" />
@@ -818,7 +824,7 @@
     <ClInclude Include="source\npcBreeder.h" />
     <ClInclude Include="source\npcCatapult.h" />
     <ClInclude Include="source\npcGateSwitch.h" />
-     <ClInclude Include="Source\nvapi.h" />
+    <ClInclude Include="Source\nvapi.h" />
     <ClInclude Include="Source\NvApiDriverSettings.h" />
     <ClInclude Include="source\Observer.h" />
     <ClInclude Include="source\OptionWin.h" />
@@ -929,6 +935,7 @@
     <ClInclude Include="source\_struct.h" />
     <ClInclude Include="source\_TextureIndex.h" />
     <ClInclude Include="source\_types.h" />
+    <ClInclude Include="source\Util.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="script\Mu_Chs.py" />
