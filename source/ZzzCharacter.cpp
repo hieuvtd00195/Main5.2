@@ -4555,7 +4555,7 @@ void MoveCharacter(CHARACTER *c,OBJECT *o)
 			break;
 		case AT_SKILL_THRUST:
 			{
-				o->Angle[2] = CreateAngle(o->Position[0],o->Position[1],c->TargetPosition[0],c->TargetPosition[1]);
+				o->Angle[2] = CreateAngle2D(o->Position, c->TargetPosition);
 				o->m_sTargetIndex = c->TargetCharacter;
 			}
 			break;
@@ -4643,7 +4643,7 @@ void MoveCharacter(CHARACTER *c,OBJECT *o)
 			}
       	    vec3_t Angle;
 			VectorCopy(o->Angle,Angle);
-			Angle[2] = CreateAngle(o->Position[0],o->Position[1],to->Position[0],to->Position[1]);
+			Angle[2] = CreateAngle2D(o->Position, to->Position);
 			switch(( c->Skill))
 			{
 			case AT_SKILL_MANY_ARROW_UP:
@@ -8057,6 +8057,30 @@ void RenderLinkObject(float x,float y,float z,CHARACTER *c,PART_t *f,int Type,in
 		break;
 	}
 
+	if (gMapManager.WorldActive != WD_10HEAVEN && gMapManager.InHellas() == FALSE && !g_Direction.m_CKanturu.IsMayaScene())
+	{
+		switch (Type)       
+		{
+		case MODEL_WING + 0:       
+		case MODEL_WING + 1:       
+		case MODEL_WING + 2:        
+		case MODEL_WING + 3:        
+		case MODEL_WING + 4:        
+		case MODEL_WING + 5:        
+		case MODEL_WING + 6:       
+			//case MODEL_HELPER + 30:    
+		case MODEL_WING + 36:       
+		case MODEL_WING + 37:        
+		case MODEL_WING + 38:      
+		case MODEL_WING + 39:        
+			//case MODEL_WING + 40:       
+		{
+			b->RenderBodyShadow();
+		}
+		break;
+		}
+	}
+
 }
 
 void RenderLight(OBJECT *o,int Texture,float Scale,int Bone,float x,float y,float z)
@@ -8214,7 +8238,32 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
                 }
             }
             o->EnableShadow = true;
-            RenderPartObject(&c->Object,MODEL_SHADOW_BODY,NULL,c->Light,o->Alpha,0,0,0,false,false,Translate);
+			for (int i = MAX_BODYPART - 1; i >= 0; i--)
+			{
+				PART_t* p = &c->BodyPart[i];
+				if (p->Type != -1)
+				{
+					int Type = p->Type;
+					RenderPartObject(&c->Object, Type, p, c->Light, o->Alpha, 0, 0, 0, false, false, Translate);
+				}
+				else
+				{
+					RenderPartObject(&c->Object, MODEL_SHADOW_BODY, NULL, c->Light, o->Alpha, 0, 0, 0, false, false, Translate);
+				}
+			}
+			for (int i = 0; i < 2; i++)
+			{
+				if (c->Weapon[i].Type >= MODEL_BOW + 0 && c->Weapon[i].Type <= MODEL_BOW + 32)
+				{
+					continue;
+				}
+				PART_t* p = &c->Weapon[i];
+				if (p->Type != -1 && c->SafeZone == false)
+				{
+					int Type = p->Type;
+					RenderPartObject(&c->Object, Type, p, c->Light, o->Alpha, 0, 0, 0, false, false, Translate);
+				}
+			}
             o->EnableShadow = false;
         }
     }

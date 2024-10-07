@@ -831,15 +831,6 @@ void BMD::CreateLightMapSurface(Light_t *lp,Mesh_t *m,int i,int j,int MapWidth,i
 			VectorNormalize(Direction);
 			VectorSubtract(p,Direction,p);
 			bool success = CollisionDetectLineToMesh(lp->Position,p,true,i,j);
-			/*if(success == true)
-			{
-				DisableTexture();
-				glBegin(GL_LINES);
-				glColor3fv(lp->Color);
-				glVertex3fv(p);
-				glVertex3fv(lp->Position);
-				glEnd();
-			}*/
 			if(success == false)
 			{
                	unsigned char *Bitmap = &lmp->Buffer[(k*MapWidthMax+l)*3];
@@ -848,11 +839,10 @@ void BMD::CreateLightMapSurface(Light_t *lp,Mesh_t *m,int i,int j,int MapWidth,i
 				Lighting(Light,lp,p,np);
 				for(int c=0;c<3;c++)
 				{
-					int Color;
-					Color = Bitmap[c];
-					Color += (unsigned char)(Light[c]*255.f);
-					if(Color > 255) Color = 255;
-					Bitmap[c] = Color;
+					int color = Bitmap[c];
+					color += (unsigned char)(Light[c] * 255.f);
+					if (color > 255) color = 255;
+					Bitmap[c] = color;
 				}
 			}
 		}
@@ -2173,9 +2163,19 @@ void BMD::RenderBodyShadow(int BlendMesh,int HiddenMesh,int StartMeshNumber, int
 {
 	if(NumMeshs == 0) return;
 
+	if (gMapManager.WorldActive != WD_7ATLANSE)
+	{
+		EnableAlphaTest(false);
+	}
+	glColor4f(0.0f, 0.0f, 0.0f, 0.7f); // 30% opacity for shadow
+
     DisableTexture();
 	DisableDepthMask();
 	BeginRender(1.f);
+
+	// enable stencil and continue draw
+	glEnable(GL_STENCIL_TEST);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
 
     int startMesh = 0;
     int endMesh = NumMeshs;
@@ -2220,6 +2220,8 @@ void BMD::RenderBodyShadow(int BlendMesh,int HiddenMesh,int StartMeshNumber, int
 	}
 	EndRender();
 	EnableDepthMask();
+
+	glDisable(GL_STENCIL_TEST);
 }
 
 void BMD::RenderObjectBoundingBox()
@@ -2240,7 +2242,6 @@ void BMD::RenderObjectBoundingBox()
 			}
 			
 			glBegin(GL_QUADS);
-			//glBegin(GL_LINES);
 			glColor3f(0.2f,0.2f,0.2f);
 			glTexCoord2f( 1.0F, 1.0F); glVertex3fv(BoundingVertices[7]);
 			glTexCoord2f( 1.0F, 0.0F); glVertex3fv(BoundingVertices[6]);
@@ -2317,12 +2318,8 @@ void BMD::RenderBone(float (*BoneMatrix)[3][4])
 				glBegin(GL_LINES);
 				glVertex3fv(BoneVertices[0]);
 				glVertex3fv(BoneVertices[1]);
-				glEnd();
-				glBegin(GL_LINES);
 				glVertex3fv(BoneVertices[1]);
 				glVertex3fv(BoneVertices[2]);
-				glEnd();
-				glBegin(GL_LINES);
 				glVertex3fv(BoneVertices[2]);
 				glVertex3fv(BoneVertices[0]);
 				glEnd();
@@ -2552,7 +2549,7 @@ bool BMD::Open(char *DirName,char *ModelFileName)
         }
         else
         {
-            m->m_csTScript = NULL;
+            m->m_csTScript = nullptr;
         }
 	}
 //#ifdef USE_SHADOWVOLUME
