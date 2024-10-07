@@ -4515,8 +4515,8 @@ void MoveJoint( JOINT *o, int iIndex)
 						VectorAdd( o->Tails[j][k], o->TargetPosition, o->Tails[j][k]);
 				}
 			}
-			int iFrame = MoveSceneFrame;
-			
+			int iFrame = static_cast<int>(WorldTime / 40.f);
+
 			iFrame = ( ( iIndex % 2) ? iFrame : -iFrame) + iIndex * 53731;
 			
 			vec3_t vDir, vDirTemp;
@@ -5648,7 +5648,7 @@ void MoveJoint( JOINT *o, int iIndex)
                 }
             }
 			
-			int iFrame = MoveSceneFrame;
+			int iFrame = static_cast<int>(WorldTime / 40.f);
 			
 			iFrame = ( ( iIndex % 2) ? iFrame : -iFrame) + iIndex * 53731;
 			
@@ -7398,7 +7398,7 @@ void RenderJoints( BYTE bRenderOneMore )
 
 void GetMagicScrew( int iParam, vec3_t vResult, float fSpeedRate)
 {
-	iParam += MoveSceneFrame;
+	iParam += static_cast<int>(WorldTime / 40.f);
 	
 	vec3_t vDirTemp;
 	float fSpeed[3] = { 0.048f, 0.0613f, 0.1113f};
