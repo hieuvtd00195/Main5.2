@@ -6322,21 +6322,20 @@ void RenderLinkObject(float x,float y,float z,CHARACTER *c,PART_t *f,int Type,in
 
 	if( o->SubType == MODEL_CURSEDTEMPLE_ALLIED_PLAYER || o->SubType == MODEL_CURSEDTEMPLE_ILLUSION_PLAYER )
 	{
-		if( Type >= MODEL_WING && Type <= MODEL_WING+6 ) return;
-		else if (Type >= MODEL_WING+36 && Type <= MODEL_WING+43)
+		if (Type >= MODEL_WING && Type <= MODEL_WING + 6) return; // 1st and 2nd Wings
+		else if (Type >= MODEL_WING + 36 && Type <= MODEL_WING + 43) // 3rd Wings
 			return;
-		else if( ITEM_WING+130 <= Type && Type <= ITEM_WING+134 ) return;
-		else if (Type >= MODEL_WING+49 && Type <= MODEL_WING+50) return;
-		else if (Type == MODEL_WING+135) return;
+		else if (MODEL_WING + 130 >= Type && Type <= MODEL_WING + 135) return; // Small Wings and Capes
+		else if (Type >= MODEL_WING + 49 && Type <= MODEL_WING + 50) return; // Capes
 	}
 
-    if ( Type == MODEL_HELPER+30 
+ /*   if ( Type == MODEL_HELPER+30 
 		|| (Type == MODEL_WING+49)
 		|| (Type == MODEL_WING+135))
 		return;
 
 	if( ITEM_WING+130 == Type )
-		return;
+		return;*/
 
 	if (Type >= MODEL_STAFF+21 && Type <= MODEL_STAFF+29)
 	{
@@ -8061,23 +8060,36 @@ void RenderLinkObject(float x,float y,float z,CHARACTER *c,PART_t *f,int Type,in
 	{
 		switch (Type)       
 		{
-		case MODEL_WING + 0:       
-		case MODEL_WING + 1:       
-		case MODEL_WING + 2:        
-		case MODEL_WING + 3:        
-		case MODEL_WING + 4:        
-		case MODEL_WING + 5:        
-		case MODEL_WING + 6:       
-			//case MODEL_HELPER + 30:    
-		case MODEL_WING + 36:       
-		case MODEL_WING + 37:        
-		case MODEL_WING + 38:      
-		case MODEL_WING + 39:        
-			//case MODEL_WING + 40:       
-		{
+		case MODEL_WING + 0:        // Wings of Elf
+		case MODEL_WING + 1:        // Wings of Heaven
+		case MODEL_WING + 2:        // Wings of Satan
+		case MODEL_WING + 41:       // Wing of Curse
+		case MODEL_WING + 3:        // Wings of Spirits
+		case MODEL_WING + 4:        // Wings of Soul
+		case MODEL_WING + 5:        // Wings of Dragon
+		case MODEL_WING + 6:        // Wings of Darkness
+		case MODEL_WING + 42:        // Wings of Despair
+
+		case MODEL_WING + 36:        // Wing of Storm
+		case MODEL_WING + 37:        // Wing of Eternal
+		case MODEL_WING + 38:        // Wing of Illusion
+		case MODEL_WING + 39:        // Wing of Ruin
+		case MODEL_WING + 43:        // Wing of Dimension
+		case MODEL_WING + 131:        // Small Wing of Curse
+		case MODEL_WING + 132:        // Small Wings of Elf
+		case MODEL_WING + 133:        // Small Wings of Heaven
+		case MODEL_WING + 134:        // Small Wings of Satan
 			b->RenderBodyShadow();
-		}
-		break;
+			break;
+
+		case MODEL_HELPER + 30:    // Cape of Lord
+		case MODEL_WING + 49:      // Cape of Fighter
+		case MODEL_WING + 40:        // Cape of Emperor
+		case MODEL_WING + 50:        // Cape of Overrule
+		case MODEL_WING + 130:        // Small Cape of Lord
+		case MODEL_WING + 135:        // Little Warrior's Cloak
+			b->RenderBodyShadow(-1, -1, -1, -1, o->m_pCloth, o->m_byNumCloth);
+			break;
 		}
 	}
 
