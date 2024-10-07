@@ -154,7 +154,7 @@ const BuffInfo BuffScriptLoader::GetBuffinfo( eBuffState type ) const
 {
 	if( type >= eBuff_Count ) return BuffInfo();
 
-	BuffInfoMap::const_iterator iter = m_Info.find( type );
+	auto iter = m_Info.find( type );
 
 	if( iter != m_Info.end() )
 	{
@@ -168,7 +168,7 @@ eBuffClass BuffScriptLoader::IsBuffClass( eBuffState type ) const
 {
 	if( type >= eBuff_Count ) return eBuffClass_Count;
 
-	BuffInfoMap::const_iterator iter = m_Info.find( type );
+	auto iter = m_Info.find( type );
 
 	if( iter != m_Info.end() )
 	{
@@ -183,7 +183,7 @@ eBuffClass BuffScriptLoader::IsBuffClass( eBuffState type ) const
 #ifdef KJH_PBG_ADD_INGAMESHOP_SYSTEM
 int BuffScriptLoader::GetBuffIndex(int iItemCode)
 {
-	BuffInfoMap::iterator iter = m_Info.begin();
+	auto iter = m_Info.begin();
 
 	int iterItemCode = 0;
 
@@ -202,7 +202,7 @@ int BuffScriptLoader::GetBuffIndex(int iItemCode)
 
 int BuffScriptLoader::GetBuffType(int iItemCode)
 {
-	BuffInfoMap::iterator iter = m_Info.begin();
+	auto iter = m_Info.begin();
 	
 	int iterItemCode = 0;
 	

@@ -63,6 +63,7 @@
 
 #include "MultiLanguage.h"
 
+
 CUIMercenaryInputBox * g_pMercenaryInputBox = NULL;
 CUITextInputBox * g_pSingleTextInputBox = NULL;
 CUITextInputBox * g_pSinglePasswdInputBox = NULL;
@@ -286,7 +287,7 @@ WORD DecryptCheckSumKey( WORD wSource)
 
 DWORD GenerateCheckSum( BYTE *pbyBuffer, DWORD dwSize, WORD wKey)
 {
-	DWORD dwKey = ( DWORD)wKey;
+	auto dwKey = ( DWORD)wKey;
 	DWORD dwResult = dwKey << 9;
 	for ( DWORD dwChecked = 0; dwChecked <= dwSize - 4; dwChecked += 4)
 	{
@@ -1153,7 +1154,7 @@ BOOL Util_CheckOption( char *lpszCommandLine, unsigned char cOption, char *lpszS
 	}
 
 	int nFind = ( int)'/';
-	unsigned char *lpFound = ( unsigned char*)lpszCommandLine;
+	auto *lpFound = ( unsigned char*)lpszCommandLine;
 	while ( lpFound)
 	{
 		lpFound = ( unsigned char*)strchr( ( char*)( lpFound + 1), nFind);
@@ -1294,6 +1295,18 @@ bool ExceptionCallback(_EXCEPTION_POINTERS* pExceptionInfo )
 	}
 #endif //ENABLE_FULLSCREEN
 	return true;
+}
+
+//Nvidia Update
+extern "C"
+{
+	_declspec(dllexport) DWORD AmdPowerXpressRequestHighPerformance = 0x00000001;
+}
+
+// Force NVidia Optimus to use NVidia GPU on drivers 302 and later.
+// http://developer.download.nvidia.com/devzone/devcenter/gamegraphics/files/OptimusRenderingPolicies.pdf
+extern "C" {
+	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
 }
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int nCmdShow)

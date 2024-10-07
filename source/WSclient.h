@@ -214,7 +214,6 @@ typedef struct {
 	PWMSG_HEADER Header;
 	BYTE         SubCode;
 	BYTE         Value;
-	
 } PHEADER_DEFAULT_SUBCODE_WORD, * LPPHEADER_DEFAULT_SUBCODE_WORD;
 
 typedef struct {

@@ -106,7 +106,7 @@ DWORD CUIWindowMgr::AddWindow(int iWindowType, int iPos_x, int iPos_y, const cha
 		pbw = new CUIChatWindow;
 		if (m_dwMainWindowUIID != 0)
 		{
-			CUIFriendWindow * pMainWnd = (CUIFriendWindow *)GetWindow(m_dwMainWindowUIID);
+			auto * pMainWnd = (CUIFriendWindow *)GetWindow(m_dwMainWindowUIID);
 			if (pMainWnd != NULL)
 				pMainWnd->AddWindow(pbw->GetUIID(), pszTitle);
 		}
@@ -136,7 +136,7 @@ DWORD CUIWindowMgr::AddWindow(int iWindowType, int iPos_x, int iPos_y, const cha
 		if (g_dwTopWindow != 0) return 0;
 		pbw = new CUITextInputWindow;
 		{
-			CUIFriendWindow * pMainWnd = (CUIFriendWindow *)GetWindow(m_dwMainWindowUIID);
+			auto * pMainWnd = (CUIFriendWindow *)GetWindow(m_dwMainWindowUIID);
 			if (pMainWnd != NULL)
 				pMainWnd->AddWindow(pbw->GetUIID(), pszTitle);
 		}
@@ -149,7 +149,7 @@ DWORD CUIWindowMgr::AddWindow(int iWindowType, int iPos_x, int iPos_y, const cha
 	case UIWNDTYPE_QUESTION_FORCE:
 		pbw = new CUIQuestionWindow(0);
 		{
-			CUIFriendWindow * pMainWnd = (CUIFriendWindow *)GetWindow(m_dwMainWindowUIID);
+			auto * pMainWnd = (CUIFriendWindow *)GetWindow(m_dwMainWindowUIID);
 
 			if (pMainWnd != NULL)
 				pMainWnd->AddWindow(pbw->GetUIID(), GlobalText[991]);
@@ -162,7 +162,7 @@ DWORD CUIWindowMgr::AddWindow(int iWindowType, int iPos_x, int iPos_y, const cha
 	case UIWNDTYPE_OK_FORCE:
 		pbw = new CUIQuestionWindow(1);
 		{
-			CUIFriendWindow * pMainWnd = (CUIFriendWindow *)GetWindow(m_dwMainWindowUIID);
+			auto * pMainWnd = (CUIFriendWindow *)GetWindow(m_dwMainWindowUIID);
 			if (pMainWnd != NULL)
 				pMainWnd->AddWindow(pbw->GetUIID(), GlobalText[228]);
 		}
@@ -173,7 +173,7 @@ DWORD CUIWindowMgr::AddWindow(int iWindowType, int iPos_x, int iPos_y, const cha
 		pbw = new CUILetterReadWindow;
 		if (m_dwMainWindowUIID != 0)
 		{
-			CUIFriendWindow * pMainWnd = (CUIFriendWindow *)GetWindow(m_dwMainWindowUIID);
+			auto * pMainWnd = (CUIFriendWindow *)GetWindow(m_dwMainWindowUIID);
 			if (pMainWnd != NULL)
 				pMainWnd->AddWindow(pbw->GetUIID(), pszTitle);
 		}
@@ -285,7 +285,7 @@ void CUIWindowMgr::RemoveWindow(DWORD dwUIID)
 
 	if (m_dwMainWindowUIID != 0)
 	{
-		CUIFriendWindow * pMainWnd = (CUIFriendWindow *)GetWindow(m_dwMainWindowUIID);
+		auto * pMainWnd = (CUIFriendWindow *)GetWindow(m_dwMainWindowUIID);
 		if (pMainWnd != NULL)
 			pMainWnd->RemoveWindow(dwUIID);
 	}
@@ -1575,7 +1575,7 @@ BOOL CUIChatWindow::HandleMessage()
 	case UI_MESSAGE_TEXTINPUT:
 		{
 			char	pszText[MAX_CHATROOM_TEXT_LENGTH] = {'\0'};
-			wchar_t *pwszTextUTF16 = new wchar_t[MAX_CHATROOM_TEXT_LENGTH_UTF16];
+			auto *pwszTextUTF16 = new wchar_t[MAX_CHATROOM_TEXT_LENGTH_UTF16];
 
 			m_TextInputBox.GetText(pwszTextUTF16, MAX_CHATROOM_TEXT_LENGTH_UTF16);
 
@@ -2738,8 +2738,8 @@ BOOL CUILetterWriteWindow::HandleMessage()
 			case 1:
 				if (m_bIsSend == FALSE)
 				{
-					wchar_t	*szTitleUTF16	= new wchar_t[MAX_LETTER_TITLE_LENGTH_UTF16];
-					wchar_t	*szTextUTF16	= new wchar_t[MAX_LETTER_TEXT_LENGTH_UTF16];
+					auto*  szTitleUTF16	= new wchar_t[MAX_LETTER_TITLE_LENGTH_UTF16];
+					auto*  szTextUTF16	= new wchar_t[MAX_LETTER_TEXT_LENGTH_UTF16];
 					
 					char	szMailto[MAX_ID_SIZE+1]				= {'\0'};
 					char	szTitle[MAX_LETTER_TITLE_LENGTH]	= {'\0'};
@@ -4496,7 +4496,7 @@ void RenderTabLine(int iPos_x, int iPos_y, int iTabWidth, int iTabHeight, int iT
 	for (int i = 0; i < iTabNum; ++i)
 	{
 		SetLineColor(2);
-		float fRPos_x = float(iPos_x + i * iTabWidth);
+		auto fRPos_x = float(iPos_x + i * iTabWidth);
 		if (i == iSelectNum)
 		{
 			RenderColor((float)fRPos_x, (float)iPos_y, (float)iTabWidth, (float)1);
@@ -5359,7 +5359,7 @@ void CUIFriendMenu::RenderWindowList()
 		}
 		g_pRenderText->RenderText(m_iPos_x + 2, m_iFriendMenuPos_y - (m_fLineHeight + 4) * i + 3, szText);
 		
-		CUIChatWindow * pWindow = (CUIChatWindow *)g_pWindowMgr->GetWindow(*m_WindowListIter);
+		auto * pWindow = (CUIChatWindow *)g_pWindowMgr->GetWindow(*m_WindowListIter);
 		if (pWindow != NULL && pWindow->GetUserCount() > 2)
 		{
 			glColor3f(255, 0, 0);
@@ -5492,6 +5492,7 @@ void CUIFriendMenu::SendChatRoomConnectCheck()
 	for (m_WindowListIter = m_WindowList.begin(); m_WindowListIter != m_WindowList.end(); ++m_WindowListIter)
 	{
 		pChatWindow = (CUIChatWindow*)g_pWindowMgr->GetWindow(*m_WindowListIter);
+		//auto* pChatWindow = (CUIChatWindow*)g_pWindowMgr->GetWindow(*m_WindowListIter);
 		if (pChatWindow != NULL)
 		{
 			CWsctlc* pSocket = pChatWindow->GetCurrentSocket();

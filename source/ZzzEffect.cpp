@@ -3890,8 +3890,8 @@ void CreateEffect(int Type,vec3_t Position,vec3_t Angle,vec3_t Light,int SubType
 					VectorCopy(o->Position, Position);
 					o->Position[2] += 100;
 
-					float fAngle = float(rand()%360);
-					float fDistance = float(rand()%600+200);
+					auto fAngle = float(rand()%360);
+					auto fDistance = float(rand()%600+200);
 					Position[0] = o->Position[0] + sinf(fAngle)*fDistance;
 					Position[1] = o->Position[1] + cosf(fAngle)*fDistance;
 					Position[2] = 0;
@@ -10140,7 +10140,7 @@ void MoveEffect( OBJECT *o, int iIndex)
             }
             else
             {
-                float   count = (float)o->LifeTime;
+                auto   count = (float)o->LifeTime;
 				float	addAngle = 15.f;
                 if ( o->LifeTime>9 && o->LifeTime<16 )
                 {
@@ -11082,7 +11082,7 @@ void MoveEffect( OBJECT *o, int iIndex)
 		}
 		else if( o->Type == MODEL_EFFECT_SAPITRES_ATTACK_2 && o->SubType == 14 )
 		{
-			float fMoveSpeed = (float)(rand()%5+25);
+			auto fMoveSpeed = (float)(rand()%5+25);
 			o->Position[0] -= (o->Direction[0] * fMoveSpeed );
 			o->Position[1] -= (o->Direction[1] * fMoveSpeed );
 			o->Position[2] -= (o->Direction[2] * fMoveSpeed );
@@ -11366,8 +11366,8 @@ void MoveEffect( OBJECT *o, int iIndex)
 						for (int i = 0; i < 100; ++i)
 						{
 							VectorCopy ( o->Position, Position );
-							float fAngle = (float)( rand()%360 );
-							float fLength = (float)( rand()%30+30 );
+							auto fAngle = (float)( rand()%360 );
+							auto fLength = (float)( rand()%30+30 );
 							Position[0] += sinf(fAngle) * fLength;
 							Position[1] += cosf(fAngle) * fLength;
 							Position[2] -= 30.f;
@@ -16305,7 +16305,7 @@ void MoveEffect( OBJECT *o, int iIndex)
 
 							// 1. BonePosition Particle
 							BMD	*b = &Models[o->Type];
-							vec3_t* arrEachBonePos = new vec3_t[b->NumBones];
+							auto* arrEachBonePos = new vec3_t[b->NumBones];
 
 							b->AnimationTransformOnlySelf( arrEachBonePos, o->Angle, o->Position, o->Scale, o );
 							
@@ -17380,7 +17380,7 @@ void MoveEffect( OBJECT *o, int iIndex)
 							break;
 						
 						Vector(0.6f, 0.6f, 1.0f, o->Light);
-						float fFadeInOut = (float)(sinf(WorldTime*0.001f)+1.0f);
+						auto fFadeInOut = (float)(sinf(WorldTime*0.001f)+1.0f);
 						VectorScale(o->Light, fFadeInOut*0.25f+0.2f, o->Light);
 						o->Scale = 1.0f;
 						VectorCopy(o->Owner->Position, o->Position);
@@ -18235,7 +18235,7 @@ void RenderEffects ( bool bRenderBlendMesh )
 						vec3_t Light;
 						EnableAlphaBlend();
 						Vector(0.3f, 0.3f, 0.3f, Light);
-						float Rotation = (float)(WorldTime);
+						auto Rotation = (float)(WorldTime);
 						RenderTerrainAlphaBitmap(BITMAP_POUNDING_BALL,o->Position[0],o->Position[1],2.f,2.f,Light, Rotation);
 					}
 					else

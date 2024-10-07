@@ -2526,7 +2526,7 @@ void SEASON3B::CNewUISkillList::RenderSkillDelay(int iIndex, float x, float y, f
 
         int iSkillMaxDelay = SkillAttribute[iSkillType].Delay;
 		
-        float fPersent = (float)(iSkillDelay/(float)iSkillMaxDelay);
+        auto fPersent = (float)(iSkillDelay/(float)iSkillMaxDelay);
         
 		EnableAlphaTest();
         glColor4f(1.f, 0.5f, 0.5f, 0.5f);
@@ -2552,7 +2552,7 @@ void SEASON3B::CNewUISkillList::UI2DEffectCallback(LPVOID pClass, DWORD dwParamA
 {
 	if(pClass)
 	{
-		CNewUISkillList* pSkillList= (CNewUISkillList*)(pClass);
+		auto* pSkillList= (CNewUISkillList*)(pClass);
 		pSkillList->RenderSkillInfo();
 	}
 }

@@ -173,7 +173,7 @@ void CMsgBoxIGSGiftStorageItemInfo::SetAddCallbackFunc()
 // LButtonUp
 CALLBACK_RESULT CMsgBoxIGSGiftStorageItemInfo::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CMsgBoxIGSGiftStorageItemInfo* pOwnMsgBox = dynamic_cast<CMsgBoxIGSGiftStorageItemInfo*>(pOwner);
+	auto* pOwnMsgBox = dynamic_cast<CMsgBoxIGSGiftStorageItemInfo*>(pOwner);
 
 	if(pOwnMsgBox)
 	{
@@ -197,7 +197,7 @@ CALLBACK_RESULT CMsgBoxIGSGiftStorageItemInfo::LButtonUp(class CNewUIMessageBoxB
 // OKButtonDown
 CALLBACK_RESULT CMsgBoxIGSGiftStorageItemInfo::OKButtonDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CMsgBoxIGSGiftStorageItemInfo* pOwnMsgBox = dynamic_cast<CMsgBoxIGSGiftStorageItemInfo*>(pOwner);
+	auto* pOwnMsgBox = dynamic_cast<CMsgBoxIGSGiftStorageItemInfo*>(pOwner);
 
 	// 사용하기 확인 창
 	CMsgBoxIGSUseItemConfirm* pMsgBox = NULL;

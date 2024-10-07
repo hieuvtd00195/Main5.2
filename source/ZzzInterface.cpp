@@ -4353,7 +4353,7 @@ bool FindText(const char* Text,const char* Token,bool First)
 	if(Length < 0)
 		return false;
 	
-    unsigned char* lpszCheck = (unsigned char*)Text;
+    auto* lpszCheck = (unsigned char*)Text;
 	for(int i=0;i<=Length;i+=_mbclen(lpszCheck+i))
 	{
 		bool Success = true;
@@ -4381,7 +4381,7 @@ bool FindTextABS(const char* Text,const char* Token,bool First)
 	if(Length < 0)
 		return false;
 	
-    unsigned char* lpszCheck = (unsigned char*)Text;
+    auto * lpszCheck = (unsigned char*)Text;
 	for(int i=0;i<=Length;i+=_mbclen(lpszCheck+i))
 	{
 		bool Success = true;
@@ -7133,7 +7133,7 @@ void MoveHero()
 		{
 			if (!::IsStrifeMap(gMapManager.WorldActive))
 			{
-				CUITextInputWindow * pWindow = (CUITextInputWindow *)g_pWindowMgr->GetWindow(g_pWindowMgr->GetAddFriendWindow());
+				auto * pWindow = (CUITextInputWindow *)g_pWindowMgr->GetWindow(g_pWindowMgr->GetAddFriendWindow());
 				if (pWindow != NULL)
 				{
 					pWindow->SetText(CharactersClient[SelectedCharacter].ID);
@@ -9174,7 +9174,7 @@ bool IsIllegalMovementByUsingMsg(const char *szChatText)
 		std::list<SEASON3B::CMoveCommandData::MOVEINFODATA*> m_listMoveInfoData;
 		m_listMoveInfoData = SEASON3B::CMoveCommandData::GetInstance()->GetMoveCommandDatalist();
 		
-		std::list<SEASON3B::CMoveCommandData::MOVEINFODATA*>::iterator li = m_listMoveInfoData.begin();
+		auto li = m_listMoveInfoData.begin();
 		
 
 		while (li != m_listMoveInfoData.end())

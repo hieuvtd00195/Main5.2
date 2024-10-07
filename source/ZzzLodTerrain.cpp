@@ -137,12 +137,12 @@ int OpenTerrainAttribute(char *FileName)
 	fseek(fp,0,SEEK_END);
 	long file_size = ftell(fp);
 	fseek(fp,0,SEEK_SET);
-	unsigned char* file_data = new unsigned char[file_size];
+	auto * file_data = new unsigned char[file_size];
 	fread(file_data, file_size, 1, fp);
 
 	// Decrypt file data
 	int iSize = MapFileDecrypt(NULL, file_data, file_size);
-	unsigned char* decrypted_data = new unsigned char[iSize];
+	auto * decrypted_data = new unsigned char[iSize];
 	MapFileDecrypt(decrypted_data, file_data, file_size);
 	delete[] file_data;
 
@@ -322,12 +322,12 @@ int OpenTerrainMapping(char* FileName) {
 	int EncBytes = ftell(fp);
 	fseek(fp,0,SEEK_SET);
 
-	unsigned char* EncData = new unsigned char[EncBytes];
+	auto * EncData = new unsigned char[EncBytes];
 	fread(EncData, 1, EncBytes, fp);
 	fclose(fp);
 
 	int DataBytes = MapFileDecrypt(NULL, EncData, EncBytes);
-	unsigned char* Data = new unsigned char[DataBytes];
+	auto * Data = new unsigned char[DataBytes];
 	MapFileDecrypt(Data, EncData, EncBytes);
 	delete[] EncData;
 
@@ -370,7 +370,7 @@ bool SaveTerrainMapping(char* FileName, int iMapNumber)
  	fwrite(TerrainMappingLayer2,TERRAIN_SIZE*TERRAIN_SIZE,1,fp);
 	for(int i=0;i<TERRAIN_SIZE*TERRAIN_SIZE;i++)
 	{
-		unsigned char Alpha = (unsigned char)(TerrainMappingAlpha[i]*255.f);
+		auto Alpha = (unsigned char)(TerrainMappingAlpha[i]*255.f);
 		fwrite(&Alpha,1,1,fp);
 	}
 	/*
@@ -399,12 +399,12 @@ bool SaveTerrainMapping(char* FileName, int iMapNumber)
 		fseek(fp,0,SEEK_END);
 		int EncBytes = ftell(fp);
 		fseek(fp,0,SEEK_SET);
-		unsigned char* EncData = new unsigned char[EncBytes];
+		auto * EncData = new unsigned char[EncBytes];
 		fread(EncData, 1, EncBytes, fp);
 		fclose(fp);
 
 		int DataBytes = MapFileEncrypt(NULL, EncData, EncBytes);
-		unsigned char* Data = new unsigned char[DataBytes];
+		auto * Data = new unsigned char[DataBytes];
 		MapFileEncrypt(Data, EncData, EncBytes);
 		delete[] EncData;
 
@@ -593,7 +593,7 @@ void OpenTerrainLight(char *FileName)
 
 void SaveTerrainLight(char *FileName)
 {
-	unsigned char *Buffer = new unsigned char [TERRAIN_SIZE*TERRAIN_SIZE*3];
+	auto *Buffer = new unsigned char [TERRAIN_SIZE*TERRAIN_SIZE*3];
 	for (int i = 0; i < TERRAIN_SIZE * TERRAIN_SIZE; ++i)
 	{
 		for (int j = 0; j < 3; ++j)
@@ -662,7 +662,7 @@ bool OpenTerrainHeight(char *filename)
 		return false;
 	}
 
-	unsigned char *Buffer = new unsigned char [Size];
+	auto *Buffer = new unsigned char [Size];
 
 	fseek(fp, 4, SEEK_SET);
 	fread_s(Buffer, Size, 1, Size, fp);
@@ -689,7 +689,7 @@ bool OpenTerrainHeight(char *filename)
 
 void SaveTerrainHeight(char *name)
 {
-	unsigned char *Buffer = new unsigned char [256*256];
+	auto *Buffer = new unsigned char [256*256];
     for(int i=0;i<256;i++)
 	{
 		float *src = &BackTerrainHeight[i*256];
@@ -831,7 +831,7 @@ void RequestTerrainNormal(float xf,float yf,vec3_t Normal)
 
 void AddTerrainHeight(float xf,float yf,float Height,int Range,float *Buffer)
 {
-	float rf = (float)Range;
+	auto rf = (float)Range;
 
     xf = xf/TERRAIN_SCALE;
     yf = yf/TERRAIN_SCALE;
@@ -839,12 +839,12 @@ void AddTerrainHeight(float xf,float yf,float Height,int Range,float *Buffer)
     int   yi = (int)yf;
 	int   syi = yi-Range;
 	int   eyi = yi+Range;
-	float syf = (float)(syi);
+	auto syf = (float)(syi);
     for(;syi<=eyi;syi++,syf+=1.f)
 	{
 		int   sxi = xi-Range;
 		int   exi = xi+Range;
-		float sxf = (float)(sxi);
+		auto sxf = (float)(sxi);
         for(;sxi<=exi;sxi++,sxf+=1.f)
         {
 			float xd = xf-sxf;
@@ -860,7 +860,7 @@ void AddTerrainHeight(float xf,float yf,float Height,int Range,float *Buffer)
 
 void SetTerrainLight(float xf,float yf,vec3_t Light,int Range,vec3_t *Buffer)
 {
-	float rf = (float)Range;
+	auto rf = (float)Range;
 
     xf = (xf/TERRAIN_SCALE);
     yf = (yf/TERRAIN_SCALE);
@@ -868,12 +868,12 @@ void SetTerrainLight(float xf,float yf,vec3_t Light,int Range,vec3_t *Buffer)
     int   yi = (int)yf;
 	int   syi = yi-Range;
 	int   eyi = yi+Range;
-	float syf = (float)(syi);
+	auto syf = (float)(syi);
     for(;syi<=eyi;syi++,syf+=1.f)
 	{
 		int   sxi = xi-Range;
 		int   exi = xi+Range;
-		float sxf = (float)(sxi);
+		auto sxf = (float)(sxi);
         for(;sxi<=exi;sxi++,sxf+=1.f)
         {
 			float xd = xf-sxf;
@@ -893,7 +893,7 @@ void SetTerrainLight(float xf,float yf,vec3_t Light,int Range,vec3_t *Buffer)
 
 void AddTerrainLight(float xf,float yf,vec3_t Light,int Range,vec3_t *Buffer)
 {
-	float rf = (float)Range;
+	auto rf = (float)Range;
 
     xf = (xf/TERRAIN_SCALE);
     yf = (yf/TERRAIN_SCALE);
@@ -901,12 +901,12 @@ void AddTerrainLight(float xf,float yf,vec3_t Light,int Range,vec3_t *Buffer)
     int   yi = (int)yf;
 	int   syi = yi-Range;
 	int   eyi = yi+Range;
-	float syf = (float)(syi);
+	auto syf = (float)(syi);
     for(;syi<=eyi;syi++,syf+=1.f)
 	{
 		int   sxi = xi-Range;
 		int   exi = xi+Range;
-		float sxf = (float)(sxi);
+		auto sxf = (float)(sxi);
         for(;sxi<=exi;sxi++,sxf+=1.f)
         {
 			float xd = xf-sxf;
@@ -927,7 +927,7 @@ void AddTerrainLight(float xf,float yf,vec3_t Light,int Range,vec3_t *Buffer)
 
 void AddTerrainLightClip(float xf,float yf,vec3_t Light,int Range,vec3_t *Buffer)
 {
-	float rf = (float)Range;
+	auto rf = (float)Range;
 
     xf = (xf/TERRAIN_SCALE);
     yf = (yf/TERRAIN_SCALE);
@@ -935,12 +935,12 @@ void AddTerrainLightClip(float xf,float yf,vec3_t Light,int Range,vec3_t *Buffer
     int   yi = (int)yf;
 	int   syi = yi-Range;
 	int   eyi = yi+Range;
-	float syf = (float)(syi);
+	auto syf = (float)(syi);
     for(;syi<=eyi;syi++,syf+=1.f)
 	{
 		int   sxi = xi-Range;
 		int   exi = xi+Range;
-		float sxf = (float)(sxi);
+		auto sxf = (float)(sxi);
         for(;sxi<=exi;sxi++,sxf+=1.f)
         {
 			float xd = xf-sxf;
@@ -2407,7 +2407,7 @@ void InitTerrainLight()
 	for(;yi<=min(FrustrumBoundMaxY+3, TERRAIN_SIZE_MASK);yi+=1)
 	{
 		xi = FrustrumBoundMinX;
-		float xf = (float)xi;
+		auto xf = (float)xi;
 		for(;xi<=min(FrustrumBoundMaxX+3, TERRAIN_SIZE_MASK);xi+=1,xf+=1.f)
         {
 			int Index = TERRAIN_INDEX(xi,yi);
@@ -2521,7 +2521,7 @@ void RenderTerrainBlock(float xf,float yf,int xi,int yi,bool EditFlag)
 	//int y = ((yi/4)&63);
 	//int lodi = LodBuffer[y*64+x];
 	int lodi = 1;
-	float lodf = (float)lodi;
+	auto lodf = (float)lodi;
 	for(int i=0;i<4;i+=lodi)
 	{
 		float temp = xf;
@@ -2543,7 +2543,7 @@ void RenderTerrainFrustrum(bool EditFlag)
     int     xi;
     int     yi = FrustrumBoundMinY;
     float   xf;
-    float   yf = (float)yi;
+    auto   yf = (float)yi;
 
     for(;yi<=FrustrumBoundMaxY;yi+=4,yf+=4.f)
 	{
@@ -2575,7 +2575,7 @@ void RenderTerrainFrustrum(bool EditFlag)
 void RenderTerrainBlock_After(float xf,float yf,int xi,int yi,bool EditFlag)
 {
 	int lodi = 1;
-	float lodf = (float)lodi;
+	auto lodf = (float)lodi;
 	for(int i=0;i<4;i+=lodi)
 	{
 		float temp = xf;

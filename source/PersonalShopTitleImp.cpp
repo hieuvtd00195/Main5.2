@@ -26,7 +26,7 @@ bool CPersonalShopTitleImp::AddShopTitle(int key, CHARACTER* pPlayer, const std:
 	std::string full_name = pPlayer->ID;
 	std::string topTitle, bottomTitle;
 
-	type_drawobj_map::iterator mi = m_listShopTitleDrawObj.find(pPlayer);
+	auto mi = m_listShopTitleDrawObj.find(pPlayer);
 	if(mi != m_listShopTitleDrawObj.end())
 	{
 		CShopTitleDrawObj* pDrawObj = (*mi).second;
@@ -42,7 +42,7 @@ bool CPersonalShopTitleImp::AddShopTitle(int key, CHARACTER* pPlayer, const std:
 	}
 	else 
 	{
-		CShopTitleDrawObj* pDrawObj = new CShopTitleDrawObj;
+		auto* pDrawObj = new CShopTitleDrawObj;
 		pDrawObj->Create(key, full_name, title, MakePos(-1,-1));
 		m_listShopTitleDrawObj.insert(type_drawobj_map::value_type(pPlayer, pDrawObj));
 	}
@@ -51,7 +51,7 @@ bool CPersonalShopTitleImp::AddShopTitle(int key, CHARACTER* pPlayer, const std:
 }
 void CPersonalShopTitleImp::RemoveShopTitle(CHARACTER* pPlayer)
 {
-	type_drawobj_map::iterator mi = m_listShopTitleDrawObj.find(pPlayer);
+	auto mi = m_listShopTitleDrawObj.find(pPlayer);
 	if(mi != m_listShopTitleDrawObj.end())
 	{
 		delete (*mi).second;
@@ -60,14 +60,14 @@ void CPersonalShopTitleImp::RemoveShopTitle(CHARACTER* pPlayer)
 }
 void CPersonalShopTitleImp::RemoveAllShopTitle()
 {
-	type_drawobj_map::iterator mi = m_listShopTitleDrawObj.begin();
+	auto mi = m_listShopTitleDrawObj.begin();
 	for(; mi != m_listShopTitleDrawObj.end(); ++mi)
 		delete (*mi).second;
 	m_listShopTitleDrawObj.clear();
 }
 void CPersonalShopTitleImp::RemoveAllShopTitleExceptHero()
 {
-	type_drawobj_map::iterator mi = m_listShopTitleDrawObj.begin();
+	auto mi = m_listShopTitleDrawObj.begin();
 	for(; mi != m_listShopTitleDrawObj.end();) 
 	{
 		if((*mi).second->GetKey() != Hero->Key) 
@@ -84,7 +84,7 @@ void CPersonalShopTitleImp::RemoveAllShopTitleExceptHero()
 
 CHARACTER* CPersonalShopTitleImp::FindCharacter(int key) const
 {
-	type_drawobj_map::const_iterator mi = m_listShopTitleDrawObj.begin();
+	auto mi = m_listShopTitleDrawObj.begin();
 	for(; mi != m_listShopTitleDrawObj.end(); ++mi) 
 	{
 		if((*mi).second->GetKey() == key) 
@@ -112,7 +112,7 @@ bool CPersonalShopTitleImp::IsShowShopTitles() const
 
 void CPersonalShopTitleImp::EnableShopTitleDraw(CHARACTER* pPlayer)
 {
-	type_drawobj_map::iterator mi = m_listShopTitleDrawObj.find(pPlayer);
+	auto mi = m_listShopTitleDrawObj.find(pPlayer);
 	if(mi != m_listShopTitleDrawObj.end())
 	{
 		(*mi).second->EnableDraw();
@@ -120,7 +120,7 @@ void CPersonalShopTitleImp::EnableShopTitleDraw(CHARACTER* pPlayer)
 }
 void CPersonalShopTitleImp::DisableShopTitleDraw(CHARACTER* pPlayer)
 {
-	type_drawobj_map::iterator mi = m_listShopTitleDrawObj.find(pPlayer);
+	auto mi = m_listShopTitleDrawObj.find(pPlayer);
 	if(mi != m_listShopTitleDrawObj.end()){
 		(*mi).second->DisableDraw();
 	}
@@ -136,7 +136,7 @@ bool CPersonalShopTitleImp::IsShopTitleVisible(CHARACTER* pPlayer)
 
 bool CPersonalShopTitleImp::IsShopTitleHighlight(CHARACTER* pPlayer) const
 {
-	type_drawobj_map::const_iterator mi = m_listShopTitleDrawObj.find(pPlayer);
+	auto mi = m_listShopTitleDrawObj.find(pPlayer);
 	if(mi != m_listShopTitleDrawObj.end()){
 		return (*mi).second->IsHighlight();
 	}
@@ -145,7 +145,7 @@ bool CPersonalShopTitleImp::IsShopTitleHighlight(CHARACTER* pPlayer) const
 
 bool CPersonalShopTitleImp::IsInViewport(CHARACTER* pPlayer)
 {
-	type_drawobj_map::iterator mi = m_listShopTitleDrawObj.find(pPlayer);
+	auto mi = m_listShopTitleDrawObj.find(pPlayer);
 	if(mi != m_listShopTitleDrawObj.end())
 	{
 		return true;
@@ -154,14 +154,14 @@ bool CPersonalShopTitleImp::IsInViewport(CHARACTER* pPlayer)
 }
 void CPersonalShopTitleImp::GetShopTitle(CHARACTER* pPlayer, std::string& title)
 {
-	type_drawobj_map::iterator mi = m_listShopTitleDrawObj.find(pPlayer);
+	auto mi = m_listShopTitleDrawObj.find(pPlayer);
 	if(mi != m_listShopTitleDrawObj.end()){
 		(*mi).second->GetFullTitle(title);
 	}
 }
 void CPersonalShopTitleImp::GetShopTitleSummary(CHARACTER* pPlayer, std::string& summary)
 {
-	type_drawobj_map::iterator mi = m_listShopTitleDrawObj.find(pPlayer);
+	auto mi = m_listShopTitleDrawObj.find(pPlayer);
 	if(mi != m_listShopTitleDrawObj.end()){
 		std::string full_title;
 		(*mi).second->GetFullTitle(full_title);
@@ -267,7 +267,7 @@ void CPersonalShopTitleImp::Draw()
 			m_iHighlightFrame++;
 		}
 		
-		type_drawobj_map::iterator mi = m_listShopTitleDrawObj.begin();
+		auto mi = m_listShopTitleDrawObj.begin();
 		for(; mi != m_listShopTitleDrawObj.end(); ++mi)
 		{
 			CShopTitleDrawObj* pDrawObj = (*mi).second;	
@@ -312,7 +312,7 @@ void CPersonalShopTitleImp::UpdatePosition()
 	EndBitmap();
 	BeginOpengl(0, 0, Width, Height);
 
-	type_drawobj_map::iterator mi = m_listShopTitleDrawObj.begin();
+	auto mi = m_listShopTitleDrawObj.begin();
 	for(; mi != m_listShopTitleDrawObj.end(); ++mi){
 		CShopTitleDrawObj* pDrawObj = (*mi).second;
 
@@ -331,9 +331,9 @@ void CPersonalShopTitleImp::UpdatePosition()
 void CPersonalShopTitleImp::RevisionPosition()
 {
 	//. Fit to screen
-	type_drawobj_map::iterator mi_x = m_listShopTitleDrawObj.begin();
+	auto mi_x = m_listShopTitleDrawObj.begin();
 	for(; mi_x != m_listShopTitleDrawObj.end(); ++mi_x){
-		type_drawobj_map::iterator mi_y = m_listShopTitleDrawObj.begin();
+		auto mi_y = m_listShopTitleDrawObj.begin();
 		for(; mi_y != m_listShopTitleDrawObj.end(); ++mi_y){
 			if(mi_x != mi_y){
 				RECT rcX, rcY;
@@ -371,7 +371,7 @@ void CPersonalShopTitleImp::RevisionPosition()
 }
 void CPersonalShopTitleImp::CheckKeyIntegrity()
 {
-	type_drawobj_map::iterator mi = m_listShopTitleDrawObj.begin();
+	auto mi = m_listShopTitleDrawObj.begin();
 
 	for(; mi != m_listShopTitleDrawObj.end();)
 	{

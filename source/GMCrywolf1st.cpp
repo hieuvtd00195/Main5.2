@@ -937,7 +937,7 @@ bool M34CryWolf1st::MoveCryWolf1stMonsterVisual(CHARACTER* c,OBJECT* o, BMD* b)
 		{
 			vec3_t Position, Light;
 
-			float Rotation = (float)( rand()%360 );
+			auto Rotation = (float)( rand()%360 );
 			float Luminosity = sinf(WorldTime*0.0012f)*0.8f+1.3f;
             
 			float fScalePercent = 1.f;
@@ -1764,8 +1764,8 @@ bool M34CryWolf1st::RenderCryWolf1stMonsterVisual(CHARACTER* c, OBJECT* o, BMD* 
 
 			vec3_t Position, Light;
 			int dummy = rand()%14;
-			float Data = (float)((float)dummy/(float)100);
-			float Rot = (float)( rand()%360 );
+			auto Data = (float)((float)dummy/(float)100);
+			auto Rot = (float)( rand()%360 );
 			Vector ( 1.0f, 1.0f, 1.0f, Light );
 			BoneManager::GetBonePosition(o, "Monster94_zx", Position);
 			CreateSprite(BITMAP_DS_EFFECT,Position,1.5f,Light,o);
@@ -1948,7 +1948,7 @@ bool M34CryWolf1st::RenderCryWolf1stMonsterVisual(CHARACTER* c, OBJECT* o, BMD* 
 		{
 			vec3_t Position, Light;
 
-			float Rotation = (float)( rand()%360 );
+			auto Rotation = (float)( rand()%360 );
 			float Luminosity = sinf(WorldTime*0.0012f)*0.8f+1.3f;
             
 			float fScalePercent = 1.f;

@@ -222,7 +222,7 @@ public:
 
 	void AddItemPrice(int index, int price) 
 	{
-		std::map<int, int>::iterator mi = m_mapTable.find(index);
+		auto mi = m_mapTable.find(index);
 		if(mi != m_mapTable.end())
 		{
 			m_mapTable.erase(mi);	
@@ -231,7 +231,7 @@ public:
 	}
 	void RemoveItemPrice(int index) 
 	{
-		std::map<int, int>::iterator mi = m_mapTable.find(index);
+		auto mi = m_mapTable.find(index);
 		if(mi != m_mapTable.end()) 
 		{
 			m_mapTable.erase(mi);
@@ -244,7 +244,7 @@ public:
 
 	bool GetItemPrice(int index, int& price)
 	{
-		std::map<int, int>::iterator mi = m_mapTable.find(index);
+		auto mi = m_mapTable.find(index);
 		if(mi != m_mapTable.end()) 
 		{
 			price = (*mi).second;

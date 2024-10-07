@@ -78,7 +78,7 @@ void SEASON3B::CNewUITextInputMsgBox::Release()
 {
 	CNewUIMessageBoxBase::Release();
 
-	type_vector_msgdata::iterator vi = m_MsgTextList.begin();
+	auto vi = m_MsgTextList.begin();
 	for(; vi != m_MsgTextList.end(); vi++)
 	{
 		SAFE_DELETE(*vi);
@@ -134,7 +134,7 @@ void SEASON3B::CNewUITextInputMsgBox::SetButtonInfo()
 
 CALLBACK_RESULT SEASON3B::CNewUITextInputMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUITextInputMsgBox* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		switch(pMsgBox->GetMsgBoxType())
@@ -218,7 +218,7 @@ int SEASON3B::CNewUITextInputMsgBox::SeparateText(const type_string& strMsg, DWO
 
 	if(TextExtentWidth <= MSGBOX_TEXT_MAXWIDTH)
 	{
-		MSGBOX_TEXTDATA *pMsg = new MSGBOX_TEXTDATA;
+		auto *pMsg = new MSGBOX_TEXTDATA;
 		pMsg->strMsg = strMsg;
 		pMsg->dwColor = dwColor;
 		pMsg->byFontType = byFontType;
@@ -250,7 +250,7 @@ int SEASON3B::CNewUITextInputMsgBox::SeparateText(const type_string& strMsg, DWO
 				strCutText = type_string(strRemainText, 0, prev_offset/* size */);
 				strRemainText = type_string(strRemainText, prev_offset, strRemainText.size()-prev_offset/* size */);
 
-				MSGBOX_TEXTDATA* pMsg = new MSGBOX_TEXTDATA;
+				auto* pMsg = new MSGBOX_TEXTDATA;
 				pMsg->strMsg = strCutText;
 				pMsg->dwColor = dwColor;
 				pMsg->byFontType = byFontType;
@@ -262,7 +262,7 @@ int SEASON3B::CNewUITextInputMsgBox::SeparateText(const type_string& strMsg, DWO
 
 				if(TextExtentWidth <= MSGBOX_TEXT_MAXWIDTH)
 				{
-					MSGBOX_TEXTDATA* pMsg = new MSGBOX_TEXTDATA;
+					auto* pMsg = new MSGBOX_TEXTDATA;
 					pMsg->strMsg = strRemainText;
 					pMsg->dwColor = dwColor;
 					pMsg->byFontType = byFontType;
@@ -360,7 +360,7 @@ void SEASON3B::CNewUITextInputMsgBox::RenderTexts()
 
 	float x, y;
 	x = GetPos().x; y = GetPos().y + MSGBOX_TEXT_TOP_BLANK;
-	type_vector_msgdata::iterator vi = m_MsgTextList.begin();
+	auto vi = m_MsgTextList.begin();
 	for(; vi != m_MsgTextList.end(); vi++)
 	{
 		g_pRenderText->SetTextColor((*vi)->dwColor);
@@ -531,7 +531,7 @@ void SEASON3B::CNewUIKeyPadMsgBox::Release()
 {
 	CNewUIMessageBoxBase::Release();
 
-	type_vector_msgdata::iterator vi = m_MsgTextList.begin();
+	auto vi = m_MsgTextList.begin();
 	for(; vi != m_MsgTextList.end(); vi++)
 	{
 		SAFE_DELETE(*vi);
@@ -541,7 +541,7 @@ void SEASON3B::CNewUIKeyPadMsgBox::Release()
 
 CALLBACK_RESULT SEASON3B::CNewUIKeyPadMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUIKeyPadMsgBox* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		for(int i=0; i<MAX_KEYPADINPUT; ++i)
@@ -580,7 +580,7 @@ CALLBACK_RESULT SEASON3B::CNewUIKeyPadMsgBox::LButtonUp(class CNewUIMessageBoxBa
 
 CALLBACK_RESULT SEASON3B::CNewUIKeyPadMsgBox::KeyPadBtnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUIKeyPadMsgBox* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
 
 	if(pMsgBox)
 	{
@@ -596,7 +596,7 @@ CALLBACK_RESULT SEASON3B::CNewUIKeyPadMsgBox::KeyPadBtnDown(class CNewUIMessageB
 
 CALLBACK_RESULT SEASON3B::CNewUIKeyPadMsgBox::DeleteBtnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUIKeyPadMsgBox* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
 
 	if(pMsgBox)
 	{
@@ -613,7 +613,7 @@ CALLBACK_RESULT SEASON3B::CNewUIKeyPadMsgBox::Close(class CNewUIMessageBoxBase* 
 
 void SEASON3B::CNewUIKeyPadMsgBox::AddMsg(const type_string& strMsg, DWORD dwColor, BYTE byFontType)
 {
-	MSGBOX_TEXTDATA *pMsg = new MSGBOX_TEXTDATA;
+	auto *pMsg = new MSGBOX_TEXTDATA;
 	pMsg->strMsg = strMsg;
 	pMsg->dwColor = dwColor;
 	pMsg->byFontType = byFontType;
@@ -821,7 +821,7 @@ void SEASON3B::CNewUIKeyPadMsgBox::RenderTexts()
 
 	float x, y;
 	x = GetPos().x; y = GetPos().y + 25;
-	type_vector_msgdata::iterator vi = m_MsgTextList.begin();
+	auto vi = m_MsgTextList.begin();
 	for(; vi != m_MsgTextList.end(); vi++)
 	{
 		g_pRenderText->SetTextColor((*vi)->dwColor);
@@ -940,7 +940,7 @@ void SEASON3B::CUseFruitCheckMsgBox::Release()
 	if(g_pNewUI3DRenderMng)
 		g_pNewUI3DRenderMng->Remove3DRenderObj(this);
 
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		SAFE_DELETE(*vi);
@@ -950,7 +950,7 @@ void SEASON3B::CUseFruitCheckMsgBox::Release()
 
 void SEASON3B::CUseFruitCheckMsgBox::AddMsg(const type_string& strMsg, DWORD dwColor, BYTE byFontType)
 {
-	MSGBOX_TEXTDATA *pMsg = new MSGBOX_TEXTDATA;
+	auto *pMsg = new MSGBOX_TEXTDATA;
 	pMsg->strMsg = strMsg;
 	pMsg->dwColor = dwColor;
 	pMsg->byFontType = byFontType;
@@ -1011,7 +1011,7 @@ bool SEASON3B::CUseFruitCheckMsgBox::IsVisible() const
 
 CALLBACK_RESULT SEASON3B::CUseFruitCheckMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CUseFruitCheckMsgBox* pMsgBox = dynamic_cast<CUseFruitCheckMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CUseFruitCheckMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnAdd.IsMouseIn() == true)
@@ -1126,7 +1126,7 @@ void SEASON3B::CUseFruitCheckMsgBox::RenderTexts()
 	float x, y;
 
 	x = GetPos().x + MSGBOX_TEXT_LEFT_BLANK_3DITEM; y = GetPos().y + MSGBOX_TEXT_TOP_BLANK;
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		g_pRenderText->SetTextColor((*vi)->dwColor);
@@ -1200,7 +1200,7 @@ void SEASON3B::CGemIntegrationMsgBox::Release()
 {
 	CNewUIMessageBoxBase::Release();
 
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		SAFE_DELETE(*vi);
@@ -1230,7 +1230,7 @@ bool SEASON3B::CGemIntegrationMsgBox::Render()
 
 void SEASON3B::CGemIntegrationMsgBox::AddMsg(const type_string& strMsg, DWORD dwColor, BYTE byFontType)
 {
-	MSGBOX_TEXTDATA *pMsg = new MSGBOX_TEXTDATA;
+	auto *pMsg = new MSGBOX_TEXTDATA;
 	pMsg->strMsg = strMsg;
 	pMsg->dwColor = dwColor;
 	pMsg->byFontType = byFontType;
@@ -1247,7 +1247,7 @@ void SEASON3B::CGemIntegrationMsgBox::SetAddCallbackFunc()
 
 CALLBACK_RESULT SEASON3B::CGemIntegrationMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CGemIntegrationMsgBox* pMsgBox = dynamic_cast<CGemIntegrationMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CGemIntegrationMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnUnity.IsMouseIn() == true)
@@ -1369,7 +1369,7 @@ void SEASON3B::CGemIntegrationMsgBox::RenderTexts()
 	float x, y;
 
 	x = GetPos().x; y = GetPos().y + (MSGBOX_TEXT_TOP_BLANK / 2);
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		g_pRenderText->SetTextColor((*vi)->dwColor);
@@ -1452,7 +1452,7 @@ void SEASON3B::CGemIntegrationUnityMsgBox::Release()
 {
 	CNewUIMessageBoxBase::Release();
 
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		SAFE_DELETE(*vi);
@@ -1496,7 +1496,7 @@ bool SEASON3B::CGemIntegrationUnityMsgBox::Render()
 
 void SEASON3B::CGemIntegrationUnityMsgBox::AddMsg(const type_string& strMsg, DWORD dwColor, BYTE byFontType)
 {
-	MSGBOX_TEXTDATA *pMsg = new MSGBOX_TEXTDATA;
+	auto *pMsg = new MSGBOX_TEXTDATA;
 	pMsg->strMsg = strMsg;
 	pMsg->dwColor = dwColor;
 	pMsg->byFontType = byFontType;
@@ -1606,7 +1606,7 @@ void SEASON3B::CGemIntegrationUnityMsgBox::RenderTexts()
 	float x, y;
 
 	x = GetPos().x; y = GetPos().y + (MSGBOX_TEXT_TOP_BLANK / 2);
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		g_pRenderText->SetTextColor((*vi)->dwColor);
@@ -1653,7 +1653,7 @@ void SEASON3B::CGemIntegrationUnityMsgBox::RenderButtons()
 
 CALLBACK_RESULT SEASON3B::CGemIntegrationUnityMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CGemIntegrationUnityMsgBox* pMsgBox = dynamic_cast<CGemIntegrationUnityMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CGemIntegrationUnityMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		int i;
@@ -1760,7 +1760,7 @@ CALLBACK_RESULT SEASON3B::CGemIntegrationUnityMsgBox::TenBtnDown(class CNewUIMes
 	}
 	else
 	{
-		CGemIntegrationUnityMsgBox* pMsgBox = dynamic_cast<CGemIntegrationUnityMsgBox*>(pOwner);
+		auto* pMsgBox = dynamic_cast<CGemIntegrationUnityMsgBox*>(pOwner);
 		if(pMsgBox)
 		{
 			pMsgBox->m_BtnTen.ClearEventState();
@@ -1800,7 +1800,7 @@ CALLBACK_RESULT SEASON3B::CGemIntegrationUnityMsgBox::TwentyBtnDown(class CNewUI
 	}
 	else
 	{
-		CGemIntegrationUnityMsgBox* pMsgBox = dynamic_cast<CGemIntegrationUnityMsgBox*>(pOwner);
+		auto* pMsgBox = dynamic_cast<CGemIntegrationUnityMsgBox*>(pOwner);
 		if(pMsgBox)
 		{
 			pMsgBox->m_BtnTwenty.ClearEventState();
@@ -1840,7 +1840,7 @@ CALLBACK_RESULT SEASON3B::CGemIntegrationUnityMsgBox::ThirtyBtnDown(class CNewUI
 	}
 	else
 	{
-		CGemIntegrationUnityMsgBox* pMsgBox = dynamic_cast<CGemIntegrationUnityMsgBox*>(pOwner);
+		auto* pMsgBox = dynamic_cast<CGemIntegrationUnityMsgBox*>(pOwner);
 		if(pMsgBox)
 		{
 			pMsgBox->m_BtnThirty.ClearEventState();
@@ -1898,7 +1898,7 @@ void SEASON3B::CGemIntegrationDisjointMsgBox::Release()
 {
 	CNewUIMessageBoxBase::Release();
 
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		SAFE_DELETE(*vi);
@@ -1967,7 +1967,7 @@ void SEASON3B::CGemIntegrationDisjointMsgBox::ChangeMiddleFrameBig()
 
 void SEASON3B::CGemIntegrationDisjointMsgBox::AddMsg(const type_string& strMsg, DWORD dwColor, BYTE byFontType)
 {
-	MSGBOX_TEXTDATA *pMsg = new MSGBOX_TEXTDATA;
+	auto *pMsg = new MSGBOX_TEXTDATA;
 	pMsg->strMsg = strMsg;
 	pMsg->dwColor = dwColor;
 	pMsg->byFontType = byFontType;
@@ -1985,7 +1985,7 @@ void SEASON3B::CGemIntegrationDisjointMsgBox::SetAddCallbackFunc()
 
 CALLBACK_RESULT SEASON3B::CGemIntegrationDisjointMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CGemIntegrationDisjointMsgBox* pMsgBox = dynamic_cast<CGemIntegrationDisjointMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CGemIntegrationDisjointMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnBlessing.IsMouseIn() == true)
@@ -2015,7 +2015,7 @@ CALLBACK_RESULT SEASON3B::CGemIntegrationDisjointMsgBox::LButtonUp(class CNewUIM
 
 CALLBACK_RESULT SEASON3B::CGemIntegrationDisjointMsgBox::BlessingBtnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CGemIntegrationDisjointMsgBox* pMsgBox = dynamic_cast<CGemIntegrationDisjointMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CGemIntegrationDisjointMsgBox*>(pOwner);
 	if(pMsgBox == false)
 	{
 		return CALLBACK_CONTINUE;
@@ -2042,7 +2042,7 @@ CALLBACK_RESULT SEASON3B::CGemIntegrationDisjointMsgBox::BlessingBtnDown(class C
 
 CALLBACK_RESULT SEASON3B::CGemIntegrationDisjointMsgBox::SoulBtnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CGemIntegrationDisjointMsgBox* pMsgBox = dynamic_cast<CGemIntegrationDisjointMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CGemIntegrationDisjointMsgBox*>(pOwner);
 	if(pMsgBox == false)
 	{
 		return CALLBACK_CONTINUE;
@@ -2161,7 +2161,7 @@ void SEASON3B::CGemIntegrationDisjointMsgBox::RenderTexts()
 	float x, y;
 
 	x = GetPos().x; y = GetPos().y + (MSGBOX_TEXT_TOP_BLANK / 2);
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		g_pRenderText->SetTextColor((*vi)->dwColor);
@@ -2340,7 +2340,7 @@ void SEASON3B::CSystemMenuMsgBox::SetButtonInfo()
 
 CALLBACK_RESULT SEASON3B::CSystemMenuMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CSystemMenuMsgBox* pMsgBox = dynamic_cast<CSystemMenuMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CSystemMenuMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnGameOver.IsMouseIn() == true)
@@ -2565,7 +2565,7 @@ void SEASON3B::CBloodCastleResultMsgBox::RenderFrame()
 
 CALLBACK_RESULT SEASON3B::CBloodCastleResultMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CBloodCastleResultMsgBox* pMsgBox = dynamic_cast<CBloodCastleResultMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CBloodCastleResultMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnOk.IsMouseIn() == true)
@@ -2643,7 +2643,7 @@ bool SEASON3B::CDevilSquareRankMsgBox::Render()
 
 CALLBACK_RESULT SEASON3B::CDevilSquareRankMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CDevilSquareRankMsgBox* pMsgBox = dynamic_cast<CDevilSquareRankMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CDevilSquareRankMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnOk.IsMouseIn() == true)
@@ -2768,7 +2768,7 @@ bool SEASON3B::CChaosCastleResultMsgBox::Render()
 
 CALLBACK_RESULT SEASON3B::CChaosCastleResultMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CChaosCastleResultMsgBox* pMsgBox = dynamic_cast<CChaosCastleResultMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CChaosCastleResultMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnOk.IsMouseIn() == true)
@@ -2868,7 +2868,7 @@ bool SEASON3B::CChaosMixMenuMsgBox::Render()
 
 CALLBACK_RESULT SEASON3B::CChaosMixMenuMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CChaosMixMenuMsgBox* pMsgBox = dynamic_cast<CChaosMixMenuMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CChaosMixMenuMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnGeneralMix.IsMouseIn() == true)
@@ -3070,7 +3070,7 @@ bool SEASON3B::CDialogMsgBox::Create(float fPriority)
 
 void SEASON3B::CDialogMsgBox::Release()
 {
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		SAFE_DELETE(*vi);
@@ -3101,7 +3101,7 @@ void SEASON3B::CDialogMsgBox::AddMsg(const type_string& strMsg, DWORD dwColor, B
 
 CALLBACK_RESULT SEASON3B::CDialogMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CDialogMsgBox* pMsgBox = dynamic_cast<CDialogMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CDialogMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnEnd.IsMouseIn() == true)
@@ -3159,7 +3159,7 @@ int SEASON3B::CDialogMsgBox::SeparateText(const type_string& strMsg, DWORD dwCol
 
 	if(TextExtentWidth <= MSGBOX_TEXT_MAXWIDTH)
 	{
-		MSGBOX_TEXTDATA *pMsg = new MSGBOX_TEXTDATA;
+		auto *pMsg = new MSGBOX_TEXTDATA;
 		pMsg->strMsg = strMsg;
 		pMsg->dwColor = dwColor;
 		pMsg->byFontType = byFontType;
@@ -3191,7 +3191,7 @@ int SEASON3B::CDialogMsgBox::SeparateText(const type_string& strMsg, DWORD dwCol
 				strCutText = type_string(strRemainText, 0, prev_offset/* size */);
 				strRemainText = type_string(strRemainText, prev_offset, strRemainText.size()-prev_offset/* size */);
 
-				MSGBOX_TEXTDATA* pMsg = new MSGBOX_TEXTDATA;
+				auto* pMsg = new MSGBOX_TEXTDATA;
 				pMsg->strMsg = strCutText;
 				pMsg->dwColor = dwColor;
 				pMsg->byFontType = byFontType;
@@ -3203,7 +3203,7 @@ int SEASON3B::CDialogMsgBox::SeparateText(const type_string& strMsg, DWORD dwCol
 
 				if(TextExtentWidth <= MSGBOX_TEXT_MAXWIDTH)
 				{
-					MSGBOX_TEXTDATA* pMsg = new MSGBOX_TEXTDATA;
+					auto* pMsg = new MSGBOX_TEXTDATA;
 					pMsg->strMsg = strRemainText;
 					pMsg->dwColor = dwColor;
 					pMsg->byFontType = byFontType;
@@ -3275,7 +3275,7 @@ void SEASON3B::CDialogMsgBox::RenderTexts()
 	float x, y;
 
 	x = GetPos().x; y = GetPos().y + MSGBOX_TEXT_TOP_BLANK;
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		g_pRenderText->SetTextColor((*vi)->dwColor);
@@ -3394,7 +3394,7 @@ int SEASON3B::CProgressMsgBox::SeparateText(const type_string& strMsg, DWORD dwC
 
 	if(TextExtentWidth <= MSGBOX_TEXT_MAXWIDTH)
 	{
-		MSGBOX_TEXTDATA *pMsg = new MSGBOX_TEXTDATA;
+		auto *pMsg = new MSGBOX_TEXTDATA;
 		pMsg->strMsg = strMsg;
 		pMsg->dwColor = dwColor;
 		pMsg->byFontType = byFontType;
@@ -3427,7 +3427,7 @@ int SEASON3B::CProgressMsgBox::SeparateText(const type_string& strMsg, DWORD dwC
 				strCutText = type_string(strRemainText, 0, prev_offset/* size */);
 				strRemainText = type_string(strRemainText, prev_offset, strRemainText.size()-prev_offset/* size */);
 
-				MSGBOX_TEXTDATA* pMsg = new MSGBOX_TEXTDATA;
+				auto* pMsg = new MSGBOX_TEXTDATA;
 				pMsg->strMsg = strCutText;
 				pMsg->dwColor = dwColor;
 				pMsg->byFontType = byFontType;
@@ -3439,7 +3439,7 @@ int SEASON3B::CProgressMsgBox::SeparateText(const type_string& strMsg, DWORD dwC
 
 				if(TextExtentWidth <= MSGBOX_TEXT_MAXWIDTH)
 				{
-					MSGBOX_TEXTDATA* pMsg = new MSGBOX_TEXTDATA;
+					auto* pMsg = new MSGBOX_TEXTDATA;
 					pMsg->strMsg = strRemainText;
 					pMsg->dwColor = dwColor;
 					pMsg->byFontType = byFontType;
@@ -3519,7 +3519,7 @@ void SEASON3B::CProgressMsgBox::RenderTexts()
 	float x, y;
 
 	x = GetPos().x; y = GetPos().y + MSGBOX_TEXT_TOP_BLANK;
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		g_pRenderText->SetTextColor((*vi)->dwColor);
@@ -3647,7 +3647,7 @@ int SEASON3B::CCursedTempleProgressMsgBox::SeparateText(const type_string& strMs
 
 	if(TextExtentWidth <= MSGBOX_TEXT_MAXWIDTH)
 	{
-		MSGBOX_TEXTDATA *pMsg = new MSGBOX_TEXTDATA;
+		auto *pMsg = new MSGBOX_TEXTDATA;
 		pMsg->strMsg = strMsg;
 		pMsg->dwColor = dwColor;
 		pMsg->byFontType = byFontType;
@@ -3680,7 +3680,7 @@ int SEASON3B::CCursedTempleProgressMsgBox::SeparateText(const type_string& strMs
 				strCutText = type_string(strRemainText, 0, prev_offset/* size */);
 				strRemainText = type_string(strRemainText, prev_offset, strRemainText.size()-prev_offset/* size */);
 
-				MSGBOX_TEXTDATA* pMsg = new MSGBOX_TEXTDATA;
+				auto* pMsg = new MSGBOX_TEXTDATA;
 				pMsg->strMsg = strCutText;
 				pMsg->dwColor = dwColor;
 				pMsg->byFontType = byFontType;
@@ -3692,7 +3692,7 @@ int SEASON3B::CCursedTempleProgressMsgBox::SeparateText(const type_string& strMs
 
 				if(TextExtentWidth <= MSGBOX_TEXT_MAXWIDTH)
 				{
-					MSGBOX_TEXTDATA* pMsg = new MSGBOX_TEXTDATA;
+					auto* pMsg = new MSGBOX_TEXTDATA;
 					pMsg->strMsg = strRemainText;
 					pMsg->dwColor = dwColor;
 					pMsg->byFontType = byFontType;
@@ -3749,7 +3749,7 @@ CALLBACK_RESULT SEASON3B::CCursedTempleProgressMsgBox::ClosingProcess(class CNew
 
 CALLBACK_RESULT SEASON3B::CCursedTempleProgressMsgBox::CompleteProcess(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CCursedTempleProgressMsgBox* pMsgBox = dynamic_cast<CCursedTempleProgressMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CCursedTempleProgressMsgBox*>(pOwner);
 	if(pMsgBox == NULL)
 	{
 		return CALLBACK_CONTINUE;
@@ -3806,7 +3806,7 @@ void SEASON3B::CCursedTempleProgressMsgBox::RenderTexts()
 	float x, y;
 
 	x = GetPos().x; y = GetPos().y + MSGBOX_TEXT_TOP_BLANK;
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		g_pRenderText->SetTextColor((*vi)->dwColor);
@@ -4014,7 +4014,7 @@ void SEASON3B::CDuelMsgBox::RenderButton()
 
 CALLBACK_RESULT SEASON3B::CDuelMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CDuelMsgBox* pMsgBox = dynamic_cast<CDuelMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CDuelMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnOk.IsMouseIn() == true)
@@ -4174,7 +4174,7 @@ void SEASON3B::CDuelResultMsgBox::RenderButton()
 
 CALLBACK_RESULT SEASON3B::CDuelResultMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CDuelResultMsgBox* pMsgBox = dynamic_cast<CDuelResultMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CDuelResultMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnOk.IsMouseIn() == true)
@@ -4261,7 +4261,7 @@ bool CCherryBlossomMsgBox::Render()
 
 CALLBACK_RESULT CCherryBlossomMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CCherryBlossomMsgBox* pMsgBox = dynamic_cast<CCherryBlossomMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CCherryBlossomMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnWhiteCB.IsMouseIn() == true)
@@ -4439,7 +4439,7 @@ bool SEASON3B::CTradeZenMsgBoxLayout::SetLayout()
 
 CALLBACK_RESULT SEASON3B::CTradeZenMsgBoxLayout::ProcessOk(class CNewUIMessageBoxBase* pOwner)
 {
-	CNewUITextInputMsgBox* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
 	unicode::t_char strText[MAX_TEXT_LENGTH] = { 0, };
 	pMsgBox->GetInputBoxText(strText);
 	if (unicode::_strlen(strText) == 0)
@@ -4505,7 +4505,7 @@ CALLBACK_RESULT SEASON3B::CZenReceiptMsgBoxLayout::OkBtnDown(class CNewUIMessage
 
 CALLBACK_RESULT SEASON3B::CZenReceiptMsgBoxLayout::ProcessOk(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUITextInputMsgBox* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
 	unicode::t_char strText[MAX_TEXT_LENGTH] = { 0, };
 	pMsgBox->GetInputBoxText(strText);
 	if(unicode::_strlen(strText) == 0)
@@ -4572,7 +4572,7 @@ CALLBACK_RESULT SEASON3B::CZenPaymentMsgBoxLayout::OkBtnDown(class CNewUIMessage
 
 CALLBACK_RESULT SEASON3B::CZenPaymentMsgBoxLayout::ProcessOk(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUITextInputMsgBox* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
 	unicode::t_char strText[MAX_TEXT_LENGTH] = { 0, };
 	pMsgBox->GetInputBoxText(strText);
 	if(unicode::_strlen(strText) == 0)
@@ -4643,7 +4643,7 @@ bool SEASON3B::CPersonalShopItemValueMsgBoxLayout::SetLayout()
 
 CALLBACK_RESULT SEASON3B::CPersonalShopItemValueMsgBoxLayout::ProcessOk(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUITextInputMsgBox* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
 
 	unicode::t_char strText[MAX_TEXT_LENGTH] = { 0, };
 
@@ -4789,7 +4789,7 @@ bool SEASON3B::CPersonalShopNameMsgBoxLayout::SetLayout()
 
 CALLBACK_RESULT SEASON3B::CPersonalShopNameMsgBoxLayout::ProcessOk(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUITextInputMsgBox* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
 	unicode::t_char strText[MAX_TEXT_LENGTH] = { 0, };
 	pMsgBox->GetInputBoxText(strText);
 	if(unicode::_strlen(strText) == 0)
@@ -4853,7 +4853,7 @@ bool SEASON3B::CCastleWithdrawMsgBoxLayout::SetLayout()
 
 CALLBACK_RESULT SEASON3B::CCastleWithdrawMsgBoxLayout::ReturnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUITextInputMsgBox* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
 	unicode::t_char strText[MAX_TEXT_LENGTH] = { 0, };
 	pMsgBox->GetInputBoxText(strText);
 	if(unicode::_strlen(strText) == 0)
@@ -4877,7 +4877,7 @@ CALLBACK_RESULT SEASON3B::CCastleWithdrawMsgBoxLayout::ReturnDown(class CNewUIMe
 
 CALLBACK_RESULT SEASON3B::CCastleWithdrawMsgBoxLayout::OkBtnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUITextInputMsgBox* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
 	unicode::t_char strText[MAX_TEXT_LENGTH] = { 0, };
 	pMsgBox->GetInputBoxText(strText);
 	if(unicode::_strlen(strText) == 0)
@@ -4926,7 +4926,7 @@ bool SEASON3B::CPasswordKeyPadMsgBoxLayout::SetLayout()
 
 CALLBACK_RESULT SEASON3B::CPasswordKeyPadMsgBoxLayout::OkBtnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUIKeyPadMsgBox* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
 
 	if(pMsgBox == false)
 	{
@@ -4982,7 +4982,7 @@ bool SEASON3B::CStorageLockKeyPadMsgBoxLayout::SetLayout()
 
 CALLBACK_RESULT SEASON3B::CStorageLockKeyPadMsgBoxLayout::OkBtnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUIKeyPadMsgBox* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
 
 	if(pMsgBox == false)
 	{
@@ -5040,7 +5040,7 @@ bool SEASON3B::CStorageLockCheckKeyPadMsgBoxLayout::SetLayout()
 
 CALLBACK_RESULT SEASON3B::CStorageLockCheckKeyPadMsgBoxLayout::OkBtnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUIKeyPadMsgBox* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
 
 	if(pMsgBox == false)
 	{
@@ -5126,7 +5126,7 @@ CALLBACK_RESULT SEASON3B::CStorageLockMsgBoxLayout::ReturnDown(class CNewUIMessa
 
 CALLBACK_RESULT SEASON3B::CStorageLockMsgBoxLayout::ProcessOk(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUITextInputMsgBox* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
 
 	if(pMsgBox == false)
 	{
@@ -5180,7 +5180,7 @@ bool SEASON3B::CStorageLockFinalKeyPadMsgBoxLayout::SetLayout()
 
 CALLBACK_RESULT SEASON3B::CStorageLockFinalKeyPadMsgBoxLayout::OkBtnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUIKeyPadMsgBox* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
 
 	if(pMsgBox == false)
 	{
@@ -5235,7 +5235,7 @@ bool SEASON3B::CStorageUnlockMsgBoxLayout::SetLayout()
 
 CALLBACK_RESULT SEASON3B::CStorageUnlockMsgBoxLayout::OkBtnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUITextInputMsgBox* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
 
 	if(pMsgBox == false)
 	{
@@ -5291,7 +5291,7 @@ bool SEASON3B::CStorageUnlockKeyPadMsgBoxLayout::SetLayout()
 
 CALLBACK_RESULT SEASON3B::CStorageUnlockKeyPadMsgBoxLayout::OkBtnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUIKeyPadMsgBox* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUIKeyPadMsgBox*>(pOwner);
 
 	if(pMsgBox == false)
 	{
@@ -5982,7 +5982,7 @@ bool SEASON3B::CTrainerMenuMsgBox::Render()
 
 CALLBACK_RESULT SEASON3B::CTrainerMenuMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CTrainerMenuMsgBox* pMsgBox = dynamic_cast<CTrainerMenuMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CTrainerMenuMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnRecover.IsMouseIn() == true)
@@ -6172,7 +6172,7 @@ bool SEASON3B::CTrainerRecoverMsgBox::Render()
 
 CALLBACK_RESULT SEASON3B::CTrainerRecoverMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CTrainerRecoverMsgBox* pMsgBox = dynamic_cast<CTrainerRecoverMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CTrainerRecoverMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnRecoverDarkSpirit.IsMouseIn() == true)
@@ -6371,7 +6371,7 @@ bool SEASON3B::CElpisMsgBox::Render()
 
 CALLBACK_RESULT SEASON3B::CElpisMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CElpisMsgBox* pMsgBox = dynamic_cast<CElpisMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CElpisMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnAboutRefinary.IsMouseIn() == true)
@@ -6401,7 +6401,7 @@ CALLBACK_RESULT SEASON3B::CElpisMsgBox::LButtonUp(class CNewUIMessageBoxBase* pO
 
 CALLBACK_RESULT SEASON3B::CElpisMsgBox::AboutRefinaryBtnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CElpisMsgBox* pMsgBox = dynamic_cast<CElpisMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CElpisMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		pMsgBox->SetMessageType(MSGBOX_EVENT_USER_CUSTOM_ELPIS_ABOUT_REFINARY);
@@ -6414,7 +6414,7 @@ CALLBACK_RESULT SEASON3B::CElpisMsgBox::AboutRefinaryBtnDown(class CNewUIMessage
 
 CALLBACK_RESULT SEASON3B::CElpisMsgBox::AboutJewelOfHarmonyBtnDown(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CElpisMsgBox* pMsgBox = dynamic_cast<CElpisMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CElpisMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		pMsgBox->SetMessageType(MSGBOX_EVENT_USER_CUSTOM_ELPIS_ABOUT_JEWELOFHARMONY);
@@ -6617,7 +6617,7 @@ bool SEASON3B::CSeedMasterMenuMsgBox::Render()
 
 CALLBACK_RESULT SEASON3B::CSeedMasterMenuMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CSeedMasterMenuMsgBox* pMsgBox = dynamic_cast<CSeedMasterMenuMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CSeedMasterMenuMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnExtractSeed.IsMouseIn() == true)
@@ -6808,7 +6808,7 @@ bool SEASON3B::CSeedInvestigatorMenuMsgBox::Render()
 
 CALLBACK_RESULT SEASON3B::CSeedInvestigatorMenuMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CSeedInvestigatorMenuMsgBox* pMsgBox = dynamic_cast<CSeedInvestigatorMenuMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CSeedInvestigatorMenuMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnAttachSocket.IsMouseIn() == true)
@@ -7010,7 +7010,7 @@ void SEASON3B::CResetCharacterPointMsgBox::SetAddCallbackFunc()
 
 CALLBACK_RESULT SEASON3B::CResetCharacterPointMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CResetCharacterPointMsgBox* pMsgBox = dynamic_cast<CResetCharacterPointMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CResetCharacterPointMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_ResetCharacterPointBtn.IsMouseIn() == true)
@@ -7163,7 +7163,7 @@ CALLBACK_RESULT SEASON3B::CGuildBreakPasswordMsgBoxLayout::ReturnDown(class CNew
 
 CALLBACK_RESULT SEASON3B::CGuildBreakPasswordMsgBoxLayout::ProcessOk(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CNewUITextInputMsgBox* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CNewUITextInputMsgBox*>(pOwner);
 
 	if(pMsgBox == false)
 	{
@@ -7232,7 +7232,7 @@ void SEASON3B::CGuild_ToPerson_Position::Release()
 {
 	CNewUIMessageBoxBase::Release();
 
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		SAFE_DELETE(*vi);
@@ -7263,7 +7263,7 @@ bool SEASON3B::CGuild_ToPerson_Position::Render()
 
 void SEASON3B::CGuild_ToPerson_Position::AddMsg(const type_string& strMsg, DWORD dwColor, BYTE byFontType)
 {
-	MSGBOX_TEXTDATA *pMsg = new MSGBOX_TEXTDATA;
+	auto* pMsg = new MSGBOX_TEXTDATA;
 	pMsg->strMsg = strMsg;
 	pMsg->dwColor = dwColor;
 	pMsg->byFontType = byFontType;
@@ -7350,7 +7350,7 @@ void SEASON3B::CGuild_ToPerson_Position::RenderTexts()
 
 	x = GetPos().x; y = (GetPos().y + (MSGBOX_TEXT_TOP_BLANK / 2)) + 80;
 	
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		g_pRenderText->SetTextColor((*vi)->dwColor);
@@ -7380,7 +7380,7 @@ void SEASON3B::CGuild_ToPerson_Position::RenderTexts()
 
 void SEASON3B::CGuild_ToPerson_Position::RenderButtons()
 {
-	type_vector_msgdata::iterator vi = m_MsgDataList.begin();
+	auto vi = m_MsgDataList.begin();
 	for(; vi != m_MsgDataList.end(); vi++)
 	{
 		SAFE_DELETE(*vi);
@@ -7423,7 +7423,7 @@ void SEASON3B::CGuild_ToPerson_Position::RenderButtons()
 
 CALLBACK_RESULT SEASON3B::CGuild_ToPerson_Position::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CGuild_ToPerson_Position* pMsgBox = dynamic_cast<CGuild_ToPerson_Position*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CGuild_ToPerson_Position*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnBlessing.IsMouseIn() == true)
@@ -7561,7 +7561,7 @@ bool SEASON3B::CDelgardoMainMenuMsgBox::Render()
 
 CALLBACK_RESULT SEASON3B::CDelgardoMainMenuMsgBox::LButtonUp(class CNewUIMessageBoxBase* pOwner, const leaf::xstreambuf& xParam)
 {
-	CDelgardoMainMenuMsgBox* pMsgBox = dynamic_cast<CDelgardoMainMenuMsgBox*>(pOwner);
+	auto* pMsgBox = dynamic_cast<CDelgardoMainMenuMsgBox*>(pOwner);
 	if(pMsgBox)
 	{
 		if(pMsgBox->m_BtnReg.IsMouseIn() == true)

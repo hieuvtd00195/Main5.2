@@ -281,7 +281,7 @@ void SEASON3B::CNewUIButton::ChangeButtonState( BUTTON_STATE eventstate, int iBu
 {
 	if( m_ButtonInfo.size() != 0 )
 	{
-		ButtonStateMap::iterator iter = m_ButtonInfo.find(static_cast<int>(eventstate));
+		auto iter = m_ButtonInfo.find(static_cast<int>(eventstate));
 		
 		if( iter != m_ButtonInfo.end() )
 		{
@@ -332,7 +332,7 @@ void SEASON3B::CNewUIButton::ChangeImgColor( BUTTON_STATE eventstate, unsigned i
 {
 	if( m_ButtonInfo.size() != 0 )
 	{
-		ButtonStateMap::iterator iter = m_ButtonInfo.find(static_cast<int>(eventstate));
+		auto iter = m_ButtonInfo.find(static_cast<int>(eventstate));
 
 		if( iter != m_ButtonInfo.end() )
 		{
@@ -350,7 +350,7 @@ void SEASON3B::CNewUIButton::ChangeFrame()
 {
 	if( m_ButtonInfo.size() != 0 )
 	{
-		ButtonStateMap::iterator iter = m_ButtonInfo.find(static_cast<int>(GetBTState()));
+		auto iter = m_ButtonInfo.find(static_cast<int>(GetBTState()));
 
 		if( iter != m_ButtonInfo.end() )
 		{
@@ -570,7 +570,7 @@ void CNewUIRadioButton::ChangeImgColor( BUTTON_STATE eventstate, unsigned int co
 {
 	if( m_RadioButtonInfo.size() != 0 )
 	{
-		ButtonStateMap::iterator iter = m_RadioButtonInfo.find(static_cast<int>(eventstate));
+		auto iter = m_RadioButtonInfo.find(static_cast<int>(eventstate));
 
 		if( iter != m_RadioButtonInfo.end() )
 		{
@@ -608,7 +608,7 @@ void CNewUIRadioButton::ChangeFrame( BUTTON_STATE eventstate )
 
 	if( m_RadioButtonInfo.size() != 0 )
 	{
-		ButtonStateMap::iterator iter = m_RadioButtonInfo.find(static_cast<int>(GetBTState()));
+		auto iter = m_RadioButtonInfo.find(static_cast<int>(GetBTState()));
 
 		if( iter != m_RadioButtonInfo.end() )
 		{
@@ -633,7 +633,7 @@ void CNewUIRadioButton::ChangeFrame()
 {
 	if( m_RadioButtonInfo.size() != 0 )
 	{
-		ButtonStateMap::iterator iter = m_RadioButtonInfo.find(static_cast<int>(GetBTState()));
+		auto iter = m_RadioButtonInfo.find(static_cast<int>(GetBTState()));
 
 		if( iter != m_RadioButtonInfo.end() )
 		{
@@ -659,7 +659,7 @@ void CNewUIRadioButton::ChangeButtonState( int iImgIndex, BUTTON_STATE eventstat
 {
 	if( m_RadioButtonInfo.size() != 0 )
 	{
-		ButtonStateMap::iterator iter = m_RadioButtonInfo.find(static_cast<int>(eventstate));
+		auto iter = m_RadioButtonInfo.find(static_cast<int>(eventstate));
 		
 		if( iter != m_RadioButtonInfo.end() )
 		{
@@ -674,7 +674,7 @@ void CNewUIRadioButton::ChangeButtonState(BUTTON_STATE eventstate, int iButtonSt
 {
 	if( m_RadioButtonInfo.size() != 0 )
 	{
-		ButtonStateMap::iterator iter = m_RadioButtonInfo.find(static_cast<int>(eventstate));
+		auto iter = m_RadioButtonInfo.find(static_cast<int>(eventstate));
 		
 		if( iter != m_RadioButtonInfo.end() )
 		{
@@ -808,7 +808,7 @@ void CNewUIRadioGroupButton::CreateRadioGroup(int radiocount, int imgindex, bool
 {
 	for( int i = 0; i < radiocount; ++i )
 	{
-		CNewUIRadioButton* button = new CNewUIRadioButton();
+		auto* button = new CNewUIRadioButton();
 
 		button->ChangeRadioButtonImgState(imgindex, bMouseOnImage, bLockImage, bClickEffect);
 		button->ChangeRadioButtonInfo(0,0,0,0);
@@ -862,9 +862,9 @@ void CNewUIRadioGroupButton::ChangeRadioButtonInfo(bool iswidth, int x, int y, i
 	
 	m_iButtonDistance = iDistance;
 	
-	for( RadioButtonList::iterator iter = m_RadioList.begin(); iter != m_RadioList.end(); )
+	for( auto iter = m_RadioList.begin(); iter != m_RadioList.end(); )
 	{
-		RadioButtonList::iterator curiter = iter;
+		auto curiter = iter;
 		++iter;
 		CNewUIRadioButton* button = (*curiter);
 		
@@ -882,9 +882,9 @@ void CNewUIRadioGroupButton::ChangeRadioButtonInfo(bool iswidth, int x, int y, i
 void CNewUIRadioGroupButton::ChangeButtonState( BUTTON_STATE eventstate, int iButtonState )
 {
 	int i = 0;
-	for( RadioButtonList::iterator iter = m_RadioList.begin(); iter != m_RadioList.end(); )
+	for(auto iter = m_RadioList.begin(); iter != m_RadioList.end(); )
 	{
-		RadioButtonList::iterator curiter = iter;
+		auto curiter = iter;
 		++iter;
 		CNewUIRadioButton* button = (*curiter);
 	
@@ -897,9 +897,9 @@ void CNewUIRadioGroupButton::ChangeButtonState( BUTTON_STATE eventstate, int iBu
 void CNewUIRadioGroupButton::ChangeButtonState(int iBtnIndex, int iImgIndex, BUTTON_STATE eventstate, int iButtonState)
 {
 	int i = 0;
-	for( RadioButtonList::iterator iter = m_RadioList.begin(); iter != m_RadioList.end(); )
+	for(auto iter = m_RadioList.begin(); iter != m_RadioList.end(); )
 	{
-		RadioButtonList::iterator curiter = iter;
+		auto curiter = iter;
 		++iter;
 		CNewUIRadioButton* button = (*curiter);
 
@@ -938,15 +938,15 @@ void CNewUIRadioGroupButton::ChangeRadioButtonInfo( bool iswidth, int x, int y, 
 
 void CNewUIRadioGroupButton::ChangeRadioText(std::list<unicode::t_string>& textlist )
 {
-	std::list<unicode::t_string>::iterator textiter = textlist.begin();
+	auto textiter = textlist.begin();
 
-	for( RadioButtonList::iterator iter = m_RadioList.begin(); iter != m_RadioList.end(); )
+	for(auto iter = m_RadioList.begin(); iter != m_RadioList.end(); )
 	{
-		RadioButtonList::iterator curiter = iter;
+		auto curiter = iter;
 		++iter;
 		CNewUIRadioButton* button = (*curiter);
 
-		std::list<unicode::t_string>::iterator curtextiter = textiter;
+		auto curtextiter = textiter;
 		++textiter;
 		unicode::t_string text = (*curtextiter);
 
@@ -959,9 +959,9 @@ void CNewUIRadioGroupButton::ChangeRadioText(std::list<unicode::t_string>& textl
 void CNewUIRadioGroupButton::ChangeFrame( int buttonIndex )
 {
 	int i = 0;
-	for( RadioButtonList::iterator iter = m_RadioList.begin(); iter != m_RadioList.end(); )
+	for(auto iter = m_RadioList.begin(); iter != m_RadioList.end(); )
 	{
-		RadioButtonList::iterator curiter = iter;
+		auto curiter = iter;
 		++iter;
 		CNewUIRadioButton* button = (*curiter);
 	
@@ -982,9 +982,9 @@ void CNewUIRadioGroupButton::ChangeFrame( int buttonIndex )
 void CNewUIRadioGroupButton::LockButtonindex( int buttonIndex )
 {
 	int i = 0;
-	for( RadioButtonList::iterator iter = m_RadioList.begin(); iter != m_RadioList.end(); )
+	for(auto iter = m_RadioList.begin(); iter != m_RadioList.end(); )
 	{
-		RadioButtonList::iterator curiter = iter;
+		auto curiter = iter;
 		++iter;
 		CNewUIRadioButton* button = (*curiter);
 
@@ -1026,9 +1026,9 @@ void CNewUIRadioGroupButton::RegisterRadioButton( CNewUIRadioButton* button )
 
 void CNewUIRadioGroupButton::UnRegisterRadioButton()
 {
-	for( RadioButtonList::reverse_iterator iter = m_RadioList.rbegin(); iter != m_RadioList.rend(); )
+	for(auto iter = m_RadioList.rbegin(); iter != m_RadioList.rend(); )
 	{
-		RadioButtonList::reverse_iterator curiter = iter;
+		auto curiter = iter;
 		++iter;
 		CNewUIRadioButton* button = (*curiter);
 
@@ -1042,9 +1042,9 @@ int CNewUIRadioGroupButton::UpdateMouseEvent()
 {
 	int i = 0;
 	
-	for( RadioButtonList::iterator iter = m_RadioList.begin(); iter != m_RadioList.end(); )
+	for(auto iter = m_RadioList.begin(); iter != m_RadioList.end(); )
 	{
-		RadioButtonList::iterator curiter = iter;
+		auto curiter = iter;
 		++iter;
 		CNewUIRadioButton* button = (*curiter);
 
@@ -1063,9 +1063,9 @@ int CNewUIRadioGroupButton::UpdateMouseEvent()
 #ifdef KJH_ADD_INGAMESHOP_UI_SYSTEM
 void CNewUIRadioGroupButton::SetFont( HFONT hFont )
 {
-	for( RadioButtonList::iterator iter = m_RadioList.begin(); iter != m_RadioList.end(); )
+	for(auto iter = m_RadioList.begin(); iter != m_RadioList.end(); )
 	{
-		RadioButtonList::iterator curiter = iter;
+		auto curiter = iter;
 		++iter;
 		CNewUIRadioButton* button = (*curiter);
 
@@ -1076,9 +1076,9 @@ void CNewUIRadioGroupButton::SetFont( HFONT hFont )
 void CNewUIRadioGroupButton::SetFont(HFONT hFont, int iButtonIndex )
 {
 	int i = 0;
-	for( RadioButtonList::iterator iter = m_RadioList.begin(); iter != m_RadioList.end(); )
+	for(auto iter = m_RadioList.begin(); iter != m_RadioList.end(); )
 	{
-		RadioButtonList::iterator curiter = iter;
+		auto curiter = iter;
 		++iter;
 		CNewUIRadioButton* button = (*curiter);
 
@@ -1095,9 +1095,9 @@ void CNewUIRadioGroupButton::SetFont(HFONT hFont, int iButtonIndex )
 POINT CNewUIRadioGroupButton::GetPos(int iButtonIndex)
 {
 	int i = 0;
-	for( RadioButtonList::iterator iter = m_RadioList.begin(); iter != m_RadioList.end(); )
+	for(auto iter = m_RadioList.begin(); iter != m_RadioList.end(); )
 	{
-		RadioButtonList::iterator curiter = iter;
+		auto curiter = iter;
 		++iter;
 		CNewUIRadioButton* button = (*curiter);
 		
@@ -1119,9 +1119,9 @@ POINT CNewUIRadioGroupButton::GetPos(int iButtonIndex)
 
 bool CNewUIRadioGroupButton::Render()
 {
-	for( RadioButtonList::iterator iter = m_RadioList.begin(); iter != m_RadioList.end(); )
+	for(auto iter = m_RadioList.begin(); iter != m_RadioList.end(); )
 	{
-		RadioButtonList::iterator curiter = iter;
+		auto curiter = iter;
 		++iter;
 		CNewUIRadioButton* button = (*curiter);
 

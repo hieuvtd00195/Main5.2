@@ -2802,7 +2802,7 @@ void DeleteCloth( CHARACTER *c, OBJECT *o, PART_t *p2)
 {
 	if ( o && o->m_pCloth)
 	{
-		CPhysicsCloth *pCloth = ( CPhysicsCloth*)o->m_pCloth;
+		auto *pCloth = ( CPhysicsCloth*)o->m_pCloth;
 		for ( int i = 0; i < o->m_byNumCloth; ++i)
 		{
 			pCloth[i].Destroy();
@@ -2821,7 +2821,7 @@ void DeleteCloth( CHARACTER *c, OBJECT *o, PART_t *p2)
 			{
 				for ( int i = 0; i < p->m_byNumCloth; ++i)
 				{
-					CPhysicsCloth *pCloth = ( CPhysicsCloth*)p->m_pCloth[i];
+					auto *pCloth = ( CPhysicsCloth*)p->m_pCloth[i];
 					pCloth->Destroy();
 					delete pCloth;
 					p->m_pCloth[i] = NULL;
@@ -2836,7 +2836,7 @@ void DeleteCloth( CHARACTER *c, OBJECT *o, PART_t *p2)
 		{
 			for ( int i = 0; i < p2->m_byNumCloth; ++i)
 			{
-				CPhysicsCloth *pCloth = ( CPhysicsCloth*)p2->m_pCloth[i];
+				auto *pCloth = ( CPhysicsCloth*)p2->m_pCloth[i];
 				pCloth->Destroy();
 				delete pCloth;
 				p2->m_pCloth[i] = NULL;
@@ -6034,7 +6034,7 @@ void MoveCharacterVisual(CHARACTER *c,OBJECT *o)
 float CharacterMoveSpeed(CHARACTER *c)
 {
 	OBJECT *o = &c->Object;
-	float Speed = (float)c->MoveSpeed;
+	auto Speed = (float)c->MoveSpeed;
 	if ( o->Type==MODEL_PLAYER && o->Kind==KIND_PLAYER )
 	{
 		bool isholyitem = false;
@@ -7115,7 +7115,7 @@ void RenderLinkObject(float x,float y,float z,CHARACTER *c,PART_t *f,int Type,in
             Vector ( 0.f, 0.f, 0.f, p );
             Vector ( Luminosity*0.f, Luminosity*0.5f, Luminosity*1.f, Light );
 
-            float Rotation = (float)( rand()%360 );
+            auto Rotation = (float)( rand()%360 );
             b->TransformPosition(BoneTransform[5],p,Position,true);
             Vector ( Luminosity*0.f, Luminosity*0.5f, Luminosity*1.f, Light );
             CreateSprite(BITMAP_LIGHT,Position,1.f,Light,o);
@@ -7140,7 +7140,7 @@ void RenderLinkObject(float x,float y,float z,CHARACTER *c,PART_t *f,int Type,in
         break;
     case MODEL_MACE+12:
         {
-            float Rotation = (float)( rand()%360 );
+            auto Rotation = (float)( rand()%360 );
             Luminosity = (float)sinf((WorldTime)*0.002f)*0.3f+0.7f;
             
             Vector ( 0.f, 0.f, 0.f, p );
@@ -8123,14 +8123,14 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
 
 			if ( !c->Object.m_pCloth)
 			{
-				CPhysicsClothMesh *pCloth = new CPhysicsClothMesh [1];
+				auto *pCloth = new CPhysicsClothMesh [1];
 				pCloth[0].Create( &( c->Object), 2, 18, PCT_HEAVY);
 				pCloth[0].AddCollisionSphere( 0.0f, 0.0f, 0.0f, 50.0f, 18);
 				pCloth[0].AddCollisionSphere( 0.0f, -20.0f, 0.0f, 30.0f, 18);
 				c->Object.m_pCloth = ( void*)pCloth;
 				c->Object.m_byNumCloth = 1;
 			}
-			CPhysicsCloth *pCloth = ( CPhysicsCloth*)c->Object.m_pCloth;
+			auto *pCloth = ( CPhysicsCloth*)c->Object.m_pCloth;
 
 			if ( pCloth)
 			{
@@ -8396,12 +8396,12 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
 		if ( !c->Object.m_pCloth)
 		{
 			int iTex = ( c->MonsterIndex==71) ? BITMAP_ROBE+3 : BITMAP_ROBE+5;
-			CPhysicsCloth *pCloth = new CPhysicsCloth [1];
+			auto *pCloth = new CPhysicsCloth [1];
 			pCloth[0].Create( &( c->Object), 19, 0.0f, 10.0f, 0.0f, 5, 15, 30.0f, 300.0f, iTex, iTex, PCT_RUBBER | PCT_MASK_ALPHA);
 			c->Object.m_pCloth = ( void*)pCloth;
 			c->Object.m_byNumCloth = 1;
 		}
-		CPhysicsCloth *pCloth = ( CPhysicsCloth*)c->Object.m_pCloth;
+		auto *pCloth = ( CPhysicsCloth*)c->Object.m_pCloth;
 		if ( !pCloth[0].Move2( 0.005f, 5))
 		{
 			DeleteCloth( c, o);
@@ -8476,13 +8476,13 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
 
 		if ( !c->Object.m_pCloth)
 		{
-			CPhysicsCloth *pCloth = new CPhysicsCloth [1];
+			auto *pCloth = new CPhysicsCloth [1];
 			pCloth[0].Create( o, 10, 0.0f, -10.0f, 0.0f, 5, 12, 15.0f, 240.0f, BITMAP_PHO_R_HAIR, BITMAP_PHO_R_HAIR, PCT_RUBBER | PCT_MASK_ALPHA);
 			pCloth[0].AddCollisionSphere( 0.0f, 0.0f, 40.0f, 30.0f, 10);
 			o->m_pCloth = ( void*)pCloth;
 			o->m_byNumCloth = 1;
 		}
-		CPhysicsCloth *pCloth = ( CPhysicsCloth*)c->Object.m_pCloth;
+		auto *pCloth = ( CPhysicsCloth*)c->Object.m_pCloth;
 		if ( !pCloth[0].Move2( 0.005f, 5))
 		{
 			DeleteCloth( c, o);
@@ -8705,7 +8705,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
 
 			if( rand()%3 == 0 ){
 
-				float randpos = (float)(rand()%30+5);
+				auto randpos = (float)(rand()%30+5);
 
 				if(rand()%2 == 0){
 					vtaWorldPos[0] += randpos;
@@ -8949,7 +8949,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
 			if(c->m_pTempParts == NULL)
 			{
 				c->m_pTempParts = (CSIPartsMDL*)new CSParts(MODEL_XMAS_EVENT_EARRING, 20);
-				CSIPartsMDL* pParts = (CSIPartsMDL*) c->m_pTempParts;
+				auto* pParts = (CSIPartsMDL*) c->m_pTempParts;
 				OBJECT* pObj = pParts->GetObject();
 				pObj->Velocity = 0.25f;
 				pObj->Owner = &c->Object;
@@ -8991,7 +8991,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
 		if(c->m_pTempParts == NULL)
 		{
 			c->m_pTempParts = (CSIPartsMDL*)new CSParts(MODEL_XMAS_EVENT_EARRING, 20);
-			CSIPartsMDL* pParts = (CSIPartsMDL*) c->m_pTempParts;
+			auto* pParts = (CSIPartsMDL*) c->m_pTempParts;
 			OBJECT* pObj = pParts->GetObject();
 			pObj->Velocity = 0.25f;
 			pObj->Owner = &c->Object;
@@ -8999,7 +8999,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
 		else
 		{
 
-			CSIPartsMDL* pParts = (CSIPartsMDL*) c->m_pTempParts;
+			auto* pParts = (CSIPartsMDL*) c->m_pTempParts;
 			OBJECT* pObj = pParts->GetObject();
 
 			RenderParts ( c );
@@ -9037,7 +9037,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
 			{
 				int iNumCloth = 2;
 
-				CPhysicsCloth *pCloth = new CPhysicsCloth[iNumCloth];
+				auto *pCloth = new CPhysicsCloth[iNumCloth];
 
 				pCloth[0].Create( o, 20, 0.0f, 5.0f, 10.0f, 6, 5, 30.0f, 70.0f, BITMAP_GM_HAIR_1, BITMAP_GM_HAIR_1, PCT_COTTON | PCT_SHORT_SHOULDER | PCT_MASK_ALPHA);
 				pCloth[0].SetWindMinMax( 10, 20 );
@@ -9053,7 +9053,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
 				o->m_byNumCloth = iNumCloth;
 			}
 
-			CPhysicsCloth *pCloth = (CPhysicsCloth*)c->Object.m_pCloth;
+			auto *pCloth = (CPhysicsCloth*)c->Object.m_pCloth;
 
 			if( g_isCharacterBuff(o, eBuff_Cloaking) )
 			{
@@ -9275,7 +9275,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
 					numCloth = 4;
 				}
 
-				CPhysicsCloth *pCloth = new CPhysicsCloth[numCloth];
+				auto *pCloth = new CPhysicsCloth[numCloth];
 
 				pCloth[0].Create( o, 20, 0.0f, 0.0f, 20.0f, 6, 5, 30.0f, 70.0f, BITMAP_ROBE+6, BITMAP_ROBE+6, PCT_CURVED | PCT_RUBBER2 | PCT_MASK_LIGHT | PLS_STRICTDISTANCE | PCT_SHORT_SHOULDER | PCT_NORMAL_THICKNESS | PCT_OPT_HAIR );
 				pCloth[0].SetWindMinMax( 10, 50 );
@@ -9351,7 +9351,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
 			{
 				int numCloth = (c->Wing.Type == MODEL_WING+50) ? 3 : 1;
 				
-				CPhysicsCloth *pCloth = new CPhysicsCloth[numCloth];
+				auto *pCloth = new CPhysicsCloth[numCloth];
 				
 				if(c->Wing.Type == MODEL_WING+50)
 				{
@@ -9394,7 +9394,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
 			}
             else
             {
-				CPhysicsCloth *pCloth = new CPhysicsCloth [1];
+				auto *pCloth = new CPhysicsCloth [1];
 
 				if (c->MonsterIndex==55)
 				{
@@ -9430,7 +9430,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
             {
 	            if ( o && o->m_pCloth )
 	            {
-		            CPhysicsCloth* pCloth = ( CPhysicsCloth*)o->m_pCloth;
+		            auto * pCloth = ( CPhysicsCloth*)o->m_pCloth;
 			        pCloth[3].Destroy();
 
                     o->m_byNumCloth = 3;
@@ -9440,7 +9440,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
             {
 	            if ( o && o->m_pCloth )
 	            {
-		            CPhysicsCloth* pCloth = ( CPhysicsCloth*)o->m_pCloth;
+		            auto* pCloth = ( CPhysicsCloth*)o->m_pCloth;
 
 					pCloth[3].Create( o, 18, 0.0f, 8.0f, -5.0f, 5, 5, 50.0f, 90.0f, BITMAP_DARK_LOAD_SKIRT, BITMAP_DARK_LOAD_SKIRT, PCT_MASK_ALPHA | PCT_HEAVY | PCT_STICKED | PCT_CURVED | PCT_SHORT_SHOULDER );
 				    pCloth[3].AddCollisionSphere( 0.0f, -15.0f, -20.0f, 30.0f, 2);
@@ -9451,7 +9451,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
             {
 	            if ( o && o->m_pCloth )
 	            {
-		            CPhysicsCloth* pCloth = ( CPhysicsCloth*)o->m_pCloth;
+		            auto* pCloth = ( CPhysicsCloth*)o->m_pCloth;
 
 					pCloth[3].Create( o, 18, 0.0f, 8.0f, -5.0f, 5, 5, 50.0f, 90.0f, BITMAP_DARKLOAD_SKIRT_3RD, BITMAP_DARKLOAD_SKIRT_3RD, PCT_MASK_ALPHA | PCT_HEAVY | PCT_STICKED | PCT_CURVED | PCT_SHORT_SHOULDER );
 				    pCloth[3].AddCollisionSphere( 0.0f, -15.0f, -20.0f, 30.0f, 2);
@@ -9462,7 +9462,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
             {
 	            if ( o && o->m_pCloth )
 	            {
-		            CPhysicsCloth* pCloth = ( CPhysicsCloth*)o->m_pCloth;
+		            auto* pCloth = ( CPhysicsCloth*)o->m_pCloth;
 			        if (pCloth[3].GetOwner() != NULL)
 						pCloth[3].Destroy();
 	            }
@@ -9471,7 +9471,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
             {
 	            if ( o && o->m_pCloth )
 	            {
-		            CPhysicsCloth* pCloth = ( CPhysicsCloth*)o->m_pCloth;
+					auto* pCloth = ( CPhysicsCloth*)o->m_pCloth;
 			        if (pCloth[3].GetOwner() == NULL)
 					{
 						pCloth[3].Create( o, 18, 0.0f, 8.0f, -5.0f, 5, 5, 50.0f, 90.0f, BITMAP_DARK_LOAD_SKIRT, BITMAP_DARK_LOAD_SKIRT, PCT_MASK_ALPHA | PCT_HEAVY | PCT_STICKED | PCT_CURVED | PCT_SHORT_SHOULDER );
@@ -9483,7 +9483,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
             {
 	            if ( o && o->m_pCloth )
 	            {
-		            CPhysicsCloth* pCloth = ( CPhysicsCloth*)o->m_pCloth;
+					auto* pCloth = ( CPhysicsCloth*)o->m_pCloth;
 			        if (pCloth[3].GetOwner() == NULL)
 					{
 						pCloth[3].Create( o, 18, 0.0f, 8.0f, -5.0f, 5, 5, 50.0f, 90.0f, BITMAP_DARKLOAD_SKIRT_3RD, BITMAP_DARKLOAD_SKIRT_3RD, PCT_MASK_ALPHA | PCT_HEAVY | PCT_STICKED | PCT_CURVED | PCT_SHORT_SHOULDER );
@@ -9492,7 +9492,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
                 }
             }
         }
-        CPhysicsCloth *pCloth = ( CPhysicsCloth*)c->Object.m_pCloth;
+		auto* pCloth = ( CPhysicsCloth*)c->Object.m_pCloth;
 
 		if( !g_isCharacterBuff(o, eBuff_Cloaking) )
         {
@@ -10733,7 +10733,7 @@ void RenderCharacter(CHARACTER *c,OBJECT *o,int Select)
 
 						Vector(0.09f, 0.09f, 0.8f, vColor);
 						CreateJoint(BITMAP_JOINT_ENERGY,Position,o->Position,o->Angle,55,o,6.0f,-1,0,0,-1, vColor);
-						float fRad = (float)sinf((WorldTime)*0.002f);
+						auto fRad = (float)sinf((WorldTime)*0.002f);
 						Vector(0.2f, 0.4f, 0.8f, vColor);
 						CreateSprite(BITMAP_SHINY+6, Position, 0.5f*fRad, vColor, o);
 

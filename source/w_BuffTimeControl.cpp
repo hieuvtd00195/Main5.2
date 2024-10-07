@@ -20,12 +20,12 @@ BuffTimeControl::BuffTimeControl()
 
 BuffTimeControl::~BuffTimeControl()
 {
-	for( BuffTimeInfoMap::iterator iter = m_BuffTimeList.begin(); iter != m_BuffTimeList.end(); )
+	for(auto iter = m_BuffTimeList.begin(); iter != m_BuffTimeList.end(); )
 	{
-		 BuffTimeInfoMap::iterator tempiter = iter;
+		auto tempiter = iter;
 		 ++iter;
 
-		 eBuffTimeType bufftimetype = static_cast<eBuffTimeType>((*tempiter).first);
+		 auto bufftimetype = static_cast<eBuffTimeType>((*tempiter).first);
 
 		::KillTimer(g_hWnd, bufftimetype);
 		m_BuffTimeList.erase(tempiter);
@@ -76,7 +76,7 @@ DWORD BuffTimeControl::GetBuffMaxTime( eBuffState bufftype, DWORD curbufftime )
 
 bool BuffTimeControl::IsBuffTime( eBuffTimeType bufftype )
 {
-	BuffTimeInfoMap::iterator iter = m_BuffTimeList.find( bufftype );
+	auto iter = m_BuffTimeList.find( bufftype );
 
 	if( iter == m_BuffTimeList.end() )
 	{
@@ -115,7 +115,7 @@ bool BuffTimeControl::UnRegisterBuffTime( eBuffState bufftype )
 {
 	eBuffTimeType  bufftimetype = CheckBuffTimeType( bufftype );
 
-	BuffTimeInfoMap::iterator iter = m_BuffTimeList.find( bufftimetype );
+	auto iter = m_BuffTimeList.find( bufftimetype );
 
 	if( iter != m_BuffTimeList.end() )
 	{
@@ -145,7 +145,7 @@ void BuffTimeControl::GetBuffStringTime( eBuffState bufftype, std::string& timeT
 
 void BuffTimeControl::GetBuffStringTime( DWORD type, std::string& timeText, bool issecond )
 {
-	BuffTimeInfoMap::iterator iter = m_BuffTimeList.find( type );
+	auto iter = m_BuffTimeList.find( type );
 
 	if( iter != m_BuffTimeList.end() )
 	{
@@ -157,7 +157,7 @@ void BuffTimeControl::GetBuffStringTime( DWORD type, std::string& timeText, bool
 
 const DWORD BuffTimeControl::GetBuffTime( DWORD type )
 {
-	BuffTimeInfoMap::iterator iter = m_BuffTimeList.find( type );
+	auto iter = m_BuffTimeList.find( type );
 
 	if( iter != m_BuffTimeList.end() )
 	{
@@ -226,7 +226,7 @@ void BuffTimeControl::GetStringTime( DWORD time, std::string& timeText, bool isS
 
 bool BuffTimeControl::CheckBuffTime( DWORD type )
 {
-	BuffTimeInfoMap::iterator iter = m_BuffTimeList.find( type );
+	auto iter = m_BuffTimeList.find( type );
 
 	if( iter != m_BuffTimeList.end() )
 	{

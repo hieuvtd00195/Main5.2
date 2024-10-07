@@ -66,7 +66,7 @@ LRESULT CALLBACK CProtectSysKey::LowLevelKeyHookProc(int nCode, WPARAM wParam, L
 		case WM_KEYUP:
 		case WM_KEYDOWN:
 			{
-				PKBDLLHOOKSTRUCT pKBHookStruct = (PKBDLLHOOKSTRUCT)lParam;
+				auto pKBHookStruct = (PKBDLLHOOKSTRUCT)lParam;
 				switch(pKBHookStruct->vkCode)
 				{
 				case VK_ESCAPE:

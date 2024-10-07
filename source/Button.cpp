@@ -38,7 +38,7 @@ void CButton::Create(int nWidth, int nHeight, int nTexID, int nMaxFrame,int nDow
 {
 	Release();
 
-	SFrameCoord* aFrameCoord = new SFrameCoord[nMaxFrame];
+	auto* aFrameCoord = new SFrameCoord[nMaxFrame];
 	for (int i = 0; i < nMaxFrame; ++i)
 	{
 		aFrameCoord[i].nX = 0;

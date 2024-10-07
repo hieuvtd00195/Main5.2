@@ -95,9 +95,9 @@ void MapProcess::Init()
 
 void MapProcess::Destroy()
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -110,9 +110,9 @@ void MapProcess::Destroy()
 
 bool MapProcess::FindMap( ENUM_WORLD type )
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -128,9 +128,9 @@ bool MapProcess::FindMap( ENUM_WORLD type )
 
 BaseMap& MapProcess::FindBaseMap( ENUM_WORLD type )
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -159,9 +159,9 @@ void MapProcess::Register( BoostSmart_Ptr( BaseMap ) pMap )
 
 void MapProcess::UnRegister( ENUM_WORLD type )
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -182,9 +182,9 @@ BaseMap& MapProcess::GetMap( int type )
 
 bool MapProcess::LoadMapData()
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -205,9 +205,9 @@ bool MapProcess::LoadMapData()
 
 bool MapProcess::CreateObject(OBJECT* o)
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -226,9 +226,9 @@ bool MapProcess::CreateObject(OBJECT* o)
 
 bool MapProcess::MoveObject(OBJECT* o)
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 
@@ -250,9 +250,9 @@ bool MapProcess::MoveObject(OBJECT* o)
 
 bool MapProcess::RenderObjectVisual(OBJECT* o, BMD* b)
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -273,9 +273,9 @@ bool MapProcess::RenderObjectVisual(OBJECT* o, BMD* b)
 
 bool MapProcess::RenderObjectMesh(OBJECT* o, BMD* b, bool ExtraMon)
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -296,9 +296,9 @@ bool MapProcess::RenderObjectMesh(OBJECT* o, BMD* b, bool ExtraMon)
 
 void MapProcess::RenderAfterObjectMesh(OBJECT* o, BMD* b, bool ExtraMon)
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -315,9 +315,9 @@ void MapProcess::RenderAfterObjectMesh(OBJECT* o, BMD* b, bool ExtraMon)
 
 void MapProcess::RenderFrontSideVisual()
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -337,9 +337,9 @@ void MapProcess::RenderFrontSideVisual()
 
 CHARACTER* MapProcess::CreateMonster( int iType, int PosX, int PosY, int Key )
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -359,9 +359,9 @@ CHARACTER* MapProcess::CreateMonster( int iType, int PosX, int PosY, int Key )
 
 bool MapProcess::MoveMonsterVisual(OBJECT* o, BMD* b)
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -382,9 +382,9 @@ bool MapProcess::MoveMonsterVisual(OBJECT* o, BMD* b)
 
 void MapProcess::MoveBlurEffect(CHARACTER* c, OBJECT* o, BMD* b)
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -401,9 +401,9 @@ void MapProcess::MoveBlurEffect(CHARACTER* c, OBJECT* o, BMD* b)
 
 bool MapProcess::RenderMonsterVisual(CHARACTER* c, OBJECT* o, BMD* b)
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -424,9 +424,9 @@ bool MapProcess::RenderMonsterVisual(CHARACTER* c, OBJECT* o, BMD* b)
 
 bool MapProcess::AttackEffectMonster(CHARACTER* c, OBJECT* o, BMD* b)
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -447,9 +447,9 @@ bool MapProcess::AttackEffectMonster(CHARACTER* c, OBJECT* o, BMD* b)
 
 bool MapProcess::SetCurrentActionMonster(CHARACTER* c, OBJECT* o)
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -470,9 +470,9 @@ bool MapProcess::SetCurrentActionMonster(CHARACTER* c, OBJECT* o)
 
 bool MapProcess::PlayMonsterSound(OBJECT* o)
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		
@@ -493,9 +493,9 @@ bool MapProcess::PlayMonsterSound(OBJECT* o)
 
 bool MapProcess::ReceiveMapMessage( BYTE code, BYTE subcode, BYTE* ReceiveBuffer )
 {
-	for( MapList::iterator iter = m_MapList.begin(); iter != m_MapList.end(); )
+	for(auto iter = m_MapList.begin(); iter != m_MapList.end(); )
 	{
-		MapList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(BaseMap) basemap = *tempiter;
 		

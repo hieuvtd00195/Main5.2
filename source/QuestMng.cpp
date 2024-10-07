@@ -137,7 +137,7 @@ void CQuestMng::LoadQuestWordsScript()
 
 void CQuestMng::SetQuestRequestReward(const BYTE* pbyRequestRewardPacket)
 {
-	LPPMSG_NPC_QUESTEXP_INFO pRequestRewardPacket
+	auto pRequestRewardPacket
 		= (LPPMSG_NPC_QUESTEXP_INFO)pbyRequestRewardPacket;
 	DWORD dwQuestIndex = pRequestRewardPacket->m_dwQuestIndex;
 	int i;
@@ -156,7 +156,7 @@ void CQuestMng::SetQuestRequestReward(const BYTE* pbyRequestRewardPacket)
 	SQuestRequestReward sRequestReward;
 	::memset(&sRequestReward, 0, sizeof(SQuestRequestReward));
 
-	LPNPC_QUESTEXP_REQUEST_INFO pRequestPacket
+	auto pRequestPacket
 		= (LPNPC_QUESTEXP_REQUEST_INFO)(pbyRequestRewardPacket + sizeof(PMSG_NPC_QUESTEXP_INFO));
 
 	if (pRequestPacket->m_dwType == QUEST_REQUEST_NONE || pRequestRewardPacket->m_byRequestCount == 0)
@@ -183,7 +183,7 @@ void CQuestMng::SetQuestRequestReward(const BYTE* pbyRequestRewardPacket)
 		}
 	}
 
-	LPNPC_QUESTEXP_REWARD_INFO pRewardPacket = (LPNPC_QUESTEXP_REWARD_INFO)(pbyRequestRewardPacket + sizeof(PMSG_NPC_QUESTEXP_INFO)	+ sizeof(NPC_QUESTEXP_REQUEST_INFO) * 5);
+	auto pRewardPacket = (LPNPC_QUESTEXP_REWARD_INFO)(pbyRequestRewardPacket + sizeof(PMSG_NPC_QUESTEXP_INFO)	+ sizeof(NPC_QUESTEXP_REQUEST_INFO) * 5);
 
 	if (pRewardPacket->m_dwType == QUEST_REWARD_NONE || pRequestRewardPacket->m_byRewardCount == 0)
 	{
@@ -808,7 +808,7 @@ void CQuestMng::SendQuestIndexByEtcSelection()
 	if (IsQuestIndexByEtcListEmpty())
 		return;
 
-	DWordList::iterator iter = m_listQuestIndexByEtc.begin();
+	auto iter = m_listQuestIndexByEtc.begin();
 	SendQuestSelection(*iter, 0);
 }
 

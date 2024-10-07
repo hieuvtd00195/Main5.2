@@ -888,7 +888,7 @@ void CNewUIMyInventory::UI2DEffectCallback(LPVOID pClass, DWORD dwParamA, DWORD 
 {
 	if (pClass)
 	{
-		CNewUIMyInventory* pMyInventory = (CNewUIMyInventory*)(pClass);
+		auto* pMyInventory = (CNewUIMyInventory*)(pClass);
 
 		if (dwParamB == ITEM_SET_OPTION)
 		{

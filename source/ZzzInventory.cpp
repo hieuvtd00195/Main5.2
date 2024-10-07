@@ -1059,7 +1059,7 @@ void ConvertGold(double dGold, unicode::t_char* szText, int iDecimals /*= 0*/)
 {
 	unicode::t_char szTemp[256];
 	int iCipherCnt=0;
-	DWORD dwValueTemp = (DWORD)dGold;
+	auto dwValueTemp = (DWORD)dGold;
 	
 	while( dwValueTemp/1000 > 0 )
 	{
@@ -1148,14 +1148,14 @@ int ConvertRepairGold(int Gold,int Durability, int MaxDurability, short Type, ch
 {
 	Gold = min(Gold,400000000);
 
-	float   repairGold = (float)Gold;
+	auto   repairGold = (float)Gold;
 	float   persent = 1.f - (float)( Durability / (float)MaxDurability );
 	bool    doubleP = false;
 	
 	if ( persent > 0 )
 	{
-		float fRoot = ( float)sqrt( ( double)repairGold);
-		float fRootRoot = ( float)sqrt( sqrt( ( double)repairGold));
+		auto fRoot = ( float)sqrt( ( double)repairGold);
+		auto fRootRoot = ( float)sqrt( sqrt( ( double)repairGold));
 		repairGold = 3.f * fRoot * fRootRoot;
 
 		if(doubleP)

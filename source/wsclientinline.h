@@ -1,5 +1,5 @@
 #pragma once
-
+#include "stdafx.h"
 #include "dsplaysound.h"
 #include "zzzscene.h"
 #include "zzzinterface.h"
@@ -319,12 +319,11 @@ extern DWORD g_dwLatestZoneMoving;
 	g_bWhileMovingZone = FALSE;\
 }
 
-inline char ChatText[256];
+extern char ChatText[256];
 
 __forceinline void SendChat(const char* Text)
 {
 	strcpy(ChatText,Text);
-
     if(FindText2(Hero->ID, (char*)"webzen"))
 	{
 		BOOL bReturn = TRUE;
@@ -493,7 +492,6 @@ extern DWORD g_dwLatestMagicTick;
 		spe.Init( 0xC1, 0x19);\
 		spe << ( BYTE)(HIBYTE(Type))<<( BYTE)(LOBYTE(Type)) << ( BYTE)( ( p_Key)>>8) << ( BYTE)( ( p_Key)&0xff);\
 		spe.Send(TRUE);\
-		hanguo_check3();\
 	}\
 }
 #else // _DEBUG
@@ -2475,7 +2473,6 @@ __forceinline void SendRequestDarkside(WORD nSkill, int Key)
 		spe.Init( 0xC1, 0x4A);\
 		spe << ( BYTE)(HIBYTE(Type))<<( BYTE)(LOBYTE(Type)) << (BYTE)(0) << ( BYTE)( (p_Key)>>8) << ( BYTE)( (p_Key)&0xff);\
 		spe.Send(TRUE);\
-		hanguo_check3();\
 	}\
 }
 

@@ -121,9 +121,9 @@ void PetProcess::Init()
 
 void PetProcess::Destroy()
 {
-	for( PetList::iterator iter = m_petsList.begin(); iter != m_petsList.end(); )
+	for(auto iter = m_petsList.begin(); iter != m_petsList.end(); )
 	{
-		PetList::iterator tempiter = iter;
+		auto tempiter = iter;
 		++iter;
 		BoostWeak_Ptr(PetObject) basepet = *tempiter;
 		
@@ -140,7 +140,7 @@ void PetProcess::Destroy()
 
 BoostWeak_Ptr(PetAction) PetProcess::Find( int key )
 {
-	ActionMap::iterator iter = m_petsAction.find( key );
+	auto iter = m_petsAction.find( key );
 
 	if( iter != m_petsAction.end() )
 	{
@@ -161,9 +161,9 @@ void PetProcess::UnRegister(CHARACTER *Owner, int itemType, bool isUnregistAll)
 {
 	if( NULL == Owner ) return;
 
- 	for( PetList::iterator iter = m_petsList.begin(); iter != m_petsList.end(); )
+ 	for(auto iter = m_petsList.begin(); iter != m_petsList.end(); )
  	{
- 		PetList::iterator tempiter = iter;
+		auto tempiter = iter;
  		++iter;
  		BoostWeak_Ptr(PetObject) basepet = *tempiter;
  		
@@ -209,7 +209,7 @@ bool PetProcess::LoadData()
 	float _scale;
 	int _count;
 	int *_action = new int[_array];
-	float *_speed = new float[_array];
+	auto *_speed = new float[_array];
 
 	int _listSize = 0;
 	fread( &_listSize, sizeof(DWORD), 1, fp );
@@ -281,7 +281,7 @@ bool PetProcess::LoadData()
 
 bool PetProcess::IsPet(int itemType)
 {
-	InfoMap::iterator iter = m_petsInfo.find(itemType);
+	auto iter = m_petsInfo.find(itemType);
 	if( iter == m_petsInfo.end() ) return FALSE;
   	
 	BoostWeak_Ptr(PetInfo) petInfo = (*iter).second;
@@ -298,7 +298,7 @@ bool PetProcess::CreatePet( int itemType, int modelType, vec3_t Position, CHARAC
 	PetObjectPtr _tempPet = PetObject::Make();
 	if( _tempPet->Create( itemType, modelType, Position, Owner, SubType, LinkBone ) )
 	{
-		InfoMap::iterator iter = m_petsInfo.find(itemType);
+		auto iter = m_petsInfo.find(itemType);
 		if( iter == m_petsInfo.end() ) return FALSE;
 
   		BoostWeak_Ptr(PetInfo) petInfo = (*iter).second;
@@ -338,9 +338,9 @@ void PetProcess::SetCommandPet(CHARACTER *Owner, int targetKey, PetObject::Actio
 {
 	if( NULL == Owner ) return;
 
- 	for( PetList::iterator iter = m_petsList.begin(); iter != m_petsList.end(); )
+ 	for(auto iter = m_petsList.begin(); iter != m_petsList.end(); )
  	{
- 		PetList::iterator tempiter = iter;
+		auto tempiter = iter;
  		++iter;
  		BoostWeak_Ptr(PetObject) basepet = *tempiter;
  		
@@ -356,9 +356,9 @@ void PetProcess::SetCommandPet(CHARACTER *Owner, int targetKey, PetObject::Actio
 
 void PetProcess::UpdatePets()
 {
- 	for( PetList::iterator iter = m_petsList.begin(); iter != m_petsList.end(); )
+ 	for(auto iter = m_petsList.begin(); iter != m_petsList.end(); )
  	{
- 		PetList::iterator tempiter = iter;
+		auto tempiter = iter;
  		++iter;
  		BoostWeak_Ptr(PetObject) basepet = *tempiter;
  		
@@ -371,9 +371,9 @@ void PetProcess::UpdatePets()
 
 void PetProcess::RenderPets()
 {
-	for( PetList::iterator iter = m_petsList.begin(); iter != m_petsList.end(); )
+	for(auto iter = m_petsList.begin(); iter != m_petsList.end(); )
  	{
- 		PetList::iterator tempiter = iter;
+		auto tempiter = iter;
  		++iter;
  		BoostWeak_Ptr(PetObject) basepet = *tempiter;
  		

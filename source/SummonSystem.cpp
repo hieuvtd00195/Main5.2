@@ -311,7 +311,7 @@ void CSummonSystem::CreateEquipEffect_Summon(CHARACTER * pCharacter, int iItemTy
 	Vector(1.0f, 1.0f, 1.0f, vLight);
 
 	BYTE byRandom;
-	std::map<SHORT, BYTE>::iterator iter = m_EquipEffectRandom.find(pCharacter->Key);
+	auto iter = m_EquipEffectRandom.find(pCharacter->Key);
 	if (iter == m_EquipEffectRandom.end())
 	{
 		byRandom = rand()%256;
