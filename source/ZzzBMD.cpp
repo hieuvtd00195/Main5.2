@@ -44,6 +44,9 @@ extern int  MouseX;
 extern int  MouseY;
 extern bool MouseLButton;
 
+extern double FPS;
+extern double FPS_ANIMATION_FACTOR;
+
 bool  StopMotion = false;
 float ParentMatrix[3][4];
 
@@ -399,7 +402,7 @@ bool BMD::PlayAnimation(float *AnimationFrame,float *PriorAnimationFrame,unsigne
 {
 	bool Loop = true;
 
-	if(AnimationFrame == NULL || PriorAnimationFrame == NULL || PriorAction == NULL || (NumActions > 0 && CurrentAction >= NumActions))
+	if (AnimationFrame == nullptr || PriorAnimationFrame == nullptr || PriorAction == nullptr || (NumActions > 0 && CurrentAction >= NumActions))
 	{
 		return Loop;
 	}
@@ -409,12 +412,12 @@ bool BMD::PlayAnimation(float *AnimationFrame,float *PriorAnimationFrame,unsigne
 		return Loop;
 	}
 
-	int Temp = (int)*AnimationFrame;
-   	*AnimationFrame += Speed;
-	if(Temp != (int)*AnimationFrame) 
+	const int priorAnimationFrame = (int)*AnimationFrame;
+	*AnimationFrame += Speed * FPS_ANIMATION_FACTOR;
+	if (priorAnimationFrame != (int)*AnimationFrame)
 	{
 		*PriorAction = CurrentAction;
-		*PriorAnimationFrame = (float)Temp;
+		*PriorAnimationFrame = (float)priorAnimationFrame;
 	}
 	if(*AnimationFrame <= 0.f)
 	{
@@ -903,7 +906,7 @@ void BMD::EndRender()
     glPopMatrix();
 }
 
-extern float WorldTime;
+extern double WorldTime;
 extern int WaterTextureNumber;
 
 void BMD::RenderMesh(int i,int RenderFlag,float Alpha,int BlendMesh,float BlendMeshLight,float BlendMeshTexCoordU,float BlendMeshTexCoordV,int MeshTexture)
@@ -913,7 +916,7 @@ void BMD::RenderMesh(int i,int RenderFlag,float Alpha,int BlendMesh,float BlendM
     Mesh_t *m = &Meshs[i];
 	if(m->NumTriangles == 0) return;
 
-	float Wave = (int)WorldTime%10000 * 0.0001f;
+	float Wave = (long)WorldTime % 10000 * 0.0001f;
 
 	int Texture = IndexTexture[m->Texture];
     if(Texture == BITMAP_HIDE)
@@ -2166,12 +2169,13 @@ __forceinline void CalcShadowPosition(vec3_t* position, const vec3_t origin, con
 	// Subtract the origin (position of the character) from the current position of the vertex
 	// The result is the relative coordinate of the vertex to the origin.
 	VectorSubtract(result, origin, result)
-		// scale the shadow in the x direction
-		result[0] += result[2] * (result[0] + sx) / (result[2] - sy);
-	// put it on the ground by setting Z to 5.
-	result[2] = 5.f;
+	// scale the shadow in the x direction
+	result[0] += result[2] * (result[0] + sx) / (result[2] - sy);
 	// Add the origin again, to get the absolute coordinate of the vertex again
 	VectorAdd(result, origin, result);
+
+	// put it on the ground by adding 5 to the actual ground coordinate.
+	result[2] = RequestTerrainHeight(result[0], result[1]) + 5.f;
 	// copy to result
 	VectorCopy(result, *position);
 }

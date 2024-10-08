@@ -10341,7 +10341,7 @@ void RenderObjectScreen(int Type,int ItemLevel,int Option1,int ExtOption,vec3_t 
     RenderPartObject(o,Type,NULL,Light,alpha,ItemLevel,Option1,ExtOption,true,true,true);
 }
 
-void RenderItem3D(float sx,float sy,float Width,float Height,int Type,int Level,int Option1,int ExtOption,bool PickUp)
+void RenderItem3D(float sx, float sy, float Width, float Height, int Type, int Level, int Option1, int ExtOption, bool PickUp, bool forGameshop)
 {
 	bool Success = false;
 	if((g_pPickedItem == NULL || PickUp) 
@@ -10669,10 +10669,19 @@ void RenderItem3D(float sx,float sy,float Width,float Height,int Type,int Level,
 		sx += Width*0.55f;
 		sy += Height*0.82f;
 	}
-	else if(Type>=ITEM_POTION && Type<ITEM_POTION+MAX_ITEM_INDEX)
+	else if (Type >= ITEM_POTION && Type < ITEM_POTION + MAX_ITEM_INDEX)
 	{
-		sx += Width*0.5f;
-		sy += Height*0.95f;
+		if (forGameshop)
+		{
+			sx += Width * 0.5f;
+			sy += Height * 0.95f;
+		}
+		else
+		{
+			sx += Width * 0.5f;
+			sy += Height * 0.95f;
+
+		}
 	}
 	else if((Type >= ITEM_WING+12 && Type <= ITEM_WING+14) || (Type >= ITEM_WING+16 && Type <= ITEM_WING+19))
 	{

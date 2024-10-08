@@ -492,7 +492,7 @@ bool GMEmpireGuardian1::MoveMonsterVisual(CHARACTER* c, OBJECT* o, BMD* b)
 						vec3_t StartPos, StartRelative;
 						vec3_t EndPos, EndRelative;
 						
-						float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed;
+						float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 						float fSpeedPerFrame = fActionSpeed/10.f;
 						float fAnimationFrame = o->AnimationFrame - fActionSpeed;
 						for(int i=0; i<25; i++) 
@@ -555,7 +555,7 @@ bool GMEmpireGuardian1::MoveMonsterVisual(CHARACTER* c, OBJECT* o, BMD* b)
 						vec3_t StartPos, StartRelative;
 						vec3_t EndPos, EndRelative;
 						
-						float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed;
+						float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 						float fSpeedPerFrame = fActionSpeed/10.f;
 						float fAnimationFrame = o->AnimationFrame - fActionSpeed;
 						for(int i=0; i<25; i++) 
@@ -590,7 +590,7 @@ bool GMEmpireGuardian1::MoveMonsterVisual(CHARACTER* c, OBJECT* o, BMD* b)
 						vec3_t StartPos, StartRelative;
 						vec3_t EndPos, EndRelative;
 						
-						float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed;
+						float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 						float fSpeedPerFrame = fActionSpeed/10.f;
 						float fAnimationFrame = o->AnimationFrame - fActionSpeed;
 						for(int i=0; i<25; i++) 
@@ -1031,7 +1031,7 @@ void GMEmpireGuardian1::MoveBlurEffect(CHARACTER* c, OBJECT* o, BMD* b)
 	Vector(0.0f, 0.0f, 0.0f, StartRelative);
 	Vector(0.0f, 0.0f, 0.0f, EndRelative);
 
-	float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed;
+	float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 	float fSpeedPerFrame = fActionSpeed/10.f;
 	float fAnimationFrame = o->AnimationFrame - fActionSpeed;
 	
@@ -1076,7 +1076,7 @@ void GMEmpireGuardian1::MoveBlurEffect(CHARACTER* c, OBJECT* o, BMD* b)
 				
 				float fDelay =5.0f;
 				
-				float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed;
+				float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 				float fSpeedPerFrame = fActionSpeed/fDelay;
 				float fAnimationFrame = o->AnimationFrame - fActionSpeed;
 				for(int i=0; i<fDelay; i++) 
@@ -1177,7 +1177,7 @@ void GMEmpireGuardian1::MoveBlurEffect(CHARACTER* c, OBJECT* o, BMD* b)
 				vec3_t StartPos, StartRelative;
 				vec3_t EndPos, EndRelative;
 				
-				float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed;
+				float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 				float fSpeedPerFrame = fActionSpeed/10.f;
 				float fAnimationFrame = o->AnimationFrame - fActionSpeed;
 				for(int i=0; i<10; i++) 
@@ -1276,7 +1276,7 @@ void GMEmpireGuardian1::MoveBlurEffect(CHARACTER* c, OBJECT* o, BMD* b)
 				vec3_t StartPos, StartRelative;
 				vec3_t EndPos, EndRelative;
 				
-				float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed;
+				float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 				float fSpeedPerFrame = fActionSpeed/10.f;
 				float fAnimationFrame = o->AnimationFrame - fActionSpeed;
 				for(int i=0; i<10; i++) 
@@ -1307,7 +1307,7 @@ void GMEmpireGuardian1::MoveBlurEffect(CHARACTER* c, OBJECT* o, BMD* b)
 				vec3_t StartPos, StartRelative;
 				vec3_t EndPos, EndRelative;
 				
-				float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed;
+				float fActionSpeed = b->Actions[o->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 				float fSpeedPerFrame = fActionSpeed/20.f;
 				float fAnimationFrame = o->AnimationFrame - fActionSpeed;
 				for(int i=0; i<20; i++) 

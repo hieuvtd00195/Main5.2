@@ -157,7 +157,7 @@ public:
 	BYTE		AttackTime;
 	BYTE        TargetAngle;
 	BYTE        Dead;
-	BYTE        Run;
+	//BYTE        Run;
 	WORD		Skill;
 	BYTE        SwordCount;
 	BYTE		byExtensionSkill;
@@ -209,6 +209,7 @@ public:
 	float       Freeze;
 	float       Duplication;
 	float		Rot;
+	float       Run;
 
 	vec3_t		TargetPosition;
 	vec3_t      Light;

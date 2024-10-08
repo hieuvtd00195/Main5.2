@@ -170,7 +170,7 @@ void CreateGuildMark( int nMarkIndex, bool blend=true );
 void RenderGuildColor(float x,float y,int SizeX,int SizeY,int Index);
 void CreateCastleMark ( int Type, BYTE* buffer=NULL, bool blend=true );
 
-void RenderItem3D(float sx,float sy,float Width,float Height,int Type,int Level,int Option1,int ExtOption,bool PickUp=false);
+void RenderItem3D(float sx, float sy, float Width, float Height, int Type, int Level, int Option1, int ExtOption, bool PickUp = false, bool forGameshop = false);
 void RenderObjectScreen(int Type,int ItemLevel,int Option1,int ExtOption,vec3_t Target,int Select,bool PickUp);
 bool GetAttackDamage ( int* iMinDamage, int* iMaxDamage );
 void GetItemName ( int iType, int iLevel, char* Text );

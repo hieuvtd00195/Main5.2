@@ -77,7 +77,7 @@ void MovePoints()
 		PARTICLE *o = &Points[i];
 		if(o->Live)
 		{
-			o->LifeTime--;
+			o->LifeTime -= FPS_ANIMATION_FACTOR;
 			if(o->LifeTime < 0)
 			{
 				if(o->bRepeatedly && o->Position[2]>o->fRepeatedlyHeight)
@@ -87,8 +87,9 @@ void MovePoints()
 				}
                 if ( o->bEnableMove )
                 {
-				    o->Position[2] += o->Gravity;
+					o->Position[2] += o->Gravity * FPS_ANIMATION_FACTOR;
                 }
+				o->Gravity -= 0.3f * FPS_ANIMATION_FACTOR;
 				o->Gravity -= 0.3f;
 				if(o->Gravity <= 0.f)
 					o->Live = false;

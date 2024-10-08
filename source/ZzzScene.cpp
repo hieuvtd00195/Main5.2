@@ -102,7 +102,7 @@ bool EnableEdit    = false;
 
 int g_iLengthAuthorityCode = 20;
 
-char *szServerIpAddress = "192.168.100.188";
+char *szServerIpAddress = "192.168.0.85";
 //char *szServerIpAddress = "210.181.89.215";
 WORD g_ServerPort = 44405;
 
@@ -948,7 +948,7 @@ void NewMoveCharacterScene()
 	}
     InitTerrainLight();
     MoveObjects();
-	MoveBugs();
+	MoveMounts();
     MoveCharactersClient();
     MoveCharacterClient(&CharacterView);
 
@@ -1113,7 +1113,7 @@ bool NewRenderCharacterScene(HDC hDC)
 	if(!CUIMng::Instance().IsCursorOnUI())
 		SelectObjects();
 
-	RenderBugs();
+	RenderMount();
 	RenderBlurs();
 	RenderJoints();
 	RenderEffects();
@@ -1237,7 +1237,7 @@ void NewMoveLogInScene()
 	{
 		InitTerrainLight();
 		MoveObjects();
-		MoveBugs();
+		MoveMounts();
 		MoveLeaves();
 		MoveCharactersClient();
 		MoveEffects();
@@ -1351,7 +1351,7 @@ bool NewRenderLogInScene(HDC hDC)
 		RenderTerrain(false);
 		CameraViewFar = 7000.f;
 		RenderCharactersClient();
-		RenderBugs();
+		RenderMount();
 		RenderObjects();
 		RenderJoints();
 		RenderEffects();
@@ -1557,7 +1557,7 @@ bool MoveMainCamera()
 
 			vec3_t p1,p2;
 			Vector(0.f,0.f,0.f,p1);
-			FLOAT Velocity = sqrtf(TERRAIN_SCALE*TERRAIN_SCALE)*1.25f;
+			FLOAT Velocity = sqrtf(TERRAIN_SCALE * TERRAIN_SCALE) * 1.25f * FPS_ANIMATION_FACTOR;
 
 			if(HIBYTE(GetAsyncKeyState(VK_LEFT ))==128)// || (MouseX<=0 && MouseY>=100))
 			{
@@ -1990,11 +1990,11 @@ void MoveMainScene()
 	
 	MoveBoids();
    	MoveFishs();
-	MoveBugs();
 	MoveChat();
 	UpdatePersonalShopTitleImp();
 	MoveHero();
     MoveCharactersClient();
+	MoveMounts();
 	ThePetProcess().UpdatePets();
     MovePoints();
 	MovePlanes();
@@ -2141,7 +2141,7 @@ bool RenderMainScene()
      	RenderItems();
 
    	RenderFishs();
-   	RenderBugs();
+	RenderMount();
     RenderLeaves();
 
 	if (!gMapManager.InChaosCastle())
@@ -2259,7 +2259,7 @@ extern int  GrabScreen;
 
 void MoveCharacter(CHARACTER *c,OBJECT *o);
 
-constexpr int target_fps = 30;
+constexpr int target_fps = 60;
 constexpr int ms_per_frame = 1000 / target_fps;
 
 uint64_t current_tick_count = GetTickCount64();

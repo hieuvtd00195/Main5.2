@@ -441,7 +441,7 @@ bool GMSwampOfQuiet::MoveMonsterVisual(OBJECT* pObject, BMD* pModel)
 		if (pObject->CurrentAction == MONSTER01_ATTACK2)
 		{	
 			BMD* pModel = &Models[pObject->Type];
-			float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed;
+			float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 			float Start_Frame = 7.2f;
 			float End_Frame = Start_Frame + fActionSpeed;
 			if(pObject->AnimationFrame >= Start_Frame && pObject->AnimationFrame < End_Frame)
@@ -515,7 +515,7 @@ bool GMSwampOfQuiet::MoveMonsterVisual(OBJECT* pObject, BMD* pModel)
 		if (pObject->CurrentAction == MONSTER01_ATTACK1 || pObject->CurrentAction == MONSTER01_ATTACK2)
 		{	
 			BMD* pModel = &Models[pObject->Type];
-			float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed;
+			float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 			float Start_Frame = 5.5f;
 			float End_Frame = Start_Frame + fActionSpeed;
 			if(pObject->AnimationFrame >= Start_Frame && pObject->AnimationFrame < End_Frame)
@@ -597,7 +597,7 @@ bool GMSwampOfQuiet::MoveMonsterVisual(OBJECT* pObject, BMD* pModel)
 		if (pObject->CurrentAction == MONSTER01_ATTACK1 || pObject->CurrentAction == MONSTER01_ATTACK2)
 		{	
 			BMD* pModel = &Models[pObject->Type];
-			float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed;
+			float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 			float Start_Frame = 5.5f;
 			float End_Frame = Start_Frame + fActionSpeed;
 			if(pObject->AnimationFrame >= Start_Frame && pObject->AnimationFrame < End_Frame)
@@ -645,7 +645,7 @@ void GMSwampOfQuiet::MoveBlurEffect(CHARACTER* pCharacter, OBJECT* pObject, BMD*
 				vec3_t StartPos, StartRelative;
 				vec3_t EndPos, EndRelative;
 				
-				float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed;
+				float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 				float fSpeedPerFrame = fActionSpeed/10.f;
 				float fAnimationFrame = pObject->AnimationFrame - fActionSpeed;
 				for(int i=0; i<10; i++) 
@@ -685,7 +685,7 @@ void GMSwampOfQuiet::MoveBlurEffect(CHARACTER* pCharacter, OBJECT* pObject, BMD*
 				vec3_t StartPos, StartRelative;
 				vec3_t EndPos, EndRelative;
 				
-				float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed;
+				float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 				float fSpeedPerFrame = fActionSpeed/10.f;
 				float fAnimationFrame = pObject->AnimationFrame - fActionSpeed;
 				for(int i=0; i<10; i++) 
@@ -725,7 +725,7 @@ void GMSwampOfQuiet::MoveBlurEffect(CHARACTER* pCharacter, OBJECT* pObject, BMD*
 				vec3_t StartPos, StartRelative;
 				vec3_t EndPos, EndRelative;
 				
-				float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed;
+				float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 				float fSpeedPerFrame = fActionSpeed/10.f;
 				float fAnimationFrame = pObject->AnimationFrame - fActionSpeed;
 				for(int i=0; i<10; i++) 
@@ -783,7 +783,7 @@ void GMSwampOfQuiet::MoveBlurEffect(CHARACTER* pCharacter, OBJECT* pObject, BMD*
 				vec3_t StartPos, StartRelative;
 				vec3_t EndPos, EndRelative;
 				
-				float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed;
+				float fActionSpeed = pModel->Actions[pObject->CurrentAction].PlaySpeed * static_cast<float>(FPS_ANIMATION_FACTOR);
 				float fSpeedPerFrame = fActionSpeed/10.f;
 				float fAnimationFrame = pObject->AnimationFrame - fActionSpeed;
 				for(int i=0; i<10; i++) 

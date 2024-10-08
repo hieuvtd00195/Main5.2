@@ -409,7 +409,7 @@ void CMsgWin::PopUp(int nMsgCode, char* pszMsg)
 		break;
 	case MESSAGE_DELETE_CHARACTER_SUCCESS:
 		CharactersClient[SelectedHero].Object.Live = false;
-		DeleteBug(&CharactersClient[SelectedHero].Object);
+		DeleteMount(&CharactersClient[SelectedHero].Object);
 		SelectedHero = -1;
 		rUIMng.m_CharSelMainWin.UpdateDisplay();
 		rUIMng.m_CharInfoBalloonMng.UpdateDisplay();
