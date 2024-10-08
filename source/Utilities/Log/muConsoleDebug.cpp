@@ -11,6 +11,7 @@
 #include "./Utilities/Log/ErrorReport.h"
 #include "GlobalBitmap.h"
 #include "ZzzTexture.h"
+#include "ZzzScene.h"
 #ifdef CSK_DEBUG_MAP_PATHFINDING
 #include "ZzzPath.h"
 #endif // CSK_DEBUG_MAP_PATHFINDING
@@ -67,7 +68,13 @@ bool CmuConsoleDebug::CheckCommand(const std::string& strCommand)
 #ifdef CSK_LH_DEBUG_CONSOLE
 	if(!m_bInit)
 		return false;
-
+	if (strCommand._Starts_with("$fps"))
+	{
+		auto fps_str = strCommand.substr(5);
+		auto target_fps = std::stof(fps_str);
+		SetTargetFps(target_fps);
+		return true;
+	}
 	if(strCommand.compare("$open") == NULL)
 	{
 		leaf::ShowConsole(true);

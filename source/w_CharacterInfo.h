@@ -154,7 +154,6 @@ public:
 	char		PKPartyLevel;
 #endif //LJH_ADD_MORE_ZEN_FOR_ONE_HAVING_A_PARTY_WITH_MURDERER	
 	BYTE        AttackFlag;
-	BYTE		AttackTime;
 	BYTE        TargetAngle;
 	BYTE        Dead;
 	//BYTE        Run;
@@ -162,8 +161,6 @@ public:
 	BYTE        SwordCount;
 	BYTE		byExtensionSkill;
 	WORD		m_byDieType;
-	BYTE		StormTime;
-	BYTE		JumpTime;
 	BYTE        TargetX;
 	BYTE        TargetY;
 	BYTE        SkillX;
@@ -191,7 +188,6 @@ public:
 	WORD        MoveSpeed;
 
 	int			Action;
-	int         ExtendStateTime;
 	int			LongRangeAttack;
 	int			SelectItem;
 	int			Item;
@@ -200,9 +196,13 @@ public:
 	int         PriorPositionY;
 	int         PositionX;
 	int         PositionY;
-	int         m_iDeleteTime;
 	int			m_iFenrirSkillTarget;
+	float       m_iDeleteTime;
 	float       LastCritDamageEffect;
+	float       ExtendStateTime;
+	float		JumpTime;
+	float		StormTime;
+	float		AttackTime;
 
 	float		ProtectGuildMarkWorldTime;
 	float		AttackRange;

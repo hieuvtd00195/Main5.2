@@ -1001,7 +1001,7 @@ bool M34CryWolf1st::AttackEffectCryWolf1stMonster(CHARACTER* c, OBJECT* o, BMD* 
 	{
 	case MODEL_MONSTER01+96:
 		{
-			if( c->AttackTime==14 )
+		if ((int)c->AttackTime == 14)
 			{
 				CreateEffect(MODEL_ARROW_NATURE,o->Position,o->Angle,o->Light,1,o,o->PKKey);
 				return true;
@@ -1010,7 +1010,7 @@ bool M34CryWolf1st::AttackEffectCryWolf1stMonster(CHARACTER* c, OBJECT* o, BMD* 
 		break;
 	case MODEL_MONSTER01+91:
 		{
-			if( c->AttackTime==14 )
+		if ((int)c->AttackTime == 14)
 			{
 				CreateEffect(MODEL_ARROW_HOLY,o->Position,o->Angle,o->Light,1,o,o->PKKey);
 				return true;
@@ -1020,11 +1020,11 @@ bool M34CryWolf1st::AttackEffectCryWolf1stMonster(CHARACTER* c, OBJECT* o, BMD* 
 	case MODEL_MONSTER01+42:
 		{
 			vec3_t Angle;
-			if(c->AttackTime == 1)
+			if ((int)c->AttackTime == 1)
 			{
 				CreateInferno(o->Position);
 			}
-			if(c->AttackTime == 14)
+			if ((int)c->AttackTime == 14)
 			{
 				if(c->MonsterIndex == 59)
 				{
@@ -1057,7 +1057,7 @@ bool M34CryWolf1st::AttackEffectCryWolf1stMonster(CHARACTER* c, OBJECT* o, BMD* 
 						CreateJoint(BITMAP_JOINT_THUNDER,Position,to->Position,Angle,2,to,10.f);
 					}
 				}
-				if(c->AttackTime == 1)
+				if ((int)c->AttackTime == 1)
 					PlayBuffer(SOUND_EVIL);
 
 				for(int i=0;i<4;i++)
@@ -1074,7 +1074,7 @@ bool M34CryWolf1st::AttackEffectCryWolf1stMonster(CHARACTER* c, OBJECT* o, BMD* 
 		break;
 	case MODEL_MONSTER01+99:
 		{
-			if( c->AttackTime==15 )
+		if ((int)c->AttackTime == 15)
 			{
 				CreateEffect(MODEL_ARROW_TANKER,o->Position,o->Angle,o->Light,1,o,o->PKKey);
 				return true;

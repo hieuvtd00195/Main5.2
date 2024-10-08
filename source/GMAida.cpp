@@ -1469,7 +1469,7 @@ bool M33Aida::AttackEffectAidaMonster(CHARACTER* pCharacter, OBJECT* pObject, BM
 	{
 		case 304:
 			{
-				if(pCharacter->AttackTime == 10 && pObject->CurrentAction == MONSTER01_ATTACK2 )
+			if ((int)pCharacter->AttackTime == 10 && pObject->CurrentAction == MONSTER01_ATTACK2)
 				{
 					vec3_t Light;
 					Vector(1.f,1.f,1.f,Light);
@@ -1479,7 +1479,7 @@ bool M33Aida::AttackEffectAidaMonster(CHARACTER* pCharacter, OBJECT* pObject, BM
 			return true;
 		case 308:
 			{
-				if(pCharacter->AttackTime == 10 && pObject->CurrentAction == MONSTER01_ATTACK2 )
+			if ((int)pCharacter->AttackTime == 10 && pObject->CurrentAction == MONSTER01_ATTACK2)
 				{
 					vec3_t Light;
 					Vector(1.f,1.f,1.f,Light);
@@ -1491,7 +1491,7 @@ bool M33Aida::AttackEffectAidaMonster(CHARACTER* pCharacter, OBJECT* pObject, BM
 			{
 				for(int i = 0; i < 5; i++)
 				{
-					if(pCharacter->AttackTime == 10 && pObject->CurrentAction == MONSTER01_ATTACK1)
+					if ((int)pCharacter->AttackTime == 10 && pObject->CurrentAction == MONSTER01_ATTACK1)
 					{	
 						vec3_t Light;
 						Vector(1.f,1.f,1.f,Light);
@@ -1502,7 +1502,7 @@ bool M33Aida::AttackEffectAidaMonster(CHARACTER* pCharacter, OBJECT* pObject, BM
 			return true;
 		case 552:
 			{
-				if(pCharacter->AttackTime == 10 && pObject->CurrentAction == MONSTER01_ATTACK2 )
+			if ((int)pCharacter->AttackTime == 10 && pObject->CurrentAction == MONSTER01_ATTACK2)
 				{
 					vec3_t Light;
 					Vector(1.f,1.f,1.f,Light);

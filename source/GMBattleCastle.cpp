@@ -1710,7 +1710,7 @@ namespace battleCastle
         switch ( c->MonsterIndex )
         {
         case 104:
-            if ( c->AttackTime==5 )
+            if ((int)c->AttackTime == 5)
             {
                 VectorCopy ( o->Position, Position );
                 Position[2] += 500.f;
