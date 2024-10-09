@@ -10604,54 +10604,45 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
                         if (c->BodyPart[BODYPART_BOOTS].Type == MODEL_BOOTS + 31) Vector(0.0f, 0.32f, 0.24f, o->Light);
                         if (c->BodyPart[BODYPART_BOOTS].Type == MODEL_BOOTS + 32) Vector(0.5f, 0.24f, 0.8f, o->Light);
                         if (c->BodyPart[BODYPART_BOOTS].Type == MODEL_BOOTS + 33) Vector(0.6f, 0.4f, 0.0f, o->Light);
-                        if (c->BodyPart[BODYPART_BOOTS].Type == MODEL_BOOTS + 43)
-                            Vector(0.6f, 0.3f, 0.4f, o->Light);
-                        if (EquipmentLevelSet == 10)
+                        if (c->BodyPart[BODYPART_BOOTS].Type == MODEL_BOOTS + 43) Vector(0.6f, 0.3f, 0.4f, o->Light);
+                        if (EquipmentLevelSet == 10 && rand_fps_check(4))
                         {
-                            if (rand_fps_check(4))
-                            {
-                                Vector(0.0f, -18.0f, 50.0f, p);
-                                b->TransformPosition(o->BoneTransform[0], p, Position, true);
-                                CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
-                                Vector(0.0f, 0.0f, 70.0f, p);
-                                b->TransformPosition(o->BoneTransform[0], p, Position, true);
-                                CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
-                                Vector(0.0f, 18.0f, 50.0f, p);
-                                b->TransformPosition(o->BoneTransform[0], p, Position, true);
-                                CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
-                            }
+                            Vector(0.0f, -18.0f, 50.0f, p);
+                            b->TransformPosition(o->BoneTransform[0], p, Position, true);
+                            CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
+                            Vector(0.0f, 0.0f, 70.0f, p);
+                            b->TransformPosition(o->BoneTransform[0], p, Position, true);
+                            CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
+                            Vector(0.0f, 18.0f, 50.0f, p);
+                            b->TransformPosition(o->BoneTransform[0], p, Position, true);
+                            CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
                         }
-                        else if (EquipmentLevelSet == 11)
+                        else if (EquipmentLevelSet == 11 && rand_fps_check(3))
                         {
-                            if (rand_fps_check(3))
-                            {
-                                Vector(0.0f, -18.0f, 50.0f, p);
-                                b->TransformPosition(o->BoneTransform[0], p, Position, true);
-                                CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
-                                Vector(0.0f, 0.0f, 70.0f, p);
-                                b->TransformPosition(o->BoneTransform[0], p, Position, true);
-                                CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
-                                Vector(0.0f, 18.0f, 50.0f, p);
-                                b->TransformPosition(o->BoneTransform[0], p, Position, true);
-                                CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
-                            }
+                            Vector(0.0f, -18.0f, 50.0f, p);
+                            b->TransformPosition(o->BoneTransform[0], p, Position, true);
+                            CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
+                            Vector(0.0f, 0.0f, 70.0f, p);
+                            b->TransformPosition(o->BoneTransform[0], p, Position, true);
+                            CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
+                            Vector(0.0f, 18.0f, 50.0f, p);
+                            b->TransformPosition(o->BoneTransform[0], p, Position, true);
+                            CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
+
                         }
-                        else if (EquipmentLevelSet == 12)
+                        else if (EquipmentLevelSet == 12 && rand_fps_check(2))
                         {
-                            if (rand_fps_check(2))
-                            {
-                                Vector(0.0f, -18.0f, 50.0f, p);
-                                b->TransformPosition(o->BoneTransform[0], p, Position, true);
-                                CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
-                                Vector(0.0f, 0.0f, 70.0f, p);
-                                b->TransformPosition(o->BoneTransform[0], p, Position, true);
-                                CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
-                                Vector(0.0f, 18.0f, 50.0f, p);
-                                b->TransformPosition(o->BoneTransform[0], p, Position, true);
-                                CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
-                            }
+                            Vector(0.0f, -18.0f, 50.0f, p);
+                            b->TransformPosition(o->BoneTransform[0], p, Position, true);
+                            CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
+                            Vector(0.0f, 0.0f, 70.0f, p);
+                            b->TransformPosition(o->BoneTransform[0], p, Position, true);
+                            CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
+                            Vector(0.0f, 18.0f, 50.0f, p);
+                            b->TransformPosition(o->BoneTransform[0], p, Position, true);
+                            CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
                         }
-                        else if (EquipmentLevelSet == 13)
+                        else if (EquipmentLevelSet == 13 && rand_fps_check(1))
                         {
                             Vector(0.0f, -20.0f, 50.0f, p);
                             b->TransformPosition(o->BoneTransform[0], p, Position, true);
@@ -10663,7 +10654,7 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
                             b->TransformPosition(o->BoneTransform[0], p, Position, true);
                             CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
                         }
-                        else if (EquipmentLevelSet == 14)
+                        else if (EquipmentLevelSet == 14 && rand_fps_check(1))
                         {
                             Vector(0.0f, -20.0f, 50.0f, p);
                             b->TransformPosition(o->BoneTransform[0], p, Position, true);
@@ -10675,7 +10666,7 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
                             b->TransformPosition(o->BoneTransform[0], p, Position, true);
                             CreateParticle(BITMAP_WATERFALL_2, Position, o->Angle, o->Light, 3);
                         }
-                        else if (EquipmentLevelSet == 15)
+                        else if (EquipmentLevelSet == 15 && rand_fps_check(1))
                         {
                             Vector(0.0f, -20.0f, 50.0f, p);
                             b->TransformPosition(o->BoneTransform[0], p, Position, true);
@@ -10769,7 +10760,7 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
                         VectorCopy(Light, o->Light);
                     }
 
-                    if (EquipmentLevelSet == 15 && g_pOption->GetRenderLevel() >= 4)
+                    if (EquipmentLevelSet == 15 && g_pOption->GetRenderLevel() >= 4 && rand_fps_check(1))
                     {
                         //left
                         vec3_t vColor;
