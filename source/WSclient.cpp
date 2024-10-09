@@ -2845,7 +2845,7 @@ void ProcessDamageCastle( LPPRECEIVE_ATTACK Data)
 		else
 		{
 			if (c->MonsterIndex == 275);
-			else if(rand()%2==0)
+			else if (rand_fps_check(2))
 				SetPlayerShock(c,Damage);
 		}
 		
@@ -2946,7 +2946,7 @@ void ReceiveAttackDamage( const BYTE *ReceiveBuffer )
 			if (c->MonsterIndex == 275)
 			{
 			}
-			else if(rand()%2==0)
+			else if (rand_fps_check(2))
 			{
 				SetPlayerShock(c,Damage);
 			}
@@ -4660,6 +4660,8 @@ BOOL ReceiveMagicContinue(const BYTE* ReceiveBuffer,int Size, BOOL bEncrypted)
 	
 	sc->Skill = MagicNumber;
 
+	if (MagicNumber == AT_SKILL_PLASMA_STORM_FENRIR)
+		sc->m_iFenrirSkillTarget = FindCharacterIndex(Key);
 	
 	so->Angle[2] = (Data->Angle/255.f)*360.f;
 	
@@ -5181,7 +5183,7 @@ void ReceiveMagicPosition(const BYTE* ReceiveBuffer,int Size)
 		int TargetKey = ((int)(Data2->KeyH)<<8) + Data2->KeyL;
 		CHARACTER *tc = &CharactersClient[FindCharacterIndex(TargetKey)];
 		OBJECT *to = &tc->Object;
-		if(rand()%2==0)
+		if (rand_fps_check(2))
 			SetPlayerShock(tc,tc->Hit);
 		if(tc->Hit > 0)
 		{

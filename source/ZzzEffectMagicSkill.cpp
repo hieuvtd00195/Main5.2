@@ -301,7 +301,7 @@ void CreateArrows(CHARACTER *c,OBJECT *o,OBJECT *to,WORD SkillIndex,WORD Skill,W
 			for ( int i=0; i<15; ++i )
 			{
 				Vector ( (float)(rand()%360), 0.f, 0.f, a );
-				if ( (rand()%2)==0 )
+				if (rand_fps_check(2))
 				{
 					CreateJoint(BITMAP_JOINT_SPARK,Position,Position,a,3);
 				}

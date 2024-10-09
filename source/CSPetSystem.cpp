@@ -448,7 +448,7 @@ void CSPetDarkSpirit::MovePet ( void )
         }
 
 		float Speed = 0;
-	    if ( rand()%speedRandom==0 )
+        if (rand_fps_check(speedRandom))
 	    {
      	    if ( Distance>=FlyRange*FlyRange )
             {
@@ -487,7 +487,7 @@ void CSPetDarkSpirit::MovePet ( void )
         AngleMatrix ( o->Angle, o->Matrix );
         Vector(0.f,-o->Velocity,0.f,p);
         VectorRotate(p,o->Matrix,Pos );
-        VectorAdd(o->Position,Pos,o->Position);
+        VectorAddScaled(o->Position, Pos, o->Position, FPS_ANIMATION_FACTOR);
 
         if ( o->AI==PET_ATTACK )
         {
@@ -546,7 +546,7 @@ void CSPetDarkSpirit::MovePet ( void )
         {
             Vector(0.f,-o->Velocity,0.f,p);
             VectorRotate(p,o->Matrix,Pos );
-            VectorAdd(o->Position,Pos,o->Position);
+            VectorAddScaled(o->Position, Pos, o->Position, FPS_ANIMATION_FACTOR);
         }
         Vector ( 0.f, 0.f, 0.f, p );
         b->TransformPosition ( Owner->BoneTransform[42], p, Pos, true );
@@ -566,7 +566,7 @@ void CSPetDarkSpirit::MovePet ( void )
             c->AttackTime = 15;
         }
     }
-    if ((rand() % 100) == 0 && (rand() % 60) == 0)
+    if (rand_fps_check(100) && rand_fps_check(60))
     {
         PlayBuffer ( SOUND_DSPIRIT_SHOUT, o );
     }
@@ -712,7 +712,7 @@ void CSPetDarkSpirit::AttackEffect ( CHARACTER* c, OBJECT* o )
             {
 			    CreateJoint ( BITMAP_LIGHT, o->Position, o->Position, o->Angle, 1, NULL, (float)(rand()%40+20) );
             }
-            if ( c->AttackTime==1 )
+            if ((int)c->AttackTime == 1)
             {
                 vec3_t Angle, Light;
 

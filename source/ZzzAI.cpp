@@ -12,6 +12,9 @@
 #include "ZzzCharacter.h"
 #include "ZzzLodTerrain.h"
 #include "ZzzAI.h"
+
+#include <random>
+
 #include "ZzzTexture.h"
 #include "ZzzOpenglUtil.h"
 #include "ZzzInterface.h"
@@ -220,6 +223,8 @@ void MoveBoid(OBJECT *o,int i,OBJECT *Boids,int MAX)
 					xdist += t->Direction[0] - o->Position[0];
 					ydist += t->Direction[1] - o->Position[1];
 				}
+				xdist *= FPS_ANIMATION_FACTOR;
+				ydist *= FPS_ANIMATION_FACTOR;
 				float pdist = sqrtf(xdist*xdist + ydist*ydist);
 				TargetX += xdist / pdist;
 				TargetY += ydist / pdist;
@@ -489,7 +494,7 @@ void MoveHead(CHARACTER *c)
 	{
 		if(o->CurrentAction==MONSTER01_STOP1)
 		{
-			if(rand()%32==0)
+			if (rand_fps_check(32))
 			{
 				o->HeadTargetAngle[0] = (float)(rand()%128-64);
 				o->HeadTargetAngle[1] = (float)(rand()%48-16);
@@ -768,15 +773,7 @@ bool PathFinding2(int sx,int sy,int tx,int ty,PATH_t *a, float fDistance, int iD
 }
 
 CTimer* g_WorldTime = new CTimer();
-/**
- * \brief It's the FPS for which the game was initially developed.
- * All speeds of animations, positional movements, etc. are based on it.
- * Increasing this value means increasing the speed on which the game is running.
- * It's not recommended to change this value.
- */
-constexpr double REFERENCE_FPS = 25.0;
 
-float   DeltaT = 0.1f;
 double   FPS;
 /**
  * \brief A factor which should applied to all values which get an added offset, frame-by-frame.
@@ -788,6 +785,21 @@ double   FPS;
 float   FPS_ANIMATION_FACTOR;
 double   FPS_AVG;
 double   WorldTime = 0.0;
+
+std::random_device rd;  // a seed source for the random number engine
+std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
+std::uniform_real_distribution<> distrib(0.0, 1.0);
+
+bool rand_fps_check(int reference_frames)
+{
+	return rand() % reference_frames == 0;
+	const auto animation_factor = min(1.0, static_cast<double>(FPS_ANIMATION_FACTOR));
+	const auto rand_value = distrib(gen);// *1.5;
+	const auto chance = reference_frames == 1
+		? animation_factor
+		: (1.0 / reference_frames) * animation_factor;
+	return rand_value <= chance;
+}
 
 void CalcFPS()
 {
@@ -812,7 +824,7 @@ void CalcFPS()
 	{
 		FPS = 1000 / differenceMs;
 	}
-	FPS_ANIMATION_FACTOR = static_cast<float>(REFERENCE_FPS / FPS);
+	FPS_ANIMATION_FACTOR = minf(static_cast<float>(REFERENCE_FPS / FPS), 2.5f); // no less than 10 fps
 
 	//double dif = differenceMs / CLOCKS_PER_SEC;
 

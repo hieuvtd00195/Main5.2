@@ -539,7 +539,7 @@ typedef struct
 	vec3_t		Direction;
 	short       PKKey;
 	WORD		Skill;
-	BYTE		Weapon;
+	float		Weapon;
 	float			MultiUse;
 	bool        bTileMapping;
 	BYTE        m_byReverseUV;

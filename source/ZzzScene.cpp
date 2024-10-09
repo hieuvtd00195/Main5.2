@@ -2263,71 +2263,64 @@ float ms_per_frame = 1000.f / target_fps;
 void SetTargetFps(float targetFps)
 {
 	target_fps = targetFps;
-	ms_per_frame = 1000 / target_fps;
+	ms_per_frame = 1000.0f / target_fps;
 }
 
 uint64_t current_tick_count = GetTickCount64();
 uint64_t last_water_change = GetTickCount64();
 void MainScene(HDC hDC)
 {
-   	CalcFPS();
-	
-	for (float remain = ms_per_frame; remain >= ms_per_frame; remain -= ms_per_frame)
+	CalcFPS();
+
+	g_pNewKeyInput->ScanAsyncKeyState();
+
+	if (SceneFlag == LOG_IN_SCENE || SceneFlag == CHARACTER_SCENE)
 	{
-		g_pNewKeyInput->ScanAsyncKeyState();
+		double dDeltaTick = g_pTimer->GetTimeElapsed();
+		dDeltaTick = MIN(dDeltaTick, 200.0 * FPS_ANIMATION_FACTOR);
+		g_pTimer->ResetTimer();
 
-		if (LOG_IN_SCENE == SceneFlag || CHARACTER_SCENE == SceneFlag)
-		{
-			double dDeltaTick = g_pTimer->GetTimeElapsed();
-			dDeltaTick = MIN(dDeltaTick, 200.0);
-			g_pTimer->ResetTimer();
+		CInput::Instance().Update();
+		CUIMng::Instance().Update(dDeltaTick);
+	}
 
-			CInput::Instance().Update();
-			CUIMng::Instance().Update(dDeltaTick);
-		}
+	g_dwMouseUseUIID = 0;
 
-		g_dwMouseUseUIID = 0;
+	switch (SceneFlag)
+	{
+	case LOG_IN_SCENE:
+		NewMoveLogInScene();
+		break;
 
-		switch (SceneFlag)
-		{
-		case LOG_IN_SCENE:
-			NewMoveLogInScene();
-			break;
+	case CHARACTER_SCENE:
+		NewMoveCharacterScene();
+		break;
 
-		case CHARACTER_SCENE:
-			NewMoveCharacterScene();
-			break;
+	case MAIN_SCENE:
+		MoveMainScene();
+		break;
+	}
 
-		case MAIN_SCENE:
-			MoveMainScene();
-			break;
-		}
-		
-		for ( int iCount = 0; iCount < 5; ++iCount)
-		{
-			g_PhysicsManager.Move(0.005f);
-		}
+	g_PhysicsManager.Move(0.025f * FPS_ANIMATION_FACTOR);
+	MoveNotices();
 
-        MoveNotices();
+	if (PressKey(VK_SNAPSHOT))
+	{
+		if (GrabEnable)
+			GrabEnable = false;
+		else
+			GrabEnable = true;
+	}
 
-		if(PressKey(VK_SNAPSHOT))
-		{
-			if(GrabEnable)
-				GrabEnable = false;
-			else
-				GrabEnable = true;
-		}
-
-		constexpr int NumberOfWaterTextures = 32;
-		constexpr double timePerFrame = 1000 / 25.0;
-		int64_t time_since_last_render = current_tick_count - last_water_change;
-		while (time_since_last_render > timePerFrame)
-		{
-			WaterTextureNumber++;
-			WaterTextureNumber %= NumberOfWaterTextures;
-			time_since_last_render -= timePerFrame;
-			last_water_change = current_tick_count;
-		}
+	constexpr int NumberOfWaterTextures = 32;
+	constexpr double timePerFrame = 1000 / REFERENCE_FPS;
+	int64_t time_since_last_render = current_tick_count - last_water_change;
+	while (time_since_last_render > timePerFrame)
+	{
+		WaterTextureNumber++;
+		WaterTextureNumber %= NumberOfWaterTextures;
+		time_since_last_render -= timePerFrame;
+		last_water_change = current_tick_count;
 	}
 
 	if (Destroy) {
@@ -2338,23 +2331,21 @@ void MainScene(HDC hDC)
 
 	Set3DSoundPosition();
 
-	SYSTEMTIME st;
-	GetLocalTime( &st);
-	sprintf( GrabFileName, "Screen(%02d_%02d-%02d_%02d)-%04d.jpg", st.wMonth, st.wDay, st.wHour, st.wMinute, GrabScreen);
-	char Text[256];
-	sprintf(Text,GlobalText[459],GrabFileName);
-	char lpszTemp[64];
-	wsprintf( lpszTemp, " [%s / %s]", g_ServerListManager->GetSelectServerName(), Hero->ID);
-	strcat( Text, lpszTemp);
-	int iCaptureMode = 1;
-
-	if ( HIBYTE( GetAsyncKeyState( VK_SHIFT)))
+	const bool addTimeStampToCapture = !HIBYTE(GetAsyncKeyState(VK_SHIFT));
+	char screenshotText[256];
+	if (GrabEnable)
 	{
-		iCaptureMode = 1 - iCaptureMode;
-	}
-	if(GrabEnable && iCaptureMode == 1)
-	{
-		g_pChatListBox->AddText("", Text, SEASON3B::TYPE_SYSTEM_MESSAGE);
+		SYSTEMTIME st;
+		GetLocalTime(&st);
+		sprintf(GrabFileName, "Screen(%02d_%02d-%02d_%02d)-%04d.jpg", st.wMonth, st.wDay, st.wHour, st.wMinute, GrabScreen);
+		sprintf(screenshotText, GlobalText[459], GrabFileName);
+		char lpszTemp[64];
+		wsprintf(lpszTemp, " [%s / %s]", g_ServerListManager->GetSelectServerName(), Hero->ID);
+		strcat(screenshotText, lpszTemp);
+		if (addTimeStampToCapture)
+		{
+			g_pChatListBox->AddText("", screenshotText, SEASON3B::TYPE_SYSTEM_MESSAGE);
+		}
 	}
 
     if( gMapManager.WorldActive==WD_10HEAVEN )
@@ -2415,20 +2406,20 @@ void MainScene(HDC hDC)
 
 	//g_render_lock->lock();
    
-		if (SceneFlag == LOG_IN_SCENE)
-		{
-			Success = NewRenderLogInScene(hDC);
-		}
-		else if (SceneFlag == CHARACTER_SCENE)
-		{
-			Success = NewRenderCharacterScene(hDC);
-		}
-		else if (SceneFlag == MAIN_SCENE)
-		{
-			Success = RenderMainScene();
-		}
+	if (SceneFlag == LOG_IN_SCENE)
+	{
+		Success = NewRenderLogInScene(hDC);
+	}
+	else if (SceneFlag == CHARACTER_SCENE)
+	{
+		Success = NewRenderCharacterScene(hDC);
+	}
+	else if (SceneFlag == MAIN_SCENE)
+	{
+		Success = RenderMainScene();
+	}
 
-		g_PhysicsManager.Render();
+	g_PhysicsManager.Render();
 
 
 	if(GrabEnable)
@@ -2436,10 +2427,12 @@ void MainScene(HDC hDC)
 		SaveScreen();
 	}
 
-	if(GrabEnable && iCaptureMode == 0)
+
+	if (GrabEnable && !addTimeStampToCapture)
 	{
-		g_pChatListBox->AddText("", Text, SEASON3B::TYPE_SYSTEM_MESSAGE);		
+		g_pChatListBox->AddText("", screenshotText, SEASON3B::TYPE_SYSTEM_MESSAGE);
 	}
+
 	GrabEnable = false;
 
 #ifndef  defined(_DEBUG) || defined(LDS_FOR_DEVELOPMENT_TESTMODE) || defined(LDS_UNFIXED_FIXEDFRAME_FORDEBUG)
@@ -2517,7 +2510,7 @@ void MainScene(HDC hDC)
 			break;
 		case WD_3NORIA:
 			PlayBuffer(SOUND_WIND01,NULL,true);
-			if(rand()%512==0)
+			if (rand_fps_check(512))
 				PlayBuffer(SOUND_FOREST01);
 			break;
 		case WD_4LOSTTOWER:
@@ -2534,11 +2527,11 @@ void MainScene(HDC hDC)
 			break;
         case WD_10HEAVEN:
             PlayBuffer(SOUND_HEAVEN01,NULL,true);
-            if( (rand()%100)==0 )
+			if (rand_fps_check(100))
             {
 //                PlayBuffer(SOUND_HEAVEN01);
             }
-            else if( (rand()%10)==0 )
+			else if (rand_fps_check(10))
             {
 //                PlayBuffer(SOUND_THUNDERS02);
             }
