@@ -8438,6 +8438,7 @@ void ReceiveCreatePersonalShop(const BYTE* ReceiveBuffer)
 		g_ErrorReport.Write("@ [Fault] ReceiveCreatePersonalShop (result : %d)\n", Header->byResult);
 	}
 }
+
 void ReceiveDestroyPersonalShop(const BYTE* ReceiveBuffer)
 {
 	auto Header = (LPDESTROYPSHOP_RESULTINFO)ReceiveBuffer;

@@ -925,7 +925,7 @@ void CSItemOption::getAllAddOptionStatesbyCompare ( WORD* Strength, WORD* Dexter
 void CSItemOption::CheckItemSetOptions ( void )
 {
 	BYTE byOptionList[30] = { 0, };
-	ITEM* itemTmp = NULL;
+	ITEM* itemRight = NULL;
 
 	ZeroMemory(m_bySetOptionList, sizeof(BYTE) * 16);
 
@@ -943,7 +943,8 @@ void CSItemOption::CheckItemSetOptions ( void )
 			continue;
 		}
 
-		if ((i == EQUIPMENT_WEAPON_LEFT || i == EQUIPMENT_RING_LEFT) && itemTmp->Type == ip->Type && itemTmp->ExtOption == (ip->ExtOption % 0x04))
+		if ((i == EQUIPMENT_WEAPON_LEFT || i == EQUIPMENT_RING_LEFT)
+			&& itemRight != nullptr && itemRight->Type == ip->Type && (itemRight->ExtOption % 0x04) == (ip->ExtOption % 0x04))
 		{
 			continue;
 		}
@@ -955,10 +956,7 @@ void CSItemOption::CheckItemSetOptions ( void )
 
 		if (i == EQUIPMENT_WEAPON_RIGHT || i == EQUIPMENT_RING_RIGHT)
 		{
-			// TODO: How logical is that? In the end, you're just modifying ip?
-			itemTmp = ip;
-			itemTmp->Type = ip->Type;
-			itemTmp->ExtOption = (ip->ExtOption % 0x04);
+			itemRight = ip;
 		}
 	}
 
@@ -988,7 +986,8 @@ void CSItemOption::CheckItemSetOptions ( void )
 			continue;
 		}
 
-		if (((i == EQUIPMENT_WEAPON_LEFT || i == EQUIPMENT_RING_LEFT) && itemTmp->Type == ip->Type && itemTmp->ExtOption == (ip->ExtOption % 0x04)))
+		if (((i == EQUIPMENT_WEAPON_LEFT || i == EQUIPMENT_RING_LEFT)
+			&& itemRight != nullptr && itemRight->Type == ip->Type && (itemRight->ExtOption % 0x04) == (ip->ExtOption % 0x04)))
 		{
 			continue;
 		}
@@ -1000,10 +999,7 @@ void CSItemOption::CheckItemSetOptions ( void )
 
 		if (i == EQUIPMENT_WEAPON_RIGHT || i == EQUIPMENT_RING_RIGHT)
 		{
-			// TODO: How logical is that? In the end, you're just modifying ip?
-			itemTmp = ip;
-			itemTmp->Type = ip->Type;
-			itemTmp->ExtOption = (ip->ExtOption % 0x04);
+			itemRight = ip;
 		}
 	}
 

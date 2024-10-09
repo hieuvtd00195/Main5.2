@@ -963,24 +963,24 @@ BOOL OpenInitFile()
 	GetPrivateProfileString("LOGIN", "Version", "", m_Version, 11, szIniFilePath);
 
 
-#ifdef CSK_LH_DEBUG_CONSOLE
-
-#else
-	szServerIpAddress = new char[32];
-
-	memset(szServerIpAddress, 0, sizeof(char) * 32);
-	memcpy(szServerIpAddress, g_pProtect->m_MainInfo.IpAddress, sizeof(char) * 32);
-
-	g_ServerPort = g_pProtect->m_MainInfo.IpAddressPort;
-
-	Version[0] = g_pProtect->m_MainInfo.ClientVersion[0] + 1;
-	Version[1] = g_pProtect->m_MainInfo.ClientVersion[2] + 2;
-	Version[2] = g_pProtect->m_MainInfo.ClientVersion[3] + 3;
-	Version[3] = g_pProtect->m_MainInfo.ClientVersion[5] + 4;
-	Version[4] = g_pProtect->m_MainInfo.ClientVersion[6] + 5;
-
-	memcpy(Serial, g_pProtect->m_MainInfo.ClientSerial, sizeof(Serial));
-#endif
+//#ifdef CSK_LH_DEBUG_CONSOLE
+//
+//#else
+//	szServerIpAddress = new char[32];
+//
+//	memset(szServerIpAddress, 0, sizeof(char) * 32);
+//	memcpy(szServerIpAddress, g_pProtect->m_MainInfo.IpAddress, sizeof(char) * 32);
+//
+//	g_ServerPort = g_pProtect->m_MainInfo.IpAddressPort;
+//
+//	Version[0] = g_pProtect->m_MainInfo.ClientVersion[0] + 1;
+//	Version[1] = g_pProtect->m_MainInfo.ClientVersion[2] + 2;
+//	Version[2] = g_pProtect->m_MainInfo.ClientVersion[3] + 3;
+//	Version[3] = g_pProtect->m_MainInfo.ClientVersion[5] + 4;
+//	Version[4] = g_pProtect->m_MainInfo.ClientVersion[6] + 5;
+//
+//	memcpy(Serial, g_pProtect->m_MainInfo.ClientSerial, sizeof(Serial));
+//#endif
 	
 
 	char *lpszCommandLine = GetCommandLine();
