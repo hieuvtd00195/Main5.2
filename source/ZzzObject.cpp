@@ -1,4 +1,4 @@
-ï»¿///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
 #include "ZzzOpenglUtil.h"
@@ -836,7 +836,7 @@ void Draw_RenderObject(OBJECT* o, bool Translate, int Select, int ExtraMon)
 
                         Vector(1.0f, 0.0f, 0.0f, vLight);
                         Vector((float)(rand() % 10 - 10) * 0.5f, 0.f, (float)(rand() % 40 - 20) * 0.5f, vPos);
-                        b->TransformPosition(BoneTransform[14], vPos, vPosition, false);	// í„±
+                        b->TransformPosition(BoneTransform[14], vPos, vPosition, false);	// ÅÎ
                         CreateParticle(BITMAP_SPARK + 1, vPosition, o->Angle, vLight, 15, 0.7f + (fLuminosity * 0.05f));
                     }
                     b->StreamMesh = -1;
@@ -2288,7 +2288,7 @@ void Draw_RenderObject(OBJECT* o, bool Translate, int Select, int ExtraMon)
                     b->RenderMesh(2, RENDER_TEXTURE, o->Alpha, o->BlendMesh, o->BlendMeshLight, o->BlendMeshTexCoordU, o->BlendMeshTexCoordV);
                     b->RenderMesh(3, RENDER_TEXTURE, o->Alpha, o->BlendMesh, o->BlendMeshLight, o->BlendMeshTexCoordU, o->BlendMeshTexCoordV);
                     b->RenderMesh(4, RENDER_TEXTURE, o->Alpha, o->BlendMesh, o->BlendMeshLight, o->BlendMeshTexCoordU, o->BlendMeshTexCoordV);
-                    // ë‚ ê°œ
+                    // ³¯°³
                     Vector(1.0f, 1.0f, 1.0f, b->BodyLight);
                     b->RenderMesh(5, RENDER_TEXTURE, o->Alpha, o->BlendMesh, o->BlendMeshLight, o->BlendMeshTexCoordU, o->BlendMeshTexCoordV);
                     b->RenderMesh(5, RENDER_TEXTURE | RENDER_BRIGHT, o->Alpha, 5, 0.1f, o->BlendMeshTexCoordU, o->BlendMeshTexCoordV);
@@ -3185,7 +3185,7 @@ void RenderObjectVisual(OBJECT* o)
         {
         case 11:
         {
-            char indexLight[7] = { 1, 2, 4, 6, 9, 10, 11 };
+            wchar_t indexLight[7] = { 1, 2, 4, 6, 9, 10, 11 };
 
             Luminosity = sinf((o->Angle[2] * 20 + WorldTime) * 0.001f) * 0.5f + 0.5f;
             Vector(Luminosity * 1.f, Luminosity * 0.5f, 0.f, Light);
@@ -4993,13 +4993,13 @@ void DeleteObjectTile(int x, int y)
     }
 }
 
-int OpenObjects(char* FileName)
+int OpenObjects(wchar_t* FileName)
 {
-    FILE* fp = fopen(FileName, "rb");
+    FILE* fp = _wfopen(FileName, L"rb");
     if (fp == NULL)
     {
-        char Text[256];
-        sprintf(Text, "%s file not found.", FileName);
+        wchar_t Text[256];
+        swprintf(Text, L"%s file not found.", FileName);
         MessageBox(g_hWnd, Text, NULL, MB_OK);
         SendMessage(g_hWnd, WM_DESTROY, 0, 0);
         return (-1);
@@ -5036,13 +5036,13 @@ int OpenObjects(char* FileName)
     return iMapNumber;
 }
 
-int OpenObjectsEnc(char* FileName)
+int OpenObjectsEnc(wchar_t* FileName)
 {
-    FILE* fp = fopen(FileName, "rb");
+    FILE* fp = _wfopen(FileName, L"rb");
     if (fp == NULL)
     {
-        char Text[256];
-        sprintf(Text, "%s file not found.", FileName);
+        wchar_t Text[256];
+        swprintf(Text, L"%s file not found.", FileName);
         MessageBox(g_hWnd, Text, NULL, MB_OK);
         SendMessage(g_hWnd, WM_DESTROY, 0, 0);
         return (-1);
@@ -5080,9 +5080,9 @@ int OpenObjectsEnc(char* FileName)
     return iMapNumber;
 }
 
-bool SaveObjects(char* FileName, int iMapNumber)
+bool SaveObjects(wchar_t* FileName, int iMapNumber)
 {
-    FILE* fp = fopen(FileName, "wb");
+    FILE* fp = _wfopen(FileName, L"wb");
 
     short ObjectCount = 0;
     int CounterPoint = 3;
@@ -5123,7 +5123,7 @@ bool SaveObjects(char* FileName, int iMapNumber)
     fclose(fp);
 
     {
-        fp = fopen(FileName, "rb");
+        fp = _wfopen(FileName, L"rb");
         fseek(fp, 0, SEEK_END);
         int EncBytes = ftell(fp);
         fseek(fp, 0, SEEK_SET);
@@ -5136,7 +5136,7 @@ bool SaveObjects(char* FileName, int iMapNumber)
         MapFileEncrypt(Data, EncData, EncBytes);
         delete[] EncData;
 
-        fp = fopen(FileName, "wb");
+        fp = _wfopen(FileName, L"wb");
         fwrite(Data, DataBytes, 1, fp);
         fclose(fp);
         delete[] Data;
@@ -5144,10 +5144,10 @@ bool SaveObjects(char* FileName, int iMapNumber)
     return true;
 }
 
-void SaveTrapObjects(char* FileName)
+void SaveTrapObjects(wchar_t* FileName)
 {
-    FILE* fp = fopen(FileName, "wt");
-    fprintf(fp, "0\n");
+    FILE* fp = _wfopen(FileName, L"wt");
+    fwprintf(fp, L"0\n");
     for (int i = 0; i < 16; i++)
     {
         for (int j = 0; j < 16; j++)
@@ -5169,7 +5169,7 @@ void SaveTrapObjects(char* FileName)
                         case 51:Type = 102; break;
                         case 25:Type = 103; break;
                         }
-                        fprintf(fp, "%4d %4d 0 %4d %4d %4d\n", Type, gMapManager.WorldActive, (BYTE)(o->Position[0] / TERRAIN_SCALE), (BYTE)(o->Position[1] / TERRAIN_SCALE), (BYTE)((o->Angle[2] + 22.5f) / 360.f * 8.f + 1.f) % 8);
+                        fwprintf(fp, L"%4d %4d 0 %4d %4d %4d\n", Type, gMapManager.WorldActive, (BYTE)(o->Position[0] / TERRAIN_SCALE), (BYTE)(o->Position[1] / TERRAIN_SCALE), (BYTE)((o->Angle[2] + 22.5f) / 360.f * 8.f + 1.f) % 8);
                     }
                     if (o->Next == NULL) break;
                     o = o->Next;
@@ -5178,7 +5178,7 @@ void SaveTrapObjects(char* FileName)
             }
         }
     }
-    fprintf(fp, "end\n");
+    fwprintf(fp, L"end\n");
     fclose(fp);
 }
 
@@ -6923,7 +6923,7 @@ void RenderPartObjectBody(BMD* b, OBJECT* o, int Type, float Alpha, int RenderTy
         b->RenderMesh(1, RENDER_TEXTURE | RENDER_BRIGHT, o->Alpha, 1, o->BlendMeshLight, fU, o->BlendMeshTexCoordV, o->HiddenMesh);
         Vector(1.f, 1.f, 1.f, b->BodyLight);
     }
-    // 	else if( Type==MODEL_WING+37 )	// ì‹œê³µë‚ ê°œ(ë²•ì‚¬)
+    // 	else if( Type==MODEL_WING+37 )	// ½Ã°ø³¯°³(¹ý»ç)
     //     {
     // 		Vector(1.f,1.f,1.f,b->BodyLight);
     // 		b->RenderBody(RENDER_TEXTURE,o->Alpha,o->BlendMesh,o->BlendMeshLight,o->BlendMeshTexCoordU,o->BlendMeshTexCoordV,o->HiddenMesh);
@@ -7547,7 +7547,7 @@ void RenderPartObjectBody(BMD* b, OBJECT* o, int Type, float Alpha, int RenderTy
         float Luminosity = sinf(WorldTime * 0.0008f) * 0.7f + 0.5f;
         b->RenderMesh(2, RENDER_TEXTURE, Alpha, 2, Luminosity, o->BlendMeshTexCoordU, o->BlendMeshTexCoordV);
         b->RenderMesh(1, RENDER_TEXTURE, Alpha, 1, o->BlendMeshLight, o->BlendMeshTexCoordU, o->BlendMeshTexCoordV);
-        //. ë‚ 
+        //. ³¯
         glColor3f(0.43f, 0.14f, 0.6f);
 
         b->RenderMesh(3, RENDER_BRIGHT | RENDER_CHROME, Alpha, 3, o->BlendMeshLight, WorldTime * 0.0001f, WorldTime * 0.0005f);
@@ -8618,12 +8618,12 @@ void RenderPartObjectBody(BMD* b, OBJECT* o, int Type, float Alpha, int RenderTy
         b->RenderBody(RENDER_TEXTURE, o->Alpha, o->BlendMesh, o->BlendMeshLight, o->BlendMeshTexCoordU, o->BlendMeshTexCoordV, o->HiddenMesh);
         b->RenderMesh(0, RENDER_BRIGHT | RENDER_CHROME, 0.2f, 0, o->BlendMeshLight, o->BlendMeshTexCoordU, o->BlendMeshTexCoordV);
     }
-    else if (o->Type >= MODEL_HELPER + 109 && o->Type <= MODEL_HELPER + 112)	// InGameShop ìž¥ì°© ì•„ì´í…œ : ë°˜ì§€ (ì‚¬íŒŒì´ì–´, ë£¨ë¹„, í† íŒŒì¦ˆ, ìžìˆ˜ì •)
+    else if (o->Type >= MODEL_HELPER + 109 && o->Type <= MODEL_HELPER + 112)	// InGameShop ÀåÂø ¾ÆÀÌÅÛ : ¹ÝÁö (»çÆÄÀÌ¾î, ·çºñ, ÅäÆÄÁî, ÀÚ¼öÁ¤)
     {
         b->RenderBody(RENDER_TEXTURE, o->Alpha, o->BlendMesh, o->BlendMeshLight, o->BlendMeshTexCoordU, o->BlendMeshTexCoordV, o->HiddenMesh);
         b->RenderMesh(1, RENDER_BRIGHT | RENDER_CHROME, o->Alpha, 0, o->BlendMeshLight, o->BlendMeshTexCoordU, o->BlendMeshTexCoordV);
     }
-    else if (o->Type >= MODEL_HELPER + 113 && o->Type <= MODEL_HELPER + 115)// InGameShop ìž¥ì°© ì•„ì´í…œ : ëª©ê±¸ì´ (ì‚¬íŒŒì´ì–´, ë£¨ë¹„, ì—ë©”ëž„ë“œ)
+    else if (o->Type >= MODEL_HELPER + 113 && o->Type <= MODEL_HELPER + 115)// InGameShop ÀåÂø ¾ÆÀÌÅÛ : ¸ñ°ÉÀÌ (»çÆÄÀÌ¾î, ·çºñ, ¿¡¸Þ¶öµå)
     {
         b->RenderBody(RENDER_TEXTURE, o->Alpha, o->BlendMesh, o->BlendMeshLight, o->BlendMeshTexCoordU, o->BlendMeshTexCoordV, o->HiddenMesh);
         b->RenderMesh(1, RENDER_BRIGHT | RENDER_CHROME, o->Alpha, 0, o->BlendMeshLight, o->BlendMeshTexCoordU, o->BlendMeshTexCoordV);
@@ -10119,7 +10119,6 @@ void RenderPartObjectEffect(OBJECT* o, int Type, vec3_t Light, float Alpha, int 
             for (int j = 0; j < iNumParticle; ++j)
                 if (rand_fps_check(1))
                     CreateParticle(BITMAP_CHROME_ENERGY2, Position, o->Angle, Light, 0, 0.5f);
-
         }
 
         for (int i = 30; i < 38; ++i)

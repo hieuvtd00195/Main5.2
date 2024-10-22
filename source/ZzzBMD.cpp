@@ -1185,7 +1185,7 @@ void BMD::RenderMesh(int meshIndex, int renderFlags, float alpha, int blendMeshI
             DisableDepthTest();
         }
 
-        glColor3f(BodyLight[0] * blendMeshAlpha,
+        glColor3f(BodyLight[0] * blendMeshAlpha, 
             BodyLight[1] * blendMeshAlpha,
             BodyLight[2] * blendMeshAlpha);
         //glColor3f(BlendMeshLight,BlendMeshLight,BlendMeshLight);
@@ -1280,40 +1280,40 @@ void BMD::RenderMesh(int meshIndex, int renderFlags, float alpha, int blendMeshI
             int normalIndex = triangle->NormalIndex[k];
             switch (finalRenderFlags)
             {
-            case RENDER_TEXTURE:
-            {
-                if (EnableWave)
+                case RENDER_TEXTURE:
                 {
-                    texCoords[target_vertex_index][0] += blendMeshTextureCoordU;
-                    texCoords[target_vertex_index][1] += blendMeshTextureCoordV;
-                }
+                    if (EnableWave)
+                    {
+                        texCoords[target_vertex_index][0] += blendMeshTextureCoordU;
+                        texCoords[target_vertex_index][1] += blendMeshTextureCoordV;
+                    }
 
-                if (enableLight)
+                    if (enableLight)
+                    {
+                        auto light = LightTransform[meshIndex][normalIndex];
+                        Vector4(light[0], light[1], light[2], alpha, colors[target_vertex_index]);
+                    }
+
+                    break;
+                }
+                case RENDER_CHROME:
                 {
-                    auto light = LightTransform[meshIndex][normalIndex];
-                    Vector4(light[0], light[1], light[2], alpha, colors[target_vertex_index]);
+                    texCoords[target_vertex_index][0] = g_chrome[normalIndex][0];
+                    texCoords[target_vertex_index][1] = g_chrome[normalIndex][1];
+                    break;
                 }
-
-                break;
-            }
-            case RENDER_CHROME:
-            {
-                texCoords[target_vertex_index][0] = g_chrome[normalIndex][0];
-                texCoords[target_vertex_index][1] = g_chrome[normalIndex][1];
-                break;
-            }
-            case RENDER_CHROME4:
-            {
-                texCoords[target_vertex_index][0] = g_chrome[normalIndex][0] + blendMeshTextureCoordU;
-                texCoords[target_vertex_index][1] = g_chrome[normalIndex][1] + blendMeshTextureCoordV;
-                break;
-            }
-            case RENDER_OIL:
-            {
-                texCoords[target_vertex_index][0] = g_chrome[normalIndex][0] * texCoords[target_vertex_index][0] + blendMeshTextureCoordU;
-                texCoords[target_vertex_index][1] = g_chrome[normalIndex][1] * texCoords[target_vertex_index][1] + blendMeshTextureCoordV;
-                break;
-            }
+                case RENDER_CHROME4:
+                {
+                    texCoords[target_vertex_index][0] = g_chrome[normalIndex][0] + blendMeshTextureCoordU;
+                    texCoords[target_vertex_index][1] = g_chrome[normalIndex][1] + blendMeshTextureCoordV;
+                    break;
+                }
+                case RENDER_OIL:
+                {
+                    texCoords[target_vertex_index][0] = g_chrome[normalIndex][0] * texCoords[target_vertex_index][0] + blendMeshTextureCoordU;
+                    texCoords[target_vertex_index][1] = g_chrome[normalIndex][1] * texCoords[target_vertex_index][1] + blendMeshTextureCoordV;
+                    break;
+                }
             }
 
             if ((renderFlags & RENDER_SHADOWMAP) == RENDER_SHADOWMAP)
@@ -2191,8 +2191,8 @@ __forceinline void CalcShadowPosition(vec3_t* position, const vec3_t origin, con
     // The result is the relative coordinate of the vertex to the origin.
     VectorSubtract(result, origin, result)
 
-        // scale the shadow in the x direction
-        result[0] += result[2] * (result[0] + sx) / (result[2] - sy);
+    // scale the shadow in the x direction
+    result[0] += result[2] * (result[0] + sx) / (result[2] - sy);
 
     // Add the origin again, to get the absolute coordinate of the vertex again
     VectorAdd(result, origin, result);
@@ -2214,13 +2214,13 @@ void BMD::AddClothesShadowTriangles(void* pClothes, const int clothesCount, cons
 {
     auto vertices = RenderArrayVertices;
     int target_vertex_index = -1;
-
+    
     for (int i = 0; i < clothesCount; i++)
     {
         auto* const pCloth = &static_cast<CPhysicsCloth*>(pClothes)[i];
         auto const columns = pCloth->GetVerticalCount();
         auto const rows = pCloth->GetHorizontalCount();
-
+        
         for (int col = 0; col < columns - 1; ++col)
         {
             for (int row = 0; row < rows - 1; ++row)
@@ -2296,7 +2296,7 @@ void BMD::AddMeshShadowTriangles(const int blendMesh, const int hiddenMesh, cons
                 target_vertex_index++;
 
                 VectorCopy(VertexTransform[i][source_vertex_index], vertices[target_vertex_index]);
-
+                
                 CalcShadowPosition(&vertices[target_vertex_index], BodyOrigin, sx, sy);
             }
         }
@@ -2619,12 +2619,12 @@ void BMD::FindTriangleForEdge(int iMesh, int iTri1, int iIndex11)
 }
 //#endif //USE_SHADOWVOLUME
 
-bool BMD::Open(char* DirName, char* ModelFileName)
+bool BMD::Open(wchar_t* DirName, wchar_t* ModelFileName)
 {
-    char ModelName[64];
-    strcpy(ModelName, DirName);
-    strcat(ModelName, ModelFileName);
-    FILE* fp = fopen(ModelName, "rb");
+    wchar_t ModelName[64];
+    wcscpy(ModelName, DirName);
+    wcscat(ModelName, ModelFileName);
+    FILE* fp = _wfopen(ModelName, L"rb");
     if (fp == NULL)
     {
         return false;
@@ -2639,7 +2639,7 @@ bool BMD::Open(char* DirName, char* ModelFileName)
     int Size;
     int DataPtr = 3;
     Version = *((char*)(Data + DataPtr)); DataPtr += 1;
-    memcpy(Name, Data + DataPtr, 32); DataPtr += 32;
+    memcpy(Name, Data + DataPtr, 32); DataPtr += 32 * sizeof(char);
     NumMeshs = *((short*)(Data + DataPtr)); DataPtr += 2;
     NumBones = *((short*)(Data + DataPtr)); DataPtr += 2;
     NumActions = *((short*)(Data + DataPtr)); DataPtr += 2;
@@ -2685,7 +2685,7 @@ bool BMD::Open(char* DirName, char* ModelFileName)
 
         TextureScriptParsing TSParsing;
 
-        if (TSParsing.parsingTScript(Textures[i].FileName))
+        if (TSParsing.parsingTScriptA(Textures[i].FileName))
         {
             m->m_csTScript = new TextureScript;
             m->m_csTScript->setScript((TextureScript&)TSParsing);
@@ -2721,7 +2721,7 @@ bool BMD::Open(char* DirName, char* ModelFileName)
     for (i = 0; i < NumBones; i++)
     {
         Bone_t* b = &Bones[i];
-        b->Dummy = *((char*)(Data + DataPtr)); DataPtr += 1;
+        b->Dummy = *((wchar_t*)(Data + DataPtr)); DataPtr += 1;
         if (!b->Dummy)
         {
             memcpy(b->Name, Data + DataPtr, 32); DataPtr += 32;
@@ -2749,12 +2749,12 @@ bool BMD::Open(char* DirName, char* ModelFileName)
     return true;
 }
 
-bool BMD::Save(char* DirName, char* ModelFileName)
+bool BMD::Save(wchar_t* DirName, wchar_t* ModelFileName)
 {
-    char ModelName[64];
-    strcpy(ModelName, DirName);
-    strcat(ModelName, ModelFileName);
-    FILE* fp = fopen(ModelName, "wb");
+    wchar_t ModelName[64];
+    wcscpy(ModelName, DirName);
+    wcscat(ModelName, ModelFileName);
+    FILE* fp = _wfopen(ModelName, L"wb");
     if (fp == NULL) return false;
     putc('B', fp);
     putc('M', fp);
@@ -2815,7 +2815,7 @@ bool BMD::Save(char* DirName, char* ModelFileName)
     return true;
 }
 
-bool BMD::Open2(char* DirName, char* ModelFileName, bool bReAlloc)
+bool BMD::Open2(wchar_t* DirName, wchar_t* ModelFileName, bool bReAlloc)
 {
     if (true == m_bCompletedAlloc)
     {
@@ -2830,10 +2830,10 @@ bool BMD::Open2(char* DirName, char* ModelFileName, bool bReAlloc)
         }
     }
 
-    char ModelName[64];
-    strcpy(ModelName, DirName);
-    strcat(ModelName, ModelFileName);
-    FILE* fp = fopen(ModelName, "rb");
+    wchar_t ModelName[64];
+    wcscpy(ModelName, DirName);
+    wcscat(ModelName, ModelFileName);
+    FILE* fp = _wfopen(ModelName, L"rb");
     if (fp == NULL)
     {
         m_bCompletedAlloc = false;
@@ -2911,7 +2911,7 @@ bool BMD::Open2(char* DirName, char* ModelFileName, bool bReAlloc)
 
         TextureScriptParsing TSParsing;
 
-        if (TSParsing.parsingTScript(Textures[i].FileName))
+        if (TSParsing.parsingTScriptA(Textures[i].FileName))
         {
             m->m_csTScript = new TextureScript;
             m->m_csTScript->setScript((TextureScript&)TSParsing);
@@ -2974,12 +2974,12 @@ bool BMD::Open2(char* DirName, char* ModelFileName, bool bReAlloc)
     return true;
 }
 
-bool BMD::Save2(char* DirName, char* ModelFileName)
+bool BMD::Save2(wchar_t* DirName, wchar_t* ModelFileName)
 {
-    char ModelName[64];
-    strcpy(ModelName, DirName);
-    strcat(ModelName, ModelFileName);
-    FILE* fp = fopen(ModelName, "wb");
+    wchar_t ModelName[64];
+    wcscpy(ModelName, DirName);
+    wcscat(ModelName, ModelFileName);
+    FILE* fp = _wfopen(ModelName, L"wb");
     if (fp == NULL) return false;
     putc('B', fp);
     putc('M', fp);

@@ -1,8 +1,12 @@
-///////////////////////////////////////////////////////////////////////////////
+﻿///////////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
 #include "wsctlc.h"
 #include "wsctlc_addon.h"
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <stdio.h>
+#include <windows.h>
 
 typedef struct
 {
@@ -56,8 +60,8 @@ BOOL CWsctlc::Startup()
 	err = WSAStartup( wVersionRequested, &wsaData);
 	if( err != 0)
 	{
-		g_ErrorReport.Write( "Winsock DLL Initialize error.\r\n");
-		MessageBox(NULL,"WINSOCK DLL","Error",MB_OK);
+		g_ErrorReport.Write( L"Winsock DLL Initialize error.\r\n");
+		MessageBox(NULL,L"WINSOCK DLL",L"Error",MB_OK);
 		return FALSE;
 	}
 
@@ -66,8 +70,8 @@ BOOL CWsctlc::Startup()
 			/* Tell the user that we could not find a usable */
 			/* WinSock DLL.                                  */
 		WSACleanup( );
-		g_ErrorReport.Write( "Winsock version low.\r\n");
-		MessageBox(NULL,"WINSOCK","Error",MB_OK);
+		g_ErrorReport.Write( L"Winsock version low.\r\n");
+		MessageBox(NULL,L"WINSOCK",L"Error",MB_OK);
 		return FALSE;
 	}
 	m_socket = NULL;
@@ -134,11 +138,11 @@ int CWsctlc::Create(HWND hWnd, BOOL bGame)
 
 	if( m_socket == INVALID_SOCKET ) 
 	{
-		char lpszMessage[128];
-		wsprintf(lpszMessage, "WSAGetLastError %d", WSAGetLastError());
+		wchar_t lpszMessage[128];
+		wsprintf(lpszMessage, L"WSAGetLastError %d", WSAGetLastError());
 		g_ErrorReport.Write( lpszMessage);
-		g_ErrorReport.Write( "\r\n");
-		MessageBox(NULL,lpszMessage, "Error", MB_OK);
+		g_ErrorReport.Write( L"\r\n");
+		MessageBox(NULL,lpszMessage, L"Error", MB_OK);
 		return FALSE;
 	}
 	m_hWnd = hWnd;	
@@ -172,7 +176,7 @@ BOOL CWsctlc::Close()
 	{
 		m_pPacketQueue->PopPacket();
 	}
-	g_ErrorReport.Write("[Socket Closed][Clear PacketQueue]\r\n");
+	g_ErrorReport.Write(L"[Socket Closed][Clear PacketQueue]\r\n");
 
 	closesocket(m_socket);
 	m_socket = INVALID_SOCKET;
@@ -196,58 +200,65 @@ SOCKET CWsctlc::GetSocket()
 	return m_socket;
 }
 
-int CWsctlc::Connect(char *ip_addr, unsigned short port, DWORD WinMsgNum)
+int CWsctlc::Connect(wchar_t* ip_addr, unsigned short port, DWORD WinMsgNum)
 {
-	sockaddr_in		addr;
+	sockaddr_in addr;
 	int nResult;
-	struct hostent    *host = NULL;
+	struct hostent* host = NULL;
 
-	if( m_hWnd == NULL ) {
-		MessageBox(NULL, "Connect Error", "Error", MB_OK);
+	if (m_hWnd == NULL) {
+		MessageBoxW(NULL, L"Connect Error", L"Error", MB_OK);
 		return FALSE;
 	}
-    addr.sin_family			= PF_INET;
-    addr.sin_port			= htons( port );
-    addr.sin_addr.s_addr	= inet_addr(ip_addr); 
 
-	if( addr.sin_addr.s_addr == INADDR_NONE )
+	addr.sin_family = PF_INET;
+	addr.sin_port = htons(port);
+
+	// Chuyển đổi ip_addr từ wchar_t sang char để sử dụng với inet_addr
+	char ip_addr_buffer[INET_ADDRSTRLEN]; // Kích thước tối đa cho địa chỉ IPv4
+	wcstombs(ip_addr_buffer, ip_addr, INET_ADDRSTRLEN);
+
+	addr.sin_addr.s_addr = inet_addr(ip_addr_buffer);
+
+	if (addr.sin_addr.s_addr == INADDR_NONE)
 	{
-		host = gethostbyname(ip_addr);
-		if( host == NULL )
+		host = gethostbyname(ip_addr_buffer);
+		if (host == NULL)
 		{
 			return 2;
 		}
 		CopyMemory(&addr.sin_addr, host->h_addr_list[0], host->h_length);
 	}
-   
-	if ( addr.sin_addr.S_un.S_un_b.s_b1 == 127 && addr.sin_addr.S_un.S_un_b.s_b2 == 0 &&
+
+	if (addr.sin_addr.S_un.S_un_b.s_b1 == 127 && addr.sin_addr.S_un.S_un_b.s_b2 == 0 &&
 		addr.sin_addr.S_un.S_un_b.s_b3 == 0 && addr.sin_addr.S_un.S_un_b.s_b4 == 1)
-	{	// local host
-		return ( FALSE);
+	{ // local host
+		return FALSE;
 	}
 
-	nResult = connect( m_socket, (LPSOCKADDR)&addr, sizeof(addr) );
-	if( nResult == SOCKET_ERROR) 
+	nResult = connect(m_socket, (LPSOCKADDR)&addr, sizeof(addr));
+	if (nResult == SOCKET_ERROR)
 	{
-#ifdef _DEBUG		
+#ifdef _DEBUG
 		LogPrint("Connect error (%d)", WSAGetLastError());
 #endif // _DEBUG
-		if(WSAGetLastError() != WSAEWOULDBLOCK) 
+		if (WSAGetLastError() != WSAEWOULDBLOCK)
 		{
 			closesocket(m_socket);
 			return FALSE;
 		}
-    }
+	}
 
-    nResult = WSAAsyncSelect( m_socket, m_hWnd, WinMsgNum, FD_READ | FD_WRITE | FD_CLOSE);
-    if( nResult == SOCKET_ERROR) 
+	nResult = WSAAsyncSelect(m_socket, m_hWnd, WinMsgNum, FD_READ | FD_WRITE | FD_CLOSE);
+	if (nResult == SOCKET_ERROR)
 	{
-		closesocket(m_socket);		
+		closesocket(m_socket);
 		//cLogProc.Add("Client WSAAsyncSelect error %d", WSAGetLastError());
 		return FALSE;
-    }
+	}
 	return 1;
 }
+
 
 int CWsctlc::sSend(SOCKET socket, char *buf, int len)
 {	
@@ -264,8 +275,8 @@ int CWsctlc::sSend(SOCKET socket, char *buf, int len)
 		{
 			if( WSAGetLastError() != WSAEWOULDBLOCK )
 			{
-				g_ConsoleDebug->Write(MCD_ERROR, "[Send Packet Error] WSAGetLastError() != WSAEWOULDBLOCK");
-				g_ErrorReport.Write("[Send Packet Error] WSAGetLastError() != WSAEWOULDBLOCK\r\n");
+				g_ConsoleDebug->Write(MCD_ERROR, L"[Send Packet Error] WSAGetLastError() != WSAEWOULDBLOCK");
+				g_ErrorReport.Write(L"[Send Packet Error] WSAGetLastError() != WSAEWOULDBLOCK\r\n");
 				Close();
 				return FALSE;
 			}
@@ -274,9 +285,9 @@ int CWsctlc::sSend(SOCKET socket, char *buf, int len)
 				if( (m_nSendBufLen+len) > MAX_SENDBUF )
 				{
 
-					g_ConsoleDebug->Write(MCD_ERROR, "Send Packet Error] SendBuffer Overflow");
+					g_ConsoleDebug->Write(MCD_ERROR, L"Send Packet Error] SendBuffer Overflow");
 
-					g_ErrorReport.Write("[Send Packet Error] SendBuffer Overflow\r\n");
+					g_ErrorReport.Write(L"[Send Packet Error] SendBuffer Overflow\r\n");
 					Close();
 					return FALSE;
 				}
@@ -317,7 +328,7 @@ int CWsctlc::FDWriteSend()
 		{
 			if( WSAGetLastError() != WSAEWOULDBLOCK )
 			{
-				g_ErrorReport.Write("FDWriteSend Error 1.\r\n");
+				g_ErrorReport.Write(L"FDWriteSend Error 1.\r\n");
 				Close();
 				return FALSE;
 			}
@@ -329,7 +340,7 @@ int CWsctlc::FDWriteSend()
 		else {
 			if( nResult <= 0 ) 
 			{
-				g_ErrorReport.Write("FDWriteSend Error 2.\r\n");
+				g_ErrorReport.Write(L"FDWriteSend Error 2.\r\n");
 				Close();
 				return FALSE;
 			}
@@ -403,7 +414,7 @@ void CWsctlc::LogHexPrintS( BYTE *buf, int size)
 		}		
 		fprintf(m_logfp, "S 0x%02x %d\n", buf[2], buf[3]);
 	} 
-	// �ӽ÷� ���� else fprintf(m_logfp, "S 0x%02x %d\n", buf[3], buf[4]);
+	// ÀÓ½Ă·Î ¸·À½ else fprintf(m_logfp, "S 0x%02x %d\n", buf[3], buf[4]);
 
 	//fprintf(m_logfp, "S ");
 	//for( int n=0; n<size; n++) fprintf(m_logfp, "%02x ", buf[n]);
@@ -434,7 +445,7 @@ int CWsctlc::nRecv()
 
 	if(m_nRecvBufLen >= MAX_RECVBUF) 
 	{
-		g_ErrorReport.Write("Receive Packet Buffer Overflow.\r\n");
+		g_ErrorReport.Write(L"Receive Packet Buffer Overflow.\r\n");
 		return 1;
 	}
 

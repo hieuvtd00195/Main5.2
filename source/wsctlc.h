@@ -1,4 +1,4 @@
-
+﻿
 // The following ifdef block is the standard way of creating macros which make exporting 
 // from a DLL simpler. All files within this DLL are compiled with the WSCTLC_EXPORTS
 // symbol defined on the command line. this symbol should not be defined on any project
@@ -60,7 +60,7 @@ public:
 	BOOL Close();
 	BOOL Close(SOCKET & socket);
 	
-	BOOL Connect(char *ip_addr, unsigned short port, DWORD WinMsgNum);
+	BOOL Connect(wchar_t* ip_addr, unsigned short port, DWORD WinMsgNum);
 
 	int  sSend(SOCKET socket, char *buf, int len);
 	__forceinline int  sSend(char *buf, int len)
@@ -78,9 +78,9 @@ public:
 			{
 				if( WSAGetLastError() != WSAEWOULDBLOCK )
 				{
-					g_ConsoleDebug->Write(MCD_ERROR, "[Send Packet Error] WSAGetLastError() != WSAEWOULDBLOCK");
-					g_ConsoleDebug->Write(MCD_ERROR, "[Send Packet Error] WSAGetLastError = %d", WSAGetLastError());
-					g_ErrorReport.Write("[Send Packet Error] WSAGetLastError() != WSAEWOULDBLOCK\r\n");
+					g_ConsoleDebug->Write(MCD_ERROR, L"[Send Packet Error] WSAGetLastError() != WSAEWOULDBLOCK");
+					g_ConsoleDebug->Write(MCD_ERROR, L"[Send Packet Error] WSAGetLastError = %d", WSAGetLastError());
+					g_ErrorReport.Write(L"[Send Packet Error] WSAGetLastError() != WSAEWOULDBLOCK\r\n");
 					Close();
 					return FALSE;
 				}
@@ -88,9 +88,9 @@ public:
 				{
 					if( (m_nSendBufLen+len) > MAX_SENDBUF )
 					{
-						g_ConsoleDebug->Write(MCD_ERROR, "[Send Packet Error] SendBuffer Overflow");
-						g_ConsoleDebug->Write(MCD_ERROR, "[Send Packet Error] WSAGetLastError = %d", WSAGetLastError());
-						g_ErrorReport.Write("[Send Packet Error] SendBuffer Overflow\r\n");
+						g_ConsoleDebug->Write(MCD_ERROR, L"[Send Packet Error] SendBuffer Overflow");
+						g_ConsoleDebug->Write(MCD_ERROR, L"[Send Packet Error] WSAGetLastError = %d", WSAGetLastError());
+						g_ErrorReport.Write(L"[Send Packet Error] SendBuffer Overflow\r\n");
 						Close();
 						return FALSE;
 					}

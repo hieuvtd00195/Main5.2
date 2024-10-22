@@ -142,14 +142,14 @@ bool SEASON3A::CGM3rdChangeUp::RenderObjectVisual(OBJECT* pObject, BMD* pModel)
     {
         Vector(1.f, 1.f, 1.f, Light);
         if (rand_fps_check(2)) {
-            if ((int)((pObject->Timer += FPS_ANIMATION_FACTOR) + 2) % 4 == 0)
+            if ((int)((pObject->Timer+=FPS_ANIMATION_FACTOR) + 2) % 4 == 0)
             {
                 CreateParticle(BITMAP_ADV_SMOKE + 1, pObject->Position, pObject->Angle, Light);
                 CreateParticle(BITMAP_ADV_SMOKE, pObject->Position, pObject->Angle, Light, 0);
             }
         }
         if (rand_fps_check(2)) {
-            if ((int)(pObject->Timer += FPS_ANIMATION_FACTOR) % 4 == 0)
+            if ((int)(pObject->Timer+=FPS_ANIMATION_FACTOR) % 4 == 0)
             {
                 CreateParticle(BITMAP_CLOUD, pObject->Position, pObject->Angle, Light, 6);
                 CreateParticle(BITMAP_ADV_SMOKE, pObject->Position, pObject->Angle, Light, 1);
@@ -188,7 +188,7 @@ bool SEASON3A::CGM3rdChangeUp::RenderObjectVisual(OBJECT* pObject, BMD* pModel)
     case 85:
         if (rand_fps_check(2))
         {
-            if ((int)((pObject->Timer += FPS_ANIMATION_FACTOR) + 2) % 4 == 0)
+            if ((int)((pObject->Timer+=FPS_ANIMATION_FACTOR) + 2) % 4 == 0)
             {
                 if (rand_fps_check(2))
                 {
@@ -202,7 +202,7 @@ bool SEASON3A::CGM3rdChangeUp::RenderObjectVisual(OBJECT* pObject, BMD* pModel)
         Vector(1.f, 0.4f, 0.4f, Light);
         if (rand_fps_check(2))
         {
-            if ((int)(pObject->Timer += FPS_ANIMATION_FACTOR) % 4 == 0)
+            if ((int)(pObject->Timer+=FPS_ANIMATION_FACTOR) % 4 == 0)
             {
                 CreateParticle(BITMAP_CLOUD, pObject->Position, pObject->Angle, Light, 14, pObject->Scale, 0);
                 CreateParticle(BITMAP_ADV_SMOKE, pObject->Position, pObject->Angle, Light, 2, pObject->Scale * 2);
@@ -419,8 +419,8 @@ CHARACTER* SEASON3A::CGM3rdChangeUp::CreateBalgasBarrackMonster(int iType, int P
         c->Weapon[0].Type = -1;
         c->Weapon[1].Type = -1;
 
-        BoneManager::RegisterBone(c, "Monster94_zx", 27);
-        BoneManager::RegisterBone(c, "Monster94_zx01", 28);
+        BoneManager::RegisterBone(c, L"Monster94_zx", 27);
+        BoneManager::RegisterBone(c, L"Monster94_zx01", 28);
     }
     break;
     case 437:
@@ -443,7 +443,7 @@ CHARACTER* SEASON3A::CGM3rdChangeUp::CreateBalgasBarrackMonster(int iType, int P
         c->Object.Scale = 1.7f;
         c->Weapon[0].Type = -1;
         c->Weapon[1].Type = -1;
-        BoneManager::RegisterBone(c, "Left_Hand", 17);
+        BoneManager::RegisterBone(c, L"Left_Hand", 17);
     }
     break;
     }
@@ -710,7 +710,7 @@ void SEASON3A::CGM3rdChangeUp::MoveBalgasBarrackBlurEffect(CHARACTER* c, OBJECT*
         else if (o->CurrentAction == MONSTER01_ATTACK3)
         {
             vec3_t Position, Light;
-            BoneManager::GetBonePosition(o, "Left_Hand", Position);
+            BoneManager::GetBonePosition(o, L"Left_Hand", Position);
 
             Vector(0.2f, 0.2f, 0.7f, Light);
             CreateParticle(BITMAP_SMOKE, Position, o->Angle, Light, 27, 1.0f);
@@ -859,7 +859,7 @@ bool SEASON3A::CGM3rdChangeUp::RenderBalgasBarrackMonsterVisual(CHARACTER* c, OB
         auto Data = (float)((float)dummy / (float)100);
         auto Rot = (float)(rand() % 360);
         Vector(1.0f, 1.0f, 1.0f, Light);
-        BoneManager::GetBonePosition(o, "Monster94_zx", Position);
+        BoneManager::GetBonePosition(o, L"Monster94_zx", Position);
         CreateSprite(BITMAP_DS_EFFECT, Position, 1.5f, Light, o);
         Vector(0.3f, 0.3f, 0.7f, Light);
         CreateSprite(BITMAP_LIGHT, Position, 3.5f + (Data * 5), Light, o);
@@ -867,7 +867,7 @@ bool SEASON3A::CGM3rdChangeUp::RenderBalgasBarrackMonsterVisual(CHARACTER* c, OB
         CreateSprite(BITMAP_LIGHT, Position, 3.5f + (Data * 5), Light, o);
         CreateSprite(BITMAP_DS_SHOCK, Position, 0.8f + Data, Light, o, Rot);
 
-        BoneManager::GetBonePosition(o, "Monster94_zx01", Position);
+        BoneManager::GetBonePosition(o, L"Monster94_zx01", Position);
         Vector(0.1f, 0.0f, 0.6f, Light);
         CreateSprite(BITMAP_SHINY + 1, Position, 0.8f, Light, o, Rot);
         if (rand_fps_check(2))

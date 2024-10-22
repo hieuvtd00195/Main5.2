@@ -1,4 +1,4 @@
-ï»¿//*****************************************************************************
+//*****************************************************************************
 // File: GMKarutan1.cpp
 //*****************************************************************************
 
@@ -369,50 +369,50 @@ CHARACTER* CGMKarutan1::CreateMonster(int iType, int PosX, int PosY, int Key)
     case 569:
         OpenMonsterModel(209);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 209, PosX, PosY);
-        strcpy(pCharacter->ID, "ë§¹ë…ê³ ë¦¬ì „ê°ˆ");
+        wcscpy(pCharacter->ID, L"¸Íµ¶°í¸®Àü°¥");
         pCharacter->Object.Scale = 1.0f;
         break;
     case 570:
         OpenMonsterModel(210);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 210, PosX, PosY);
-        strcpy(pCharacter->ID, "ë³¸ìŠ¤ì½œí”¼ì˜¨");
+        wcscpy(pCharacter->ID, L"º»½ºÄÝÇÇ¿Â");
         pCharacter->Object.Scale = 0.58f;
         break;
     case 571:
         OpenMonsterModel(211);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 211, PosX, PosY);
-        strcpy(pCharacter->ID, "ì˜¤ë¥´ì»¤ìŠ¤");
+        wcscpy(pCharacter->ID, L"¿À¸£Ä¿½º");
         pCharacter->Object.Scale = 0.64f;
         break;
     case 572:
         OpenMonsterModel(212);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 212, PosX, PosY);
-        strcpy(pCharacter->ID, "ê³¨ë¡");
+        wcscpy(pCharacter->ID, L"°ñ·Ï");
         pCharacter->Object.Scale = 1.5f;
         break;
     case 573:
         OpenMonsterModel(213);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 213, PosX, PosY);
-        strcpy(pCharacter->ID, "í¬ë¦½íƒ€");
+        wcscpy(pCharacter->ID, L"Å©¸³Å¸");
         pCharacter->Object.Scale = 1.5f;
         break;
     case 574:
         OpenMonsterModel(214);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 214, PosX, PosY);
-        strcpy(pCharacter->ID, "í¬ë¦½í¬ìŠ¤");
+        wcscpy(pCharacter->ID, L"Å©¸³Æ÷½º");
         pCharacter->Object.Scale = 1.25f;
         break;
     case 575:
         OpenMonsterModel(215);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 215, PosX, PosY);
-        strcpy(pCharacter->ID, "ì½˜ë“œë¼");
+        wcscpy(pCharacter->ID, L"ÄÜµå¶ó");
         pCharacter->Object.Scale = 1.45f;
         pCharacter->Object.LifeTime = 100;
         break;
     case 576:
         OpenMonsterModel(216);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 216, PosX, PosY);
-        strcpy(pCharacter->ID, "ë‚˜ë¥´ì½˜ë“œë¼");
+        wcscpy(pCharacter->ID, L"³ª¸£ÄÜµå¶ó");
         pCharacter->Object.Scale = 1.55f;
         pCharacter->Object.LifeTime = 100;
 

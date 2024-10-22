@@ -1,4 +1,4 @@
-ï»¿///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
@@ -3926,7 +3926,7 @@ void MoveJoint(JOINT* o, int iIndex)
             vec3_t Position;
             VectorCopy(o->Position, Position);
 
-            o->Angle[0] = (float)o->LifeTime;	// ìž„ì‹œë¡œ -_-
+            o->Angle[0] = (float)o->LifeTime;	// ÀÓ½Ã·Î -_-
             CreateParticle(BITMAP_FIRE + 1, Position, o->Angle, Light, 5, 0.9f);
             if (rand_fps_check(200))
             {
@@ -4186,7 +4186,7 @@ void MoveJoint(JOINT* o, int iIndex)
         VectorRotate(Position, Matrix, p);
         VectorAddScaled(o->Position, p, o->Position, FPS_ANIMATION_FACTOR);
         break;
-    case MODEL_SPEARSKILL:	// ë°©ì–´ë§‰
+    case MODEL_SPEARSKILL:	// ¹æ¾î¸·
         CHARACTER* c;
         if (o->m_iChaIndex != -1)
         {
@@ -4494,11 +4494,11 @@ void MoveJoint(JOINT* o, int iIndex)
 
                 Vector(0.2f, 0.2f, 0.4f + 0.2f * fSinAdd, o->Light);
                 break;
-            case 14:	// ì†Œí™˜ ì†ëª©ë§
+            case 14:	// ¼ÒÈ¯ ¼Õ¸ñ¸µ
                 if (o->Target != NULL)
                 {
                     if (o->Target->Live)
-                        o->LifeTime = 100.f; //ë¬´í•œ
+                        o->LifeTime = 100.f; //¹«ÇÑ
                     else
                     {
                         DeleteJoint(MODEL_SPEARSKILL, o->Target, 14);
@@ -4672,7 +4672,7 @@ void MoveJoint(JOINT* o, int iIndex)
             Vector(0.f, -o->Velocity * FPS_ANIMATION_FACTOR, 0.f, Position);
             VectorRotate(Position, Matrix, p);
             VectorScale(p, FPS_ANIMATION_FACTOR, p)
-                VectorAddScaled(o->Position, p, o->Position, FPS_ANIMATION_FACTOR);
+            VectorAddScaled(o->Position, p, o->Position, FPS_ANIMATION_FACTOR);
         }
         break;
     case BITMAP_JOINT_THUNDER:
@@ -4827,7 +4827,7 @@ void MoveJoint(JOINT* o, int iIndex)
                 }
                 else
                 {
-                    assert(!"ë””ë²„ê¹…");
+                    assert(!"µð¹ö±ë");
                 }
             }
             break;
@@ -4997,7 +4997,7 @@ void MoveJoint(JOINT* o, int iIndex)
             if (o->MultiUse < o->Weapon)
             {
                 if (((int)o->LifeTime % 2) == 0)
-                    o->MultiUse += FPS_ANIMATION_FACTOR;
+                    o->MultiUse+=FPS_ANIMATION_FACTOR;
             }
         }
         break;
@@ -5037,7 +5037,7 @@ void MoveJoint(JOINT* o, int iIndex)
                 o->Light[2] -= (10.12f) * FPS_ANIMATION_FACTOR;
             }
         }
-        else if (o->SubType == 1 || o->SubType == 2 || o->SubType == 3 || o->SubType == 5 || o->SubType == 6 || o->SubType == 7) //  ìœ„ì—ì„œ ì•„ëž˜ë¡œ ë‚´ë ¤ì˜¤ëŠ” ë²ˆê°œ.
+        else if (o->SubType == 1 || o->SubType == 2 || o->SubType == 3 || o->SubType == 5 || o->SubType == 6 || o->SubType == 7) //  À§¿¡¼­ ¾Æ·¡·Î ³»·Á¿À´Â ¹ø°³.
 
         {
             VectorCopy(o->StartPosition, o->Position);
@@ -5480,7 +5480,7 @@ void MoveJoint(JOINT* o, int iIndex)
             vec3_t backPos;
             o->m_bCreateTails = false;
             o->NumTails = 0;
-
+            
 
             VectorCopy(o->Position, backPos);
             for (int i = 0; i < MAX_TAILS; ++i)
@@ -5605,7 +5605,7 @@ void MoveJoint(JOINT* o, int iIndex)
             else
             {
                 if (fLife < 10.f)
-                {	// ë
+                {	// ³¡
                     fPos = fLife * 7.0f;
                 }
                 else
@@ -5820,7 +5820,7 @@ void MoveJoint(JOINT* o, int iIndex)
         {
             if (o->Target->Live)
             {
-                o->LifeTime = 100.f; //ë¬´í•œ
+                o->LifeTime = 100.f; //¹«ÇÑ
 
                 if (rand_fps_check(3))
                 {
@@ -5974,10 +5974,10 @@ void MoveJoint(JOINT* o, int iIndex)
                 Position[2] += (150.f) * FPS_ANIMATION_FACTOR;
                 Distance = MoveHumming(o->Position, o->Angle, Position, o->Velocity);
 
-                //ë°•ì¢…í›ˆí…ŒìŠ¤íŠ¸
+                //¹ÚÁ¾ÈÆÅ×½ºÆ®
                 //					CreateParticle(BITMAP_SMOKE, o->Position, o->Angle, o->Light, 34, 1.0f);
                 //					CreateParticle(BITMAP_SMOKE, o->Position, o->Angle, o->Light, 35, 1.0f);
-                //ë°•ì¢…í›ˆí…ŒìŠ¤íŠ¸
+                //¹ÚÁ¾ÈÆÅ×½ºÆ®
                 if (Distance <= 70.0f && fabs(fOldAngle - o->Angle[2]) > 20.0f)
                 {
                     if (o->Velocity >= 20.f)
@@ -6281,8 +6281,8 @@ void MoveJoint(JOINT* o, int iIndex)
                                 CreateParticle(BITMAP_FIRE, o->Position, o->Angle, o->Light, 0);
                             }
 
-                            CreateJoint(BITMAP_JOINT_THUNDER, Light, o->Position, o->Angle, 3, NULL, rand() % 10 + 5.f, 5, 10); //  ì „ê¸°
-                            CreateJoint(BITMAP_JOINT_THUNDER, Light, o->Position, o->Angle, 3, NULL, rand() % 8 + 4.f, 5, 10); //  ì „ê¸°
+                            CreateJoint(BITMAP_JOINT_THUNDER, Light, o->Position, o->Angle, 3, NULL, rand() % 10 + 5.f, 5, 10); //  Àü±â
+                            CreateJoint(BITMAP_JOINT_THUNDER, Light, o->Position, o->Angle, 3, NULL, rand() % 8 + 4.f, 5, 10); //  Àü±â
                         }
                     }
                     if (o->SubType == 0)
@@ -6720,7 +6720,7 @@ void MoveJoint(JOINT* o, int iIndex)
         {
             int fr = rand() % 5 - 2;
             //			o->Direction[0] += (fr) * FPS_ANIMATION_FACTOR;
-            o->Direction[1] += (fr)*FPS_ANIMATION_FACTOR;
+            o->Direction[1] += (fr) * FPS_ANIMATION_FACTOR;
             o->Direction[2] -= (10.f) * FPS_ANIMATION_FACTOR;
 
             AngleMatrix(o->Angle, Matrix);
@@ -7037,7 +7037,7 @@ void RenderJoints(BYTE bRenderOneMore)
                     Light2 -= Scroll;
                 }
                 if (o->Type == BITMAP_FLARE_FORCE && o->SubType >= 0 && o->SubType <= 4
-                    || (o->SubType >= 11 && o->SubType <= 13)	//^ íŽœë¦´ ìŠ¤í‚¬ ê´€ë ¨
+                    || (o->SubType >= 11 && o->SubType <= 13)	//^ Ææ¸± ½ºÅ³ °ü·Ã
                     )
                 {
                     Light1 = ((int)o->NumTails - (j)) / (float)((o->MaxTails - 1) / 2);
@@ -7272,7 +7272,7 @@ void RenderJoints(BYTE bRenderOneMore)
                 EnableDepthTest();
             }
             if (o->Type == BITMAP_JOINT_THUNDER + 1 && o->SubType == 6)
-            {
+            { 
                 vec3_t Light;
                 EnableAlphaBlend();
                 o->Velocity *= powf(1.f / 1.1f, FPS_ANIMATION_FACTOR);

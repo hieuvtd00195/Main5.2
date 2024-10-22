@@ -733,7 +733,10 @@ void RenderDarkHorseSkill(OBJECT* o, BMD* b)
     if (o == NULL)	return;
     if (b == NULL)	return;
 
+    // The weapon level is misused here to count how many frames have been rendered
+    // for this effect...
     o->WeaponLevel++;
+
     if (o->LastHorseWaveEffect < WorldTime - HorseEffectInterval)
     {
         CreateEffect(BITMAP_SHOCK_WAVE, o->Position, o->Angle, o->Light);
@@ -924,7 +927,7 @@ int CreateAtlanseFish(OBJECT* o)
 void MoveBat(OBJECT* o)
 {
     o->Position[2] = RequestTerrainHeight(o->Position[0], o->Position[1]);
-    o->Position[2] += (-absf(sinf(o->Timer)) * 150.f + 350.f) * FPS_ANIMATION_FACTOR;
+    o->Position[2] += ( - absf(sinf(o->Timer)) * 150.f + 350.f) * FPS_ANIMATION_FACTOR;
     o->Timer += 0.2f * FPS_ANIMATION_FACTOR;
 }
 
@@ -1124,10 +1127,10 @@ void MoveTornado(OBJECT* o)
 
 void MoveBoidGroup(OBJECT* o, int index)
 {
-        if (!g_pOption->GetRenderAllEffects())
-        {
-            return;
-        }
+    if (!g_pOption->GetRenderAllEffects())
+    {
+        return;
+    }
 
     if (o->AI != BOID_GROUND)
     {
@@ -1844,7 +1847,7 @@ void MoveFishs()
                 MoveBoid(o, i, Fishs, MAX_FISHS);
                 AngleMatrix(o->Angle, o->Matrix);
                 vec3_t Position, Direction;
-                Vector(o->Velocity* (float)(rand() % 4 + 6), 0.f, 0.f, Position);
+                Vector(o->Velocity * (float)(rand() % 4 + 6), 0.f, 0.f, Position);
                 VectorRotate(Position, o->Matrix, Direction);
                 VectorAddScaled(o->Position, Direction, o->Position, FPS_ANIMATION_FACTOR);
                 if (gMapManager.WorldActive != 7 || gMapManager.InHellas() == false || gMapManager.WorldActive != WD_67DOPPLEGANGER3)

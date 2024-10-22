@@ -1,14 +1,13 @@
-
 #pragma once
 
 #define STRSAFE_NO_DEPRECATE
 
 #define SHOPLIST_SCRIPT_COUNT				3
 
-#define SHOPLIST_SCRIPT_CATEGORY			"IBSCategory.txt"
-#define SHOPLIST_SCRIPT_PACKAGE				"IBSPackage.txt"
-#define SHOPLIST_SCRIPT_PRODUCT				"IBSProduct.txt"
-#define BANNER_SCRIPT_FILENAME				"IBSBanner.txt"
+#define SHOPLIST_SCRIPT_CATEGORY			L"IBSCategory.txt"
+#define SHOPLIST_SCRIPT_PACKAGE				L"IBSPackage.txt"
+#define SHOPLIST_SCRIPT_PRODUCT				L"IBSProduct.txt"
+#define BANNER_SCRIPT_FILENAME				L"IBSBanner.txt"
 
 #define SHOPLIST_LENGTH_CATEGORYNAME		128
 
@@ -46,46 +45,44 @@
 #include "GameShop\ShopListManager\interface\DownloadInfo.h"
 #include "GameShop\ShopListManager\interface\FileDownloader.h"
 
-#if !defined (INVALID_FILE_ATTRIBUTES) 
-#define INVALID_FILE_ATTRIBUTES ((DWORD)-1) 
+#if !defined (INVALID_FILE_ATTRIBUTES)
+#define INVALID_FILE_ATTRIBUTES ((DWORD)-1)
 #endif
 
 //#ifdef _DEBUG
-//	#pragma  comment(lib, "FileDownloader.lib")
+//	#pragma  comment(lib, L"FileDownloader.lib")
 //#else
-//	#pragma  comment(lib, "FileDownloader.lib")
-//#endif	
+//	#pragma  comment(lib, L"FileDownloader.lib")
+//#endif
 
-
-enum FTP_SERVICE_MODE {FTP_MODE_ACTIVE, FTP_MODE_PASSIVE};
+enum FTP_SERVICE_MODE { FTP_MODE_ACTIVE, FTP_MODE_PASSIVE };
 enum FILE_ENCODE
 {
-	FE_ANSI,
-	FE_UTF8,
-	FE_UNICODE
+    FE_ANSI,
+    FE_UTF8,
+    FE_UNICODE
 };
 
 class CListVersionInfo
 {
 public:
-	unsigned short Zone;
-	unsigned short year;
-	unsigned short yearId;
+    unsigned short Zone;
+    unsigned short year;
+    unsigned short yearId;
 };
 
 class CListManagerInfo
 {
 public:
-	DownloaderType		m_DownloaderType;
-	std::string			m_strServerIP;
-	unsigned short		m_nPortNum;
-	std::string			m_strUserID;
-	std::string			m_strPWD;
-	std::string			m_strRemotePath;
-	FTP_SERVICE_MODE	m_ftpMode;
-	std::string			m_strLocalPath;
-	DWORD				m_dwDownloadMaxTime;
+    DownloaderType		m_DownloaderType;
+    std::wstring			m_strServerIP;
+    unsigned short		m_nPortNum;
+    std::wstring			m_strUserID;
+    std::wstring			m_strPWD;
+    std::wstring			m_strRemotePath;
+    FTP_SERVICE_MODE	m_ftpMode;
+    std::wstring			m_strLocalPath;
+    DWORD				m_dwDownloadMaxTime;
 
-	CListVersionInfo	m_Version;
+    CListVersionInfo	m_Version;
 };
-

@@ -1,4 +1,4 @@
-ï»¿// GMEmpireGuardian3.cpp: implementation of the GMEmpireGuardian3 class.
+// GMEmpireGuardian3.cpp: implementation of the GMEmpireGuardian3 class.
 //////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 
@@ -82,7 +82,7 @@ CHARACTER* GMEmpireGuardian3::CreateMonster(int iType, int PosX, int PosY, int K
     {
         OpenMonsterModel(170);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 170, PosX, PosY);
-        strcpy(pCharacter->ID, "ì¹´í† ");
+        wcscpy(pCharacter->ID, L"Ä«Åä");
         pCharacter->Object.Scale = 1.35f;
 
         m_bCurrentIsRage_Kato = false;
@@ -92,7 +92,7 @@ CHARACTER* GMEmpireGuardian3::CreateMonster(int iType, int PosX, int PosY, int K
     {
         OpenMonsterModel(176);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 176, PosX, PosY);
-        strcpy(pCharacter->ID, "ì•”ì‚´ë‹¨ìž¥");
+        wcscpy(pCharacter->ID, L"¾Ï»ì´ÜÀå");
         pCharacter->Object.Scale = 1.55f;
     }
     break;
@@ -100,7 +100,7 @@ CHARACTER* GMEmpireGuardian3::CreateMonster(int iType, int PosX, int PosY, int K
     {
         OpenMonsterModel(177);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 177, PosX, PosY);
-        strcpy(pCharacter->ID, "ê¸°ë§ˆë‹¨ìž¥");
+        wcscpy(pCharacter->ID, L"±â¸¶´ÜÀå");
         pCharacter->Object.Scale = 1.25f;
     }
     break;
@@ -668,7 +668,7 @@ void GMEmpireGuardian3::MoveBlurEffect(CHARACTER* c, OBJECT* o, BMD* b)
                             b->TransformPosition(BoneTransform[44], vRelative, vPosition, false);
                             CreateParticle(BITMAP_SMOKELINE2, vPosition, o->Angle, vLight__, 3);
                         }
-                    } // ê²€ê¸°
+                    } // °Ë±â
                 }
             }
         }

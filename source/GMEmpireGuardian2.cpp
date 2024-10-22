@@ -1,4 +1,4 @@
-ï»¿// GMEmpireGuardian2.cpp: implementation of the GMEmpireGuardian2 class.
+// GMEmpireGuardian2.cpp: implementation of the GMEmpireGuardian2 class.
 //////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include "GMEmpireGuardian2.h"
@@ -80,7 +80,7 @@ CHARACTER* GMEmpireGuardian2::CreateMonster(int iType, int PosX, int PosY, int K
     {
         OpenMonsterModel(169);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 169, PosX, PosY);
-        strcpy(pCharacter->ID, "ë²„ëª¬íŠ¸");
+        wcscpy(pCharacter->ID, L"¹ö¸óÆ®");
 
         pCharacter->Object.Scale = 1.3f;
 
@@ -91,7 +91,7 @@ CHARACTER* GMEmpireGuardian2::CreateMonster(int iType, int PosX, int PosY, int K
     {
         OpenMonsterModel(174);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 174, PosX, PosY);
-        strcpy(pCharacter->ID, "ê¸°ì‚¬ë‹¨ìž¥");
+        wcscpy(pCharacter->ID, L"±â»ç´ÜÀå");
 
         pCharacter->Object.Scale = 1.35f;
     }
@@ -100,7 +100,7 @@ CHARACTER* GMEmpireGuardian2::CreateMonster(int iType, int PosX, int PosY, int K
     {
         OpenMonsterModel(175);
         pCharacter = CreateCharacter(Key, MODEL_MONSTER01 + 175, PosX, PosY);
-        strcpy(pCharacter->ID, "ëŒ€ë§ˆë²•ì‚¬");
+        wcscpy(pCharacter->ID, L"´ë¸¶¹ý»ç");
 
         OBJECT* pObject = &pCharacter->Object;
         pObject->Scale = 1.3f;
@@ -884,8 +884,8 @@ bool GMEmpireGuardian2::RenderMonsterVisual(CHARACTER* c, OBJECT* o, BMD* b)
                 if (i % 5 == 0)
                 {
                     b->TransformByObjectBone(vPosRage, o, i);
-                    CreateParticle(BITMAP_SMOKE, vPosRage, o->Angle, vLightRage, 50, 1.0f);	// ì—°ê¸°
-                    CreateParticle(BITMAP_SMOKELINE1 + rand() % 3, vPosRage, o->Angle, vLightRage, 0, 1.0f);	// 3ì¢… ì—°ê¸°
+                    CreateParticle(BITMAP_SMOKE, vPosRage, o->Angle, vLightRage, 50, 1.0f);	// ¿¬±â
+                    CreateParticle(BITMAP_SMOKELINE1 + rand() % 3, vPosRage, o->Angle, vLightRage, 0, 1.0f);	// 3Á¾ ¿¬±â
                 }
             }
         }

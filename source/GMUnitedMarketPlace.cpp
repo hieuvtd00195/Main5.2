@@ -1,4 +1,4 @@
-ï»¿// GMUnitedMarketPlace.cpp: implementation of the GMUnitedMarketPlace class.
+// GMUnitedMarketPlace.cpp: implementation of the GMUnitedMarketPlace class.
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
@@ -47,7 +47,7 @@ bool GMUnitedMarketPlace::CreateObject(OBJECT* o)
 {
     switch (o->Type)
     {
-    case 67:	// ê¸°ëŒ€ê¸° ë°•ìŠ¤
+    case 67:	// ±â´ë±â ¹Ú½º
     {
         CreateOperate(o);
         Vector(100.f, 100.f, 160.f, o->BoundingBoxMax);
@@ -69,7 +69,7 @@ CHARACTER* GMUnitedMarketPlace::CreateMonster(int iType, int PosX, int PosY, int
     // 		{
     // 			OpenMonsterModel(185);
     // 			pCharacter = CreateCharacter(Key, MODEL_MONSTER01+185, PosX, PosY);
-    // 			strcpy(pCharacter->ID, "ì„ìƒ");
+    // 			wcscpy(pCharacter->ID, L"¼®»ó");
     // 			pCharacter->Object.m_bRenderShadow = false;
     // 			pCharacter->Object.Scale = 0.6f;
     // 			pCharacter->Object.LifeTime = 100;
@@ -91,12 +91,12 @@ bool GMUnitedMarketPlace::MoveObject(OBJECT* o)
 
     switch (o->Type)
     {
-    case 8:	// chofountain01 í­í¬ë¬¼ í‘œë©´ì˜ Animation ì†ë„ ì²˜ë¦¬ ì•½ê°„ë” ë¹ ë¥´ê²Œ.
+    case 8:	// chofountain01 ÆøÆ÷¹° Ç¥¸éÀÇ Animation ¼Óµµ Ã³¸® ¾à°£´õ ºü¸£°Ô.
     {
         o->Velocity = 0.2f;
     }
     return true;
-    case 30:	// ê°€ë¡œë“±
+    case 30:	// °¡·Îµî
     {
         VectorCopy(o->Position, b->BodyOrigin);
         b->BodyScale = o->Scale;
@@ -113,7 +113,7 @@ bool GMUnitedMarketPlace::MoveObject(OBJECT* o)
         AddTerrainLight(vLightPosition[0], vLightPosition[1], vLightFire, 3, PrimaryTerrainLight);
     }
     return true;
-    case 35:	// ë²½ê°€ë¡œë“±
+    case 35:	// º®°¡·Îµî
     {
         VectorCopy(o->Position, b->BodyOrigin);
         b->BodyScale = o->Scale;
@@ -174,7 +174,7 @@ bool GMUnitedMarketPlace::MoveMonsterVisual(CHARACTER* c, OBJECT* o, BMD* b)
 
     // 	switch(o->Type)
     // 	{
-    // 	case MODEL_MONSTER01+168:	// ë°ìŠ¬ëŸ¬
+    // 	case MODEL_MONSTER01+168:	// µ¥½½·¯
     // 		{
     // 			switch( o->CurrentAction )
     // 			{

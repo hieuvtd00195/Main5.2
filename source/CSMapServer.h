@@ -7,7 +7,7 @@
 #include "Singleton.h"
 typedef struct
 {
-    char            m_szMapSvrIpAddress[16];
+    wchar_t           m_szMapSvrIpAddress[16];
     WORD            m_wMapSvrPort;
     WORD            m_wMapSvrCode;
     int             m_iJoinAuthCode1;
@@ -20,30 +20,28 @@ class CSMServer : public Singleton<CSMServer>
 {
 private:
     bool        m_bFillServerInfo;
-    std::string m_strHeroID;
+    std::wstring m_strHeroID;
     MServerInfo m_vServerInfo;
 
 public:
-    CSMServer ();
-    ~CSMServer (){}
+    CSMServer();
+    ~CSMServer() {}
 
-    void    Init ( void );
+    void    Init(void);
 
-    void    SetHeroID ( char* ID );
+    void    SetHeroID(wchar_t* ID);
 
-    void    SetServerInfo ( MServerInfo sInfo );
-    void    GetServerInfo ( MServerInfo& sInfo );
+    void    SetServerInfo(MServerInfo sInfo);
+    void    GetServerInfo(MServerInfo& sInfo);
 
-    void    GetServerAddress ( char* szAddress );
-    WORD    GetServerPort ( void ) { return (m_bFillServerInfo ? m_vServerInfo.m_wMapSvrPort : 0); }
-    WORD    GetServerCode ( void ) { return (m_bFillServerInfo ? m_vServerInfo.m_wMapSvrCode : 0); }
+    void    GetServerAddress(wchar_t* szAddress);
+    WORD    GetServerPort(void) { return (m_bFillServerInfo ? m_vServerInfo.m_wMapSvrPort : 0); }
+    WORD    GetServerCode(void) { return (m_bFillServerInfo ? m_vServerInfo.m_wMapSvrCode : 0); }
 
-    void    ConnectChangeMapServer ( MServerInfo sInfo );
-    void    SendChangeMapServer ( void );
+    void    ConnectChangeMapServer(MServerInfo sInfo);
+    void    SendChangeMapServer(void);
 };
-
 
 #define g_csMapServer CSMServer::GetSingleton ()
 
 #endif// __CS_MAP_SERVER_H__
-
