@@ -17,7 +17,6 @@
 #include "DSPlaySound.h"
 #include "./Utilities/Log/muConsoleDebug.h"
 
-#include "ProtocolSend.h"
 #include "ServerListManager.h"
 
 #define	LIW_ACCOUNT		0
@@ -216,16 +215,13 @@ void CLoginWin::RequestLogin()
     {
         if (CurrentProtocolState == RECEIVE_JOIN_SERVER_SUCCESS)
         {
-            g_ConsoleDebug->Write(MCD_NORMAL, L"Login with the following account: %s", szID);
+    /*        g_ConsoleDebug->Write(MCD_NORMAL, L"Login with the following account: %s", szID);
 
             g_ErrorReport.Write(L"> Login Request.\r\n");
-            g_ErrorReport.Write(L"> Try to Login \"%s\"\r\n", szID);
-            LogIn = 1;
-            wcscpy(LogInID, (szID));
-            CurrentProtocolState = REQUEST_LOG_IN;
+            g_ErrorReport.Write(L"> Try to Login \"%s\"\r\n", szID);*/
+
             SendRequestLogIn(szID, szPass);
-            g_pChatListBox->AddText(L"", GlobalText[472], SEASON3B::TYPE_SYSTEM_MESSAGE); \
-                g_pChatListBox->AddText(L"", GlobalText[473], SEASON3B::TYPE_SYSTEM_MESSAGE); \
+
         }
     }
 }

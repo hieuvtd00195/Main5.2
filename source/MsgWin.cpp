@@ -289,6 +289,7 @@ void CMsgWin::SetMsg(MSG_WIN_TYPE eType, std::wstring lpszMsg, std::wstring lpsz
 
 void CMsgWin::PopUp(int nMsgCode, wchar_t* pszMsg)
 {
+  
     CUIMng& rUIMng = CUIMng::Instance();
     std::wstring lpszMsg = NULL, lpszMsg2 = NULL;
     MSG_WIN_TYPE eType = MWT_BTN_OK;
@@ -525,5 +526,6 @@ void CMsgWin::RequestDeleteCharacter()
         g_pSinglePasswdInputBox->SetState(UISTATE_HIDE);
     }
     InputEnable = false;
+    CurrentProtocolState = REQUEST_DELETE_CHARACTER;
     SendRequestDeleteCharacter(CharactersClient[SelectedHero].ID, InputText[0]);
 }

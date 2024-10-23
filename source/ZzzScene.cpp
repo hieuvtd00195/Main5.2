@@ -2766,10 +2766,10 @@ extern GLvoid KillGLWindow(GLvoid);
 
 void Scene(HDC hDC)
 {
-    //g_render_lock->lock();
-    //wglMakeCurrent(hDC, g_hRC);
-    //try
-    //{
+    g_render_lock->lock();
+    wglMakeCurrent(hDC, g_hRC);
+    try
+    {
         g_Luminosity = sinf(WorldTime * 0.004f) * 0.15f + 0.6f;
         switch (SceneFlag)
         {
@@ -2795,13 +2795,13 @@ void Scene(HDC hDC)
         {
             KillGLWindow();
         }
-    //}
- /*   catch (const std::exception&)
+    }
+    catch (const std::exception&)
     {
     }
 
     wglMakeCurrent(nullptr, nullptr);
-    g_render_lock->unlock();*/
+    g_render_lock->unlock();
 }
 
 bool GetTimeCheck(int DelayTime)

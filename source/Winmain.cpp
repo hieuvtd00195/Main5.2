@@ -256,13 +256,13 @@ BOOL OpenMainExe(void)
 #ifdef _DEBUG
     return (TRUE);
 #endif
-    //char lpszFile[MAX_PATH];
-    //wchar_t* lpszCommandLine = GetCommandLine();
-    //GetFileNameOfFilePath(lpszFile, lpszCommandLine);
+    wchar_t lpszFile[MAX_PATH];
+    wchar_t* lpszCommandLine = GetCommandLine();
+    GetFileNameOfFilePath(lpszFile, lpszCommandLine);
 
-    //g_hMainExe = CreateFile((wchar_t*)lpszFile, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
+    g_hMainExe = CreateFile((wchar_t*)lpszFile, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
 
-    //return (INVALID_HANDLE_VALUE != g_hMainExe);
+    return (INVALID_HANDLE_VALUE != g_hMainExe);
 }
 
 void CloseMainExe(void)
@@ -1273,6 +1273,63 @@ extern "C" {
 	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
 }
 
+MSG MainLoop()
+{
+    MSG msg;
+    while (1)
+    {
+        if (PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE))
+        {
+            if (!GetMessage(&msg, NULL, 0, 0))
+            {
+                break;
+            }
+
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
+        else
+        {
+            //Scene
+#if (defined WINDOWMODE)
+            if (g_bUseWindowMode || g_bWndActive)
+            {
+                Scene(g_hDC);
+            }
+#ifndef FOR_WORK
+            else if (g_bUseWindowMode == FALSE)
+            {
+                SetForegroundWindow(g_hWnd);
+                SetFocus(g_hWnd);
+
+                if (g_iInactiveWarning > 1)
+                {
+                    SetTimer(g_hWnd, WINDOWMINIMIZED_TIMER, 1 * 1000, NULL);
+                    PostMessage(g_hWnd, WM_CLOSE, 0, 0);
+                }
+                else
+                {
+                    g_iInactiveWarning++;
+                    g_bMinimizedEnabled = TRUE;
+                    ShowWindow(g_hWnd, SW_MINIMIZE);
+                    g_bMinimizedEnabled = FALSE;
+                    ShowWindow(g_hWnd, SW_MAXIMIZE);
+                }
+            }
+#endif//FOR_WORK
+#else//WINDOWMODE
+            if (g_bWndActive)
+                Scene(g_hDC);
+
+#endif	//WINDOWMODE(#else)
+        }
+        ProtocolCompiler();
+        g_pChatRoomSocketList->ProtocolCompile();
+    } // while( 1 )
+
+    return msg;
+}
+
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int nCmdShow)
 {
 	//-- cargando datos del servidor
@@ -1288,9 +1345,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLin
 
 
 
-
-	MSG msg;
-	leaf::AttachExceptionHandler(ExceptionCallback);
+    leaf::AttachExceptionHandler(ExceptionCallback);
 
     wchar_t lpszExeVersion[256] = L"unknown";
 
@@ -1592,74 +1647,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLin
     ProtectSysKey::AttachProtectSysKey(g_hInst, g_hWnd);
 #endif // !FOR_WORK
 #endif // PROTECT_SYSTEMKEY && NDEBUG
-	while (1)
-	{
-		if (PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE))
-		{
-			if (!GetMessage(&msg, NULL, 0, 0))
-			{
-				break;
-			}
-			else
-			{
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
-			}
-		}
-		else
-		{
-			//Scene
-#if (defined WINDOWMODE)
-			if (g_bUseWindowMode == TRUE)
-			{
-				Scene(g_hDC);
-			}
-			else if (g_bWndActive)
-			{
-				Scene(g_hDC);
-			}
-#ifndef FOR_WORK
-			else if (g_bUseWindowMode == FALSE)
-			{
-				SetForegroundWindow(g_hWnd);
-				SetFocus(g_hWnd);
-
-				if (g_iInactiveWarning > 1)
-				{
-					SetTimer(g_hWnd, WINDOWMINIMIZED_TIMER, 1 * 1000, NULL);
-					PostMessage(g_hWnd, WM_CLOSE, 0, 0);
-				}
-				else
-				{
-					g_iInactiveWarning++;
-					g_bMinimizedEnabled = TRUE;
-					ShowWindow(g_hWnd, SW_MINIMIZE);
-					g_bMinimizedEnabled = FALSE;
-					ShowWindow(g_hWnd, SW_MAXIMIZE);
-				}
-			}
-#endif//FOR_WORK
-#else//WINDOWMODE
-			if (g_bWndActive)
-				Scene(g_hDC);
-
-#endif	//WINDOWMODE(#else)
-		}
-
-//#ifdef NEW_PROTOCOL_SYSTEM
-//		if (SceneFlag < CHARACTER_SCENE)
-//			ProtocolCompiler();
-//
-//		g_pChatRoomSocketList->ProtocolCompile();
-//		gProtocolSend.RecvMessage();
-//#else
-		ProtocolCompiler();
-	    g_pChatRoomSocketList->ProtocolCompile();
-//#endif
-
-
-	} // while( 1 )
+    const MSG msg = MainLoop();
 	DestroyWindow();
 
     return msg.wParam;
-}
+}	

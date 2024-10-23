@@ -1768,6 +1768,9 @@ BOOL ReceiveTeleport(const BYTE* ReceiveBuffer, BOOL bEncrypted)
         }
         SendRequestFinishLoading();
 
+        g_dwLatestZoneMoving = GetTickCount();
+        g_bWhileMovingZone = FALSE;
+
         LoadingWorld = 30;
 
         MouseUpdateTime = 0;
@@ -11481,7 +11484,10 @@ void ProtocolCompiler(CWsctlc* pSocketClient, int iTranslation, int iParam)
 {
 	//if(CurrentProtocolState >= RECEIVE_JOIN_MAP_SERVER)
 	//	return;
-   
+    g_render_lock->lock();
+    wglMakeCurrent(g_hDC, g_hRC);
+    try
+    {
     int HeadCode;
 	int Size = 0;
 
@@ -11595,13 +11601,20 @@ void ProtocolCompiler(CWsctlc* pSocketClient, int iTranslation, int iParam)
 			default:
 				if (!TranslateProtocol(HeadCode, ReceiveBuffer, Size, bEncrypted))
 				{
-					g_ErrorReport.Write(L"Strange packet\r\n");
-					g_ErrorReport.HexWrite(ReceiveBuffer, Size);
+				/*	g_ErrorReport.Write(L"Strange packet\r\n");
+					g_ErrorReport.HexWrite(ReceiveBuffer, Size);*/
 				}
 				break;
 			}
 		}
 	}
+
+     }
+     catch (const std::exception&)
+     {
+     }
+     wglMakeCurrent(nullptr, nullptr);
+     g_render_lock->unlock();
 }
 
 bool ReceiveRegistedLuckyCoin(const BYTE* ReceiveBuffer)
@@ -12637,6 +12650,7 @@ void ReceiveDarkside(const BYTE* ReceiveBuffer)
 
 BOOL TranslateProtocol(int HeadCode, BYTE* ReceiveBuffer, int Size, BOOL bEncrypted)
 {
+
 	switch (HeadCode)
 	{
 	case 0xF1:
@@ -12678,7 +12692,7 @@ BOOL TranslateProtocol(int HeadCode, BYTE* ReceiveBuffer, int Size, BOOL bEncryp
 				break;
 			case 0x06:
 				CUIMng::Instance().PopUpMsgWin(RECEIVE_LOG_IN_FAIL_VERSION);
-				g_ErrorReport.Write(L"Version dismatch. - Login\r\n");
+			//	g_ErrorReport.Write(L"Version dismatch. - Login\r\n");
 				break;
 			case 0x07:
 			default:
