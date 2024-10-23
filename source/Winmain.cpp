@@ -167,7 +167,31 @@ extern wchar_t LogInID[];
 
 void CheckHack(void)
 {
+    
+    if (!g_bGameServerConnected)
+    {
+        return;
+    }
+
+    g_ConsoleDebug->Write(MCD_SEND, L"SendCheck");
+
+    auto attackSpeed = CharacterAttribute->AttackSpeed;
+    auto magicSpeed = CharacterAttribute->MagicSpeed;
+    if (CharacterAttribute->Ability & ABILITY_FAST_ATTACK_SPEED
+        || CharacterAttribute->Ability & ABILITY_FAST_ATTACK_SPEED2)
+    {
+        attackSpeed -= 20;
+        magicSpeed -= 20;
+    }
+
+    const int dwTick = GetTickCount();
     SendCheck();
+
+    if (!First)
+    {
+        First = true;
+        FirstTime = dwTick;
+    }
 }
 
 GLvoid KillGLWindow(GLvoid)
